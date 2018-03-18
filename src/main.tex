@@ -8,10 +8,38 @@
 
 % Packages
 \usepackage{a4wide}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\title{\bfseries Call-Control in Ringnetzwerken}
+\author{Michael Markl}
+\date{Sommersemester 2018\\ an der\\ Universität Augsburg}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
 
 % Document
 \begin{document}
+    \maketitle
+    \clearpage
 
+    \tableofcontents
+    \clearpage
 
+    \setcounter{section}{0}
+
+    \section{Einführung}\label{sec:einführung}
+
+    \begin{definition}[Call-Control-Problem]
+        Sei $(V,E)$ ein ungerichteter Graph, dessen Kanten die Kapazitäten $c: E \to \mathbb{N}$ besitzen, und $P$ eine
+        (Multi-)Menge von $m \in \mathbb{N}$ Pfaden in $(V,E)$. Eine Menge $Q \subseteq P$ heißt {\em möglich}, falls
+        für jede Kante $e \in Q$ die Anzahl aller Pfade in $Q$, die $e$ enthalten, höchstens $c(e)$ ist.
+        Die Pfade einer möglichen Menge heißen $akzeptiert$. Das {\em Call-Controll-Problem} besteht darin, die Anzahl
+        der akzeptierten Pfade zu maximieren.
+    \end{definition}
 
 \end{document}
