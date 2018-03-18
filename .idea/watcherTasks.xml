@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectTasksOptions">
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="-file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=C:/Users/markl/Git/call-control/out -aux-directory=C:/Users/markl/Git/call-control/auxil -include-directory=C:/Users/markl/Git/call-control/src main.tex" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="tex" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="latex" />
+      <option name="output" value="" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="$USER_HOME$/AppData/Local/Programs/MiKTeX 2.9/miktex/bin/x64/pdflatex.exe" />
+      <option name="runOnExternalChanges" value="true" />
+      <option name="scopeName" value="All Places" />
+      <option name="trackOnlyRoot" value="false" />
+      <option name="workingDir" value="" />
+      <envs />
+    </TaskOptions>
+  </component>
+</project>
