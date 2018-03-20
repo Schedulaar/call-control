@@ -14,6 +14,17 @@
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[open]{bookmark}
+\usepackage{amsmath}
+
+\hypersetup{
+colorlinks,
+citecolor=black,
+filecolor=black,
+linkcolor=black,
+urlcolor=black
+}
 
 \title{\bfseries Call-Control in Ringnetzwerken}
 \author{Michael Markl}
@@ -28,6 +39,7 @@
     \clearpage
 
     \tableofcontents
+
     \clearpage
 
     \setcounter{section}{0}
@@ -36,10 +48,37 @@
 
     \begin{definition}[Call-Control-Problem]
         Sei $(V,E)$ ein ungerichteter Graph, dessen Kanten die Kapazitäten $c: E \to \mathbb{N}$ besitzen, und $P$ eine
-        (Multi-)Menge von $m \in \mathbb{N}$ Pfaden in $(V,E)$. Eine Menge $Q \subseteq P$ heißt {\em möglich}, falls
-        für jede Kante $e \in Q$ die Anzahl aller Pfade in $Q$, die $e$ enthalten, höchstens $c(e)$ ist.
-        Die Pfade einer möglichen Menge heißen $akzeptiert$. Das {\em Call-Controll-Problem} besteht darin, die Anzahl
-        der akzeptierten Pfade zu maximieren.
+        (Multi-)Menge von $m \in \mathbb{N}$ Pfaden in $(V,E)$.
+        Eine Menge $Q \subseteq P$ heißt {\em möglich}, falls für jede Kante $e \in E$ die Anzahl aller Pfade in $Q$,
+        die $e$ enthalten, höchstens $c(e)$ ist.
+        Die Pfade einer möglichen Menge heißen $akzeptiert$.
+        Das {\em Call-Control-Problem} besteht darin, die Anzahl der akzeptierten Pfade zu maximieren.
     \end{definition}
+
+    Im Speziellen betrachten wir das Call-Control-Problem in Ringen und Ketten.
+    Ein {\em Ring} ist dabei ein ungerichteter Graph, der nur aus den Kanten und Knoten eines Zyklus' besteht.
+    Eine {\em Kette} ist ein ungerichteter Graph, der nur aus den Kanten und Knoten eines Weges besteht.
+    Betrachten wir einen Ring $(V,E)$ mit $V=\{0, \dots , n-1\}$ aufgezeichnet auf einer Ebene, bei dem die Knoten nach
+    dem Uhrzeigersinn nummeriert werden, können wir jeden Pfad im Ring durch einen Anfangs- und Endknoten identifizieren,
+    wobei der Pfad vom Anfangsknoten aus im Uhrzeigersinn bis
+    zum Endknoten \glqq verläuft\grqq.
+
+    \subsection{Motivation und Anwendungen}\label{subsec:motivationUndAnwendungen}
+    Diese Problemstellung findet seine Anwendung darin, in einem (Kommunikations-)Netzwerk mit festen Bandbreiten jeder
+    Kante und einer gegebenen Menge an Anfragen möglichst viele dieser Anfragen zuzulassen, wobei jede Anfrage auf allen
+    Kanten ihres Pfades genau eine Bandbreiteneinheit aufbraucht und keine Kante ihre Bandbreite überschreiten kann.
+
+    Oft trifft man zwar auf die online-Variante des Problems, das heißt, dass jede Anfrage schon bei Eintreffen und
+    ohne Wissen über künftige Anfragen akzeptiert oder abgelehnt werden muss.
+    Jedoch sind die Erkenntnisse über das offline-Problem auch hier relevant, um eine entsprechende Lösung für das
+    online-Problem entwerfen zu können.
+    Außerdem kann die optimale Lösung des offline-Problems als Vergleichspunkt bei der Bewertung von Lösungen des
+    online-Problems genutzt werden.
+
+    Eine Anwendung bietet das Problem der zyklischen Ablaufplanung:
+
+    \section{Weiteres}\label{sec:weiteres}
+    - WeightedCallProblem: CallProblem mit Gewichten 1
+
 
 \end{document}
