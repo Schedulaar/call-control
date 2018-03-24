@@ -75,7 +75,17 @@ Kapazität haben, und werden diesen danach an unser Ausgangsproblem anpassen.
 \subsection{Gieriger Algorithmus für gleiche Kapazitäten von Carlisle und Lloyd}\label{subsec:algorithmusGleicheKapazitäten}
 Wir gehen davon aus, dass $(V,E)$ eine Kette ist, $P$ eine Menge von Pfaden in $(V,E)$ und jede Kante in $E$ nun eine
 feste Kapazität $C \in \set N$ besitzt.
-Die
+Die Idee des Algorithmus besteht darin, die akzeptierten Pfade nach gieriger Ordnung in $C$ verschiedene Farben zu
+färben.
+Dabei wird zu jeder Farbe der aktuelle {\em Anführer} gespeichert, das heißt, der unter den bereits verarbeiteten Pfaden
+in gieriger Ordnung größte Pfad der Farbe.
+Der Algorithmus verarbeitet alle Pfade in gieriger Ordnung und sucht für jeden Pfad $p$ den größtmöglichen Anführer
+einer Farbe, der sich nicht mit $p$ überschneidet.
+Ein solcher Pfad heißt {\em optimaler Anführer von Pfad $p$}.
+Findet er einen solchen, so wird $p$ akzeptiert, in die Farbe seines optimalen Anführers gefärbt und neuer Anführer
+der Farbe.
+Findet er keinen, gibt es keine freie Farbe, das heißt das Akzeptieren des Pfades würde eine Kapazität verletzen und der
+Pfad wird abgelehnt.
 
 
 
