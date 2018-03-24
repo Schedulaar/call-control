@@ -17,6 +17,8 @@
 \usepackage{hyperref}
 \usepackage[open]{bookmark}
 \usepackage{amsmath}
+\usepackage{colonequals}
+\usepackage{xcolor}
 
 \hypersetup{
 colorlinks,
@@ -32,6 +34,14 @@ urlcolor=black
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
+\theoremstyle{theorem}
+\newtheorem{lemma}{Lemma}[section]
+\newcommand{\coloniff}{\vcentcolon\Longleftrightarrow}
+\newcommand\todo[1]{\textcolor{red}{#1}}
+\newcommand{\set}{\mathbb}
+
+
+
 
 % Document
 \begin{document}
@@ -49,9 +59,9 @@ urlcolor=black
     \begin{definition}[Call-Control-Problem]
         Sei $(V,E)$ ein ungerichteter Graph, dessen Kanten die Kapazitäten $c: E \to \mathbb{N}$ besitzen, und $P$ eine
         (Multi-)Menge von $m \in \mathbb{N}$ Pfaden in $(V,E)$.
-        Eine Menge $Q \subseteq P$ heißt {\em möglich}, falls für jede Kante $e \in E$ die Anzahl aller Pfade in $Q$,
+        Eine Menge $Q \subseteq P$ heißt {\em geeignet}, falls für jede Kante $e \in E$ die Anzahl aller Pfade in $Q$,
         die $e$ enthalten, höchstens $c(e)$ ist.
-        Die Pfade einer möglichen Menge heißen $akzeptiert$.
+        Die Pfade einer geeigneten Menge heißen $akzeptiert$.
         Das {\em Call-Control-Problem} besteht darin, die Anzahl der akzeptierten Pfade zu maximieren.
     \end{definition}
 
@@ -60,8 +70,10 @@ urlcolor=black
     Eine {\em Kette} ist ein ungerichteter Graph, der nur aus den Kanten und Knoten eines Weges besteht.
     Betrachten wir einen Ring $(V,E)$ mit $V=\{0, \dots , n-1\}$ aufgezeichnet auf einer Ebene, bei dem die Knoten nach
     dem Uhrzeigersinn nummeriert werden, können wir jeden Pfad im Ring durch einen Anfangs- und Endknoten identifizieren,
-    wobei der Pfad vom Anfangsknoten aus im Uhrzeigersinn bis
-    zum Endknoten \glqq verläuft\grqq.
+    wobei der Pfad vom Anfangsknoten aus im Uhrzeigersinn bis zum Endknoten \glqq verläuft\grqq.
+    Für einen Pfad $p$ in einem solchen Ring oder einer Kette, nennen wir $s_p$ den
+    Anfangsknoten und $t_p$ den Endknoten des Pfades und schreiben $p=(s_p, t_p)$.
+
 
     \subsection{Motivation und Anwendungen}\label{subsec:motivationUndAnwendungen}
     Diese Problemstellung findet seine Anwendung darin, in einem (Kommunikations-)Netzwerk mit festen Bandbreiten jeder
@@ -77,8 +89,36 @@ urlcolor=black
 
     Eine Anwendung bietet das Problem der zyklischen Ablaufplanung:
 
+    \todo{Kette ist schon durchnummeriert definiert}
+
+	\section{Optimale Lösung des Call-Control-Problems für Ketten in linearer Laufzeit}\label{sec:call-control-in-chains}
+	\input{call-control-in-chains}
+
     \section{Weiteres}\label{sec:weiteres}
     - WeightedCallProblem: CallProblem mit Gewichten 1
 
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
