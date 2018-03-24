@@ -18,14 +18,14 @@ Zunächst betrachten wir den einfacheren Fall des Problems, nämlich den in eine
    Für $A=\{a_1,\dots,a_k\}$ und $B=\{b_1,\dots,b_k\}$ schreiben wir $A \leq_G B$, falls $\forall i \in \{1,\dots,k\}\colon a_i \leq_G b_i$.
    Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls für jede gleichmächtige, geeignete Menge $B$
    gilt $A \leq_G B$.
-   \begin{lemma}[Optimalität des gierigen Algorithmus']
-       Existiert eine geeignete Menge mit $k \in \set N$ Pfaden, so berechnet der gierige Algorithmus eine minimale
-       solche Menge.
+   \begin{lemma}[Optimalität des gierigen Algorithmus']\label{greedy-algorithm}
+       Existiert bei einer Menge $P$ von Pfaden einer Kette eine geeignete Teilmenge mit $k \in \set N$ Pfaden, so ist die
+       Menge der ersten $k$ Pfade nach gieriger Ordnung, die der gierige Algorithmus berechnet, eine minimale Menge.
    \end{lemma}
    \begin{proof}
        Sei $Q_0$ eine geeignete Menge mit $k$ Pfaden.
-       Wir nennen $G$ die Menge an Pfaden, die der gierige Algorithmus akzeptiert, und transformieren $Q_0$ schrittweise
-       zu $Q_k = G$.
+       Wir nennen $G$ Menge der ersten $k$ Pfade nach gieriger Ordnung, die der gierige Algorithmus berechnet, und
+       transformieren $Q_0$ schrittweise zu $Q_k = G$.
        Dabei soll für $i \in \{1,\dots\,k\}$ gelten, dass $Q_i$ geeignet ist sowie $Q_i \leq_G Q_{i-1}$.
        Dadurch ist auch $G$ geeignet und durch die Transitivität von $\leq_G$ auf Mengen von Pfaden folgt auch
        $G \leq_G Q_0$, also insbesondere die Minimalität von $G$.
@@ -55,3 +55,6 @@ Zunächst betrachten wir den einfacheren Fall des Problems, nämlich den in eine
        Die Kanten, bei denen sich $p$ und $q$ überschneiden, spielen offensichtlich keine Rolle und die Kanten
        vom Endknoten von $p$ bis zum Endknoten von $q$ benötigen wieder eine Kapazität weniger.
    \end{proof}
+Daraus folgt, dass der gierige Algorithmus das Call-Control-Problem in Ketten löst:
+Sei $Q$ eine Lösung, also eine möglichst große, geeignete Teilmenge von Pfaden, so liefert der gierige Algorithmus nach
+Lemma~\ref{greedy-algorithm} eine gleichmächtige, sogar minimale Lösung.
