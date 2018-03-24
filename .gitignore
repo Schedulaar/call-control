@@ -226,7 +226,7 @@ TSWLatexianTemp*
 # standalone packages
 *.sta
 
-/.idea/workspace.xml
+.idea/workspace.xml
 .idea/artifacts/
 .idea/inspectionProfiles/
 out/
