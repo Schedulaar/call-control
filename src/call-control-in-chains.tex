@@ -25,7 +25,7 @@ gilt $A \leq_G B$.
 \end{lemma}
 \begin{proof}
     Sei $Q_0$ eine geeignete Menge mit $k$ Pfaden.
-    Wir nennen $G$ Menge der ersten $k$ Pfade nach gieriger Ordnung, die der gierige Algorithmus berechnet, und
+    Wir nennen $G$ die Menge der ersten $k$ Pfade nach gieriger Ordnung, die der gierige Algorithmus berechnet, und
     transformieren $Q_0$ schrittweise zu $Q_k = G$.
     Dabei soll für $i \in \{1,\dots\,k\}$ gelten, dass $Q_i$ geeignet ist sowie $Q_i \leq_G Q_{i-1}$.
     Dadurch ist auch $G$ geeignet und durch die Transitivität von $\leq_G$ auf Mengen von Pfaden folgt auch $G \leq_G Q_0$,
@@ -116,26 +116,31 @@ Anführers immer die \glqq kleinste\grqq{} Gruppe bleibt.
 Außerdem wird zu jedem Pfad gespeichert, ob er \todo{check what's really necessary} gerade Anführer ist, welche Farbe er
 hat und ob er schon bearbeitet wurde.
 
-Nun berechnet der Algorithmus zu jedem Pfad $p \in P$ den {\em bevorzugten Anführer von $p$}, also den
-größten Pfad in gieriger Ordnung, dessen Endknoten kleinergleich dem Anfangsknoten von $p$ ist.
+Nun berechnet der Algorithmus zu jedem Pfad $p \in P$ den {\em bevorzugten Anführer von $p$}, also den größten Pfad in
+gieriger Ordnung, dessen Endknoten kleinergleich dem Anfangsknoten von $p$ ist.
 \todo{check this:}
 Das kann man mit einfachem Durchlaufen aller Endpunkte in $P$ in aufsteigender Reihenfolge erreichen, also in $O(n)$
 Zeit.
+Es ist offensichtlich, dass kein optimaler Anführer von $p$ in gieriger Ordnung größer als der bevorzugte Anführer von
+$p$ sein kann.
 
 Der Algorithmus bearbeitet danach jeden Pfad $p \in P$ nach gieriger Reihenfolge, wobei er jeweils wie folgt vorgeht.
 Es wird der bevorzugte Pfad $q$ von $p$ betrachtet:
-Ist $\find(q)$, also der Repräsentant der Gruppe von $q$, ein Anführer, so ist er der optimale Anführer von $p$ - ist
-insbesondere $q$ gerade Anführer, so ist $q = \find(q)$ - und $p$ wird neuer Anführer der Farbe, indem $p$ gefärbt darin
-gefärbt wird.
-Um die neuen Erkenntnisse in der Datenstruktur festzuhalten, wird die Gruppe $\find(q)$ mit der Vorgänger-Gruppe
-$\find(q')$, wobei $q'$ der Vorgänger-Pfad von $q$ in gieriger Ordnung ist.
+Ist $\find(q)$, also der Repräsentant der Gruppe von $q$, der fiktive Anführer $f$, so gibt es keinen optimalen Anführer
+zu $p$, da auch alle Pfade in $P$, die kleinergleich dem bevorzugten Pfad $q$ und damit Kandidaten für einen optimalen
+Anführer von $p$ wären, auch in der Gruppe von $f$ liegen und damit kein Anführer einer Farbe dabei ist, da diese die
+Repräsentanten der anderen C Gruppen sind.
+Daher wird $p$ abgelehnt und die Gruppe von $p$ mit der Gruppe des Vorgängers von $p$ in gieriger Ordnung vereinigt.
+Die Invarianten bleiben erhalten, da wieder $C+1$ Gruppen unter den verarbeiteten Pfaden existieren mit den gleichen
+Anführern.
 
-
-
-Ist gerade ein Anführer, so ist er mit Sicherheit der optimale Anführer von $p$.
-Ist $q$ kein Anführer, so wurde er entweder abgelehnt oder ist kein Anführer mehr, und wir betrachten $\find(q)$,
-um
-
+Ist $\find(q)$ jedoch ein Anführer einer Farbe, so ist es mit Sicherheit der optimale Anführer von $p$, da es der größte
+Anführer ist, der noch kleinergleich dem bevorzugten Anführer von $p$ ist (da die Pfade in den Gruppen
+aufeinanderfolgend sind).
+Also wird $p$ akzeptiert, in dieser Farbe gefärbt und damit neuer Anführer der Farbe.
+Da $\find(q)$ nun kein Anführer mehr ist, wird seine Gruppe aufgelöst und mit der Gruppe des Vorgängers von $\find(q)$
+vereinigt.
+Wieder erhalten wir alle Invarianten.
 
 \subsection{Anpassen an willkürliche Kapazitäten}
 
