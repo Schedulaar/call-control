@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectTasksOptions">
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="-file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=C:/Users/markl/Git/call-control/out -aux-directory=C:/Users/markl/Git/call-control/auxil -include-directory=C:/Users/markl/Git/call-control/src main.tex" />
+      <option name="arguments" value="-file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=$ContentRoot$/out -aux-directory=$ContentRoot$/auxil -include-directory=$ContentRoot$/src main.tex" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
