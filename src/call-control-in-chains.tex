@@ -73,25 +73,37 @@ Dabei werden wir zunächst einen Algorithmus betrachten, bei dem vorausgesetzt w
 Kapazität haben, und werden diesen danach an unser Ausgangsproblem anpassen.
 
 \subsection{Gieriger Algorithmus für gleiche Kapazitäten von Carlisle und Lloyd}\label{subsec:algorithmusGleicheKapazitäten}
-Wir gehen davon aus, dass $(V,E)$ eine Kette ist, $P$ eine Menge von Pfaden in $(V,E)$ und jede Kante in $E$ nun eine
+Wir gehen davon aus, dass $(V,E)$ eine Kette ist, $P$ eine Menge von $m$ Pfaden in $(V,E)$ und jede Kante in $E$ nun eine
 feste Kapazität $C \in \set N$ besitzt.
+Dabei können wir ohne Beschränkung der Allgemeinheit von $C \leq m$ ausgehen.
 Die Idee des Algorithmus besteht darin, die akzeptierten Pfade nach gieriger Ordnung in $C$ verschiedene Farben zu
 färben.
-Dabei wird zu jeder Farbe der aktuelle {\em Anführer} gespeichert, das heißt, der unter den bereits verarbeiteten Pfaden
-in gieriger Ordnung größte Pfad der Farbe.
-Der Algorithmus verarbeitet alle Pfade in gieriger Ordnung und sucht für jeden Pfad $p$ den größtmöglichen Anführer
-einer Farbe, der sich nicht mit $p$ überschneidet.
-Ein solcher Pfad heißt {\em optimaler Anführer von Pfad $p$}.
-Findet er einen solchen, so wird $p$ akzeptiert, in die Farbe seines optimalen Anführers gefärbt und neuer Anführer
+
+Dabei wird zu jeder Farbe der aktuelle {\em Anführer} gespeichert, das heißt, der in gieriger Ordnung größte, bereits
+verarbeitete Pfad mit der Farbe.
+Der Algorithmus verarbeitet alle Pfade in gieriger Ordnung und sucht für jeden Pfad $p$ den größten Anführer, der
+sich nicht mit $p$ überschneidet.
+Ein solcher Pfad heißt {\em optimaler Anführer von $p$}.
+Findet er einen solchen, wird $p$ akzeptiert, in die Farbe seines optimalen Anführers gefärbt und damit neuer Anführer
 der Farbe.
 Findet er keinen, gibt es keine freie Farbe, das heißt das Akzeptieren des Pfades würde eine Kapazität verletzen und der
 Pfad wird abgelehnt.
+Eine solche Färbung mit $C = 2$, kann man in Abbildung \todo{ABBILDUNG} sehen.
+
+\todo{FIGURE C-COLORING}
+
+Speichert man allerdings zu jeder Farbe einfach den jeweiligen Anführer direkt ab, würde das Berechnen eines optimalen
+Anführers für jeden Pfad mindestens $O(\log C)$ benötigen und damit würden wir das Ziel einer gesamt-linearen Laufzeit
+$O(m)$ verpassen.
 
 
+Stattdessen verwenden Carlisle und Lloyd in ihrem Algorithmus eine spezielle Union-Find-Instanz, die sog.
+Static-Tree-Set-Union-Instanz, bei der die möglichen Vereinigungen bereits zu Beginn feststehen und in einem Baum
+dargestellt werden können, wodurch $m$ find- und $n$ union-Aufrufe in einer Laufzeit von $O(m + n)$ erfolgen können.
+\todo{Referenz A Linear-Time Algorithm for a Special Case of Disjoint Set Union HAROLD N. GABOW, On the k-coloring of intervals Martin C. Carlisle”, Errol L. Lloydb3*}
 
-
-
-
+Genauer berechnet der Algorithmus zunächst zu jedem Pfad $p \in P$ den {\em bevorzugten Anführer von $p$}, also den
+größten Pfad in P, dessen Endknoten kleinergleich dem Anfangsknoten von $p$ ist.
 
 
 
