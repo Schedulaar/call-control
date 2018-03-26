@@ -101,22 +101,21 @@ Static-Tree-Set-Union-Instanz, bei der die möglichen Vereinigungen bereits zu B
 dargestellt werden können, wodurch \todo{check} $m$ find- und $n$ union-Aufrufe in einer Laufzeit von $O(m + n)$ erfolgen können.
 \todo{Referenz A Linear-Time Algorithm for a Special Case of Disjoint Set Union HAROLD N. GABOW, On the k-coloring of intervals Martin C. Carlisle”, Errol L. Lloydb3*}
 
-Genauer führt der Algorithmus zunächst $C$ weitere sogenannte {\em virtuelle Pfade} ein, die in gieriger Ordnung
+Genauer führt der Algorithmus zuerst $C$ weitere sogenannte {\em virtuelle Pfade} ein, die in gieriger Ordnung
 vor den eigentlichen Pfaden $P$ stehen und die initialen Anführer der $C$ Farben sind.
-In gieriger Ordnung an erster Stelle (noch vor den virtuellen Pfaden) wird ein weiterer {\em fiktiver Anführer $f$}
-eingefügt, der die Darstellung nicht-akzeptierter Pfade ermöglicht.
+In gieriger Ordnung an erster Stelle (noch vor den virtuellen Pfaden) wird ein weiterer {\em fiktiver Anführer}
+eingefügt, der die \todo{Darstellung} nicht-akzeptierter Pfade ermöglicht.
 Zu Beginn ist jeder Pfad in einer eigenen Gruppe der Union-Find-Struktur.
-Der Repräsentant jeder Gruppe entspricht außerdem immer dem kleinsten Pfad (in gieriger Ordnung) innerhalb der Gruppe.
-Im Laufe des Algorithmus' können die Gruppen mehrere in gieriger Ordnung aufeinanderfolgende Pfade beinhalten,
-unverarbeitete Pfade bleiben vorerst in Einzelgruppen.
-Wurde ein Pfad bereits verarbeitet, so ist der Repräsentant der Gruppe entweder ein Anführer einer Farbe oder der
-fiktive Anführer $f$ (die virtuellen Pfade und der fiktive Anführer zählen bereits als verarbeitet).
-Dementsprechend gibt es zu jeder Zeit unter den verarbeiteten Pfaden genau $C+1$ Gruppen, wobei die Gruppe des fiktiven
-Anführers immer die \glqq kleinste\grqq{} Gruppe bleibt.
-Außerdem wird zu jedem Pfad gespeichert, ob er \todo{check what's really necessary} gerade Anführer ist, welche Farbe er
-hat und ob er schon bearbeitet wurde.
+Wir erhalten folgende Invarianten:
+Der Repräsentant jeder Gruppe entspricht immer dem kleinsten Pfad (in gieriger Ordnung) innerhalb der Gruppe.
+Ist ein Pfad noch nicht verarbeitet, so ist er in einer Einzelgruppe - die virtuellen Pfade und der fiktive Anführer
+zählen jedoch bereits als verarbeitet.
+Jede andere, sogenannte {\em aktive Gruppe} enthält nur (in gieriger Ordnung) aufeinanderfolgende Pfade.
+Der Repräsentant einer aktiven Gruppe ist dabei entweder ein Anführer einer Farbe oder der fiktive Anführer.
+Dementsprechend gibt es zu jeder Zeit genau $C+1$ aktive Gruppen, wobei die Gruppe des fiktiven
+Anführers immer die kleinste Gruppe bleibt.
 
-Nun berechnet der Algorithmus zu jedem Pfad $p \in P$ den {\em bevorzugten Anführer von $p$}, also den größten Pfad in
+Zunächst berechnet der Algorithmus zu jedem Pfad $p \in P$ den {\em bevorzugten Anführer von $p$}, also den größten Pfad in
 gieriger Ordnung, dessen Endknoten kleinergleich dem Anfangsknoten von $p$ ist.
 \todo{check this:}
 Das kann man mit einfachem Durchlaufen aller Endpunkte in $P$ in aufsteigender Reihenfolge erreichen, also in $O(n)$
@@ -142,7 +141,26 @@ Da $\find(q)$ nun kein Anführer mehr ist, wird seine Gruppe aufgelöst und mit 
 vereinigt.
 Wieder erhalten wir alle Invarianten.
 
-\subsection{Anpassen an willkürliche Kapazitäten}
+Eine genauere Analyse dieses Verfahrens und dessen Laufzeit $O(m)$ beschreiben \todo{Carlisle und Llyod in 'On the
+k-coloring of intervals'}.
+
+\subsection{Gieriger Algorithmus mit willkürlichen Kapazitäten}\label{subsec:anpassenAnWillkürlicheKapazitäten}
+
+Nachdem wir nun eine Lösung für identische Kapazitäten gefunden haben, wollen wir nun das eigentliche Problem mit
+willkürlichen Kapazitäten $c: E \mapsto \set N$ durch eine geschickte Anpassung des Algorithmus' lösen.
+Sie $C \colonequals \max_{e \in E} c(e)$ die maximale Kapazität aller Kanten.
+Die Idee ist es, das Problem mit identischer Kapazität $C$ anzuwenden und dabei für jede Kante $e$ die $C - c(e)$
+hinzugewonnen Kapazitäten mit Platzhalterpfaden zu befüllen.
+Werden vom Algorithmus alle Platzhalterpfade akzeptiert, so können wir sicher sein, dass wir nach Entfernen der
+Platzhalterpfade eine optimale Lösung für willkürliche Kapazitäten gefunden haben.
+Wir müssen also insbesondere dafür sorgen, dass all unsere Platzhalter eingefärbt werden.
+
+
+
+
+
+
+
 
 
 
