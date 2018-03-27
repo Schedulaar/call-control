@@ -30,7 +30,7 @@ urlcolor=black
 
 \title{\bfseries Call-Control in Ringnetzwerken}
 \author{Michael Markl}
-\date{Sommersemester 2018\\ an der\\ Universität Augsburg}
+\date{Seminar\\ \glqq Algorithmen und Datenstrukturen\grqq\\~ \\Sommersemester 2018\\~\\ Universität Augsburg}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -45,14 +45,18 @@ urlcolor=black
 
 % Document
 \begin{document}
+    \pagenumbering{gobble}
     \maketitle
     \clearpage
 
+    \pagenumbering{Roman}
     \tableofcontents
 
     \clearpage
 
+    \setcounter{page}{1}
     \setcounter{section}{0}
+    \pagenumbering{arabic}
 
     \section{Einführung}\label{sec:einführung}
 
@@ -66,13 +70,13 @@ urlcolor=black
     \end{definition}
 
     Im Speziellen betrachten wir das Call-Control-Problem in Ringen und Ketten.
+    Eine {\em Kette} ist ein ungerichteter Graph $(V,E)$, der nur aus den Kanten und Knoten eines Weges besteht.
     Ein {\em Ring} ist dabei ein ungerichteter Graph, der nur aus den Kanten und Knoten eines Zyklus' besteht.
-    Eine {\em Kette} ist ein ungerichteter Graph, der nur aus den Kanten und Knoten eines Weges besteht.
     Betrachten wir einen Ring $(V,E)$ mit $V=\{0, \dots , n-1\}$ aufgezeichnet auf einer Ebene, bei dem die Knoten nach
-    dem Uhrzeigersinn nummeriert werden, können wir jeden Pfad im Ring durch einen Anfangs- und Endknoten identifizieren,
-    wobei der Pfad vom Anfangsknoten aus im Uhrzeigersinn bis zum Endknoten \glqq verläuft\grqq.
+    dem Uhrzeigersinn nummeriert werden, können wir jeden Pfad im Ring durch einen Anfangs- und Zielknoten identifizieren,
+    wobei der Pfad vom Anfangsknoten aus im Uhrzeigersinn bis zum Zielknoten \glqq verläuft\grqq.
     Für einen Pfad $p$ in einem solchen Ring oder einer Kette, nennen wir $s_p$ den
-    Anfangsknoten und $t_p$ den Endknoten des Pfades und schreiben $p=(s_p, t_p)$.
+    Anfangsknoten und $t_p$ den Zielknoten des Pfades und schreiben $p=(s_p, t_p)$.
 
 
     \subsection{Motivation und Anwendungen}\label{subsec:motivationUndAnwendungen}

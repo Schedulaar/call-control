@@ -4,7 +4,7 @@ eine Kante $e_i$ existiert, die die Knoten $i$ und $i+1$ verbindet.
 Eine solche Kette nennen wir \todo{todo} {\em $(0, n)$-durchnummeriert}.
 \begin{definition}[Gierige Ordnung]
     Auf einer Menge $P$ von Pfaden in einer Kette $(V,E)$ nennen wir eine totale Ordnung $\leq_G$ {\em gierig},
-    falls sie die Pfade nach ihren Endknoten aufsteigend ordnet, das heißt, falls
+    falls sie die Pfade nach ihren Zielknoten aufsteigend ordnet, das heißt, falls
     $\forall p, q \in P \colon t_p < t_q \Rightarrow p <_G q$.
 \end{definition}
 Die Berechnung der Lösung erfolgt nun mit dem {\em gierigen Algorithmus}: Dieser arbeitet auf der Eingabe einer
@@ -57,7 +57,7 @@ gilt $A \leq_G B$.
     hier nach $p$ aufgrund der Minimalität von $s_q$ keine weiteren Pfade eine Kapazität verbrauchen und $p$ vom
     Algorithmus akzeptiert wurde, weil bis zum Pfad $p$ keine Kapazität verletzt wurde.
     Die Kanten, bei denen sich $p$ und $q$ überschneiden, spielen offensichtlich keine Rolle und die Kanten
-    vom Endknoten von $p$ bis zum Endknoten von $q$ benötigen wieder eine Kapazität weniger.
+    vom Zielknoten von $p$ bis zum Zielknoten von $q$ benötigen wieder eine Kapazität weniger.
 \end{proof}
 
 Daraus folgt, dass der gierige Algorithmus das Call-Control-Problem in Ketten löst:
@@ -115,8 +115,8 @@ Der Repräsentant einer aktiven Gruppe ist dabei entweder ein Anführer einer Fa
 Dementsprechend gibt es zu jeder Zeit genau $C+1$ aktive Gruppen, wobei die Gruppe des fiktiven
 Anführers immer die kleinste Gruppe bleibt.
 
-Zunächst berechnet der Algorithmus zu jedem Pfad $p \in P$ den {\em bevorzugten Anführer von $p$}, also den größten Pfad in
-gieriger Ordnung, dessen Endknoten kleinergleich dem Anfangsknoten von $p$ ist.
+Zunächst berechnet der Algorithmus zu jedem Pfad $p \in P$ den {\em bevorzugten Anführer von $p$}, also den größten Pfad
+in gieriger Ordnung, dessen Zielknoten kleinergleich dem Anfangsknoten von $p$ ist.
 \todo{check this:}
 Das kann man mit einfachem Durchlaufen aller Endpunkte in $P$ in aufsteigender Reihenfolge erreichen, also in $O(n)$
 Zeit.
@@ -148,12 +148,66 @@ k-coloring of intervals'}.
 
 Nachdem wir nun eine Lösung für identische Kapazitäten gefunden haben, wollen wir nun das eigentliche Problem mit
 willkürlichen Kapazitäten $c: E \mapsto \set N$ durch eine geschickte Anpassung des Algorithmus' lösen.
-Sie $C \colonequals \max_{e \in E} c(e)$ die maximale Kapazität aller Kanten.
+Sei $C \colonequals \max_{e \in E} c(e)$ die maximale Kapazität aller Kanten.
 Die Idee ist es, das Problem mit identischer Kapazität $C$ anzuwenden und dabei für jede Kante $e$ die $C - c(e)$
 hinzugewonnen Kapazitäten mit Platzhalterpfaden zu befüllen.
 Werden vom Algorithmus alle Platzhalterpfade akzeptiert, so können wir sicher sein, dass wir nach Entfernen der
 Platzhalterpfade eine optimale Lösung für willkürliche Kapazitäten gefunden haben.
 Wir müssen also insbesondere dafür sorgen, dass all unsere Platzhalter eingefärbt werden.
+
+Wir beschäftigen uns zunächst näher mit dem Hinzufügen der Platzhalter:
+\todo{das machen wir eigentlich immer: (links, rechts)}Dabei gehen wir von einer Kette aus mit den Knoten $V=\{v_0,\dots,v_{n-1}\}$ und den Kanten
+$E=\{e_1,\dots,e_{n-1}\}$, wobei $e_i$ die Knoten $v_{i-1}$ und $v_i$ verbindet.
+Wir durchlaufen nun die Kette von links nach rechts und berechnen dabei, wie viele Platzhalterpfade an jedem Knoten
+beginnen bzw. enden müssen (siehe \todo{FIGURE}):
+Beim ersten Knoten $v_0$ müssen $C - c(e_1)$ Platzhalterpfade beginnen und wir schreiben $(C - c(e_1))$ mal $v_1$ in einen
+leeren Keller $K$.
+Beim Knoten $v_i$ wird, falls $c(e_i) > c(e_{i+1})$, $v_i$ genau $(c(e_i) - c(E_{i+1}))$ mal in K gelegt.
+Ist $c(e_i) < c(e_{i+1})$, so werden $c(e_{i+1}) - c(e_i)$ Elemente aus K geholt, die jeweils als Anfangspunkt mit $v_i$
+als Endpunkt einen der Platzhalterpfade ergeben.
+Beim letzten Knoten $v_{n-1}$ werden dann alle verbleibenden Knoten aus K mit $v_{n-1}$ als Platzhalter hinzugenommen.
+
+Da wir allerdings insgesamt eine Laufzeit von $O(m)$ zum Ziel haben, können wir das \todo{vorangegangene} Verfahren
+nicht einfach übernehmen:
+Bei starken Schwankungen der einzelnen Kapazitäten kann es hier passieren, dass bis zu $\Omega(m\cdot n)$
+Platzhalter hinzugefügt werden müssen, was unsere Ziellaufzeit übersteigt (siehe \todo{FIGURE}).
+Jedoch wird schnell ersichtlich, dass in solchen Fällen viele Platzhalter unnötigerweise platziert werden:
+Hat beispielsweise die Nachfolgekante eines Knoten $v$ eine sehr hohe Kapazität, wobei die Vorgängerkante nur eine sehr
+niedrige Kapazität besitzt, so müssten extrem viele Pfade den Anfangsknoten $v$ haben, um die Kapazität der
+Nachfolgekante auszunutzen.
+Da wir die Pfade bereits kennen, können wir also in vielen Fällen die Kapazität von solchen Nachfolgekanten verringern und
+damit Schwankungen in den Kapazitäten etwas ausgleichen.
+
+Um diese Erkenntnis umzusetzen, definieren wir eine neue Kapazitätsfunktion $c'$ mit $c'(e_0) = \min(c(e_0), n_0)$ und
+$ c'(e_i) \colonequals \min(c(e_i), c'(e_{i-1}) + n_i)$ für $i \geq 1$ , wobei $n_i$ die Anzahl der Pfade in P mit
+Anfangsknoten $v_i$ ist.
+Diese können wir in $O(n + m) = O(m)$ Zeit berechnen: Dazu gehen wir für jeden Knoten $v_i$ solange durch die sortierte
+\todo{Liste der Endknoten aller Pfade}, bis wir alle Pfade mit Anfangsknoten $v_i$ gesehen haben, womit wir
+$n_i$ wissen und $c'(e_i)$ berechnen können.
+Durch das Verwenden von $c'$ statt $c$ wird die Lösung des Problems auch nicht verändert, da nur Kapazitäten entfernt
+werden, die durch die Pfade P sowieso nicht nutzbar gewesen wären. Insbesondere ist also jede geeignete Menge mit den
+Kapazitäten c auch eine geeignete Menge mit den Kapazitäten c'.
+Das nächste Lemma soll nun aufklären, ob unser Vorgehen die Anzahl an Platzhaltern ausreichend verringern konnte:
+
+\begin{lemma}
+    Mit den neuen Kapazitäten $c'$ werden nur noch O(m) Platzhalterpfade erzeugt.
+\end{lemma}
+\begin{proof}
+    \todo{check n-1}
+    Wir betrachten den Gesamtzuwachs der Kapazitäten $I = \sum_{i = 0}^{n-1} I_i$ als Summe aller Zuwächse $I_i$ am
+    Knoten $v_i$ mit $I_0 = c'(e_0)$ und $I_i = \max\{c'(e_i) - c'(e_{i-1}), 0\}$ für $i \geq 1$.
+    Ein Anstieg von $c'$ in $e_i$ um $I_i \in \set N_0$ bedeutet, dass $n_i \geq I_i$, da per Definition
+    $c'(e_i) \leq c'(e_{i-1}) + n_i$.
+    Insbesondere ist also $I$ beschränkt durch die Anzahl an Pfaden $m$.
+    Ein Platzhalterpfad wir außerdem nur dann erzeugt, wenn der Algorithmus auf einen Zuwachs in den Kapazitäten stößt
+    oder das Ende der Kette erreicht ist.
+    Das heißt es werden höchstens $I + C = O(m)$ Platzhalterpfade erzeugt.
+\end{proof}
+
+Insbesondere gelingt also die Anpassung der Kapazitäten, sowie das Auffüllen mit Platzhalterpfaden in $O(m)$ Zeit.
+Nun müssen wir uns nur noch der Herausforderung stellen, beim Lösen des Problems mit identischen Kapazitäten alle
+Platzhalter zu akzeptieren.
+
 
 
 
