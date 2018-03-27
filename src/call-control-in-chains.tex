@@ -116,7 +116,7 @@ Dementsprechend gibt es zu jeder Zeit genau $C+1$ aktive Gruppen, wobei die Grup
 Anführers immer die kleinste Gruppe bleibt.
 
 Zunächst berechnet der Algorithmus zu jedem Pfad $p \in P$ den {\em bevorzugten Anführer von $p$}, also den größten Pfad
-in gieriger Ordnung, dessen Zielknoten kleinergleich dem Anfangsknoten von $p$ ist.
+in gieriger Ordnung, dessen Zielknoten gleich oder vor dem Anfangsknoten von $p$ ist.
 \todo{check this:}
 Das kann man mit einfachem Durchlaufen aller Endpunkte in $P$ in aufsteigender Reihenfolge erreichen, also in $O(n)$
 Zeit.
@@ -207,16 +207,69 @@ Das nächste Lemma soll nun aufklären, ob unser Vorgehen die Anzahl an Platzhal
 Insbesondere gelingt also die Anpassung der Kapazitäten, sowie das Auffüllen mit Platzhalterpfaden in $O(m)$ Zeit.
 Nun müssen wir uns nur noch der Herausforderung stellen, beim Lösen des Problems mit identischen Kapazitäten alle
 Platzhalter zu akzeptieren.
+Die Idee dabei ist, die Platzhalterpfade so früh wie möglich zu akzeptieren, und erst danach alle anderen Pfade zu
+betrachten.
 
+Dazu bilden wir zuerst eine \todo{Liste $L$ der Endknoten aller Pfade} (inklusive Platzhalterpfade), die die Knoten
+aufsteigend und bei gleichen Knoten Zielknoten vor Anfangsknoten sortiert.
+Dabei kommt jeder Knoten sooft vor, wie es Pfade mit ihm als einer der beiden Endknoten gibt.
+Die gierige Ordnung $\leq_{G}$ erhalten wir, indem wir in der Liste jeden Zielknoten eines Pfades durch den Pfad selbst
+ersetzen und die restlichen Knoten verwerfen.
 
+Wir benutzen mit dem fiktiven Anführer und den $C$ virtuellen Pfaden wieder dieselbe Hilfspfade wie in
+Abschnitt~\ref{subsec:algorithmusGleicheKapazitäten}, wobei diese in $\leq_G$ wieder vor den restlichen Pfaden stehen.
+Für die Berechnung der bevorzugten Anführer jedes Pfades $p$ (also dem in $\leq_G$ größten Pfad, dessen
+Zielknoten kleinergleich dem Anfangsknoten von $p$ ist) benötigen wir mit $\leq_G$ ebenfalls einen Zeitaufwand von
+$O(m)$.
+Auch die Union-Find-Struktur bleibt die gleiche und jeder Pfad startet in seiner eigenen Gruppe.
+Nun iteriert der Algorithmus durch L und verarbeitet dabei Platzhalterpfade beim Antreffen vom
+Anfangsknoten und tatsächliche Pfade beim Antreffen vom Zielknoten.
+Die eigentliche Verarbeitung eines Pfades $p$ hat sich aber nicht geändert: Es wird der bevorzugte Pfad $q$ von $p$
+betrachtet; falls $\find(q)$ der fiktive Anführer ist, wird $p$ abgelehnt und die Gruppe von $p$ mit der
+Gruppe des Vorgängers von $p$ in gieriger Ordnung vereinigt; andernfalls wird p akzeptiert, in der Farbe von $\find(q)$
+gefärbt und die Gruppe von $\find(q)$ mit der Gruppe seines Vorgängers in gieriger Ordnung vereinigt.
 
+Das nächste Lemma soll nun zeigen, dass das Auffüllen mit Platzhaltern zusammen mit diesem Verfahren eine korrekte
+Implementierung des gierigen Algorithmus' darstellt:
 
+\begin{lemma}
+    Der \todo{vorangehende} Algorithmus entspricht dem gierigen Algorithmus.
+\end{lemma}
+\begin{proof}
+    Wir benennen $U$ als den vorangehenden Algorithmus.
+    Für $U$ haben wir wieder folgende Invariante für die Union-Find-Gruppen:
+    Jede Gruppe mit verarbeiteten Pfaden enthält nur in $\leq_G$ aufeinanderfolgende Pfade und der Repräsentant einer
+    solchen Gruppe ist entweder ein Anführer einer Farbe oder der fiktive Anführer.
+    Andere Gruppen sind Einzelgruppen.
+    Insbesondere berechnet $U$ wieder eine \todo{C-färbbare Teilmenge der Pfade}.
+    Dadurch, dass die Platzhalterpfade bereits an den Anfangsknoten verarbeitet werden, haben diese immer einen farbigen
+    Anführer, da sie entsprechend den Kapazitäten gewählt wurden.
+    Damit wird ersichtlich, dass zumindest alle Platzhalterpfade akzeptiert werden.
+    Jetzt müssen wir noch zeigen, dass genau die tatsächlichen Pfade akzeptiert werden, die der gierige Algorithmus
+    ebenfalls akzeptiert.
 
+    Dazu gehen wir vom Gegenteil aus und betrachten den ersten tatsächlichen Pfad $p$ in gieriger Ordnung, bei dem die
+    Entscheidung unterschiedlich ausgefallen ist.
+    Da wir von $U$ bereits wissen, dass er eine C-Färbung mit allen Platzhalterpfaden durchführt, sind
+    seine akzeptierten Pfade eine geeignete Menge für das Call-Control-Problem.
+    Da der gierige Algorithmus immer eine minimale Lösung liefert, muss $p$ vom gierigen Algorithmus akzeptiert und von
+    $U$ abgelehnt worden sein.
+    Ist $A$ die Menge der Pfade, die bisher (von beiden Verfahren) akzeptiert wurden.
+    Da der gierige Algorithmus zusätzlich $p$ akzeptiert hat, wissen wir, dass $A \cup \{p\}$ geeignet ist, was wir
+    im Folgenden zum Widerspruch führen:
+    Da $U$ $p$ am Zielknoten verarbeitete (und $p$ damit der aktuell größte Pfad in gieriger Ordnung
+    war), mussten sich zu dieser Zeit alle Anführer von Farben mit $p$ überschnitten haben.
+    Dabei sei $l$ der in gieriger Ordnung kleinste Anführer einer Farbe und $e$ die letzte Kante seines Pfades.
+    Von dieser wissen wir sicher, dass sie sich mit $p$ überschneidet.
 
+    Angenommen, es existiere eine Farbe $c^*$, sodass kein Pfad in dieser Farbe $e$ enthält. Da $l$ der kleinste Anführer
+    ist, existiert ein Pfad $p_1$ in $c^*$ links von $e$ und ein Pfad $p_2$ in $c^*$ rechts von $e$.
+    Wählt man diese jeweils möglichst nah an $e$, so erkennt man einen Widerspruch, da als $p_2$ mit $p_1$ als den
+    scheinbar optimalen Anführer in $c^*$ gefärbt wurde, war tatsächlich $l$ ein besserer Anführer von $p_2$.
 
-
-
-
+    Also besitzen alle $C$ Farben einen Pfad, der $e$ enthält, insgesamt gibt es also $C+1$ Pfade in $A \cap \{p\}$, die
+    $e$ enthalten. Das ist allerdings ein Widerspruch dazu, dass $A \cap \{p\}$ eine geeignete Menge ist.
+\end{proof}
 
 
 
