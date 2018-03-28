@@ -1,0 +1,52 @@
+Nachdem wir das Call-Control-Problem in Ketten optimal lösen können, betrachten wir nun das Problem in Ringen.
+Sei also $(V, E)$ ein Ring mit $V=\{0,\dots,n-1 \}\}$ und $E=\{e_0, \dots, e_{n-1}\}$, wobei $e_i$ die
+Knoten $i$ und $(i+1 \Mod n)$ verbindet.
+Außerdem haben wir eine Menge $P=\{p_1, \dots, p_m\}$ an Pfaden gegeben, unter denen jeder Pfad $p$ einen
+Anfangsknoten $s_p$ mit einem Zielknoten $t_p$ verbindet mit $s_p \neq t_p$.
+Dabei enthält der Pfad alle Kanten, auf die man trifft, wenn man sich vom Anfangsknoten im Uhrzeigersinn - das heißt
+bis auf $\mathrm{mod}~n$ mit aufsteigenden Knotennamen - zum Zielknoten bewegt.
+Alle Knoten eines Pfades bis auf den Anfangs- und Zielknoten heißen {\em innere Knoten}.
+Außerdem können wir ohne Einschränkung von $n \leq 2m$ ausgehen, da wir solche Knoten entfernen können, die nicht
+Anfangs- oder Zielknoten eines Pfades sind.
+Dabei ersetzen wir die zwei Kanten, die am zu entfernenden Knoten anliegen, durch eine einzige Kante, dessen
+Kapazität das Minimum der vorherigen beiden ist.
+\todo{FIGURE} zeigt ein Beispiel eines Rings (innen) mit den gegebenen Pfaden (außen).
+\todo{check if feasible set is defined}
+Das Call-Control-Problem beschreibt hier wieder das Problem, eine möglichst große geeignete Teilmenge
+$Q \subseteq P$ zu finden.
+Dazu teilen wir die Menge der Pfade $P$ in zwei disjunkte Teilmengen $P_1$ und $P_2$.
+Dabei bildet $P_1$ die Menge der Pfade in $P$, die den Knoten $0$ nicht als inneren Knoten haben, $P_2$
+beinhaltet die restlichen Pfade, also $P \setminus P_1$.
+Diese Partition können wir ganz einfach berechnen:
+Sagen wir, dass jeder Pfad, dessen Zielknoten $0$ ist, eigentlich den Zielknoten $n$ hat, so können wir durch alle
+Pfade $p$ iterieren und falls $s_p < t_p$ gilt, so ist $0$ kein innerer Knoten von $p$ und wird daher $P_1$
+zugeordnet, sonst $P_2$.
+Nun transformieren wir den Ring in eine Kette mit $2n$ Knoten:
+Wir fertigen zwei Kopien der Kanten $e_1,\dotsc,e_n$ aus unserem Ring an und bilden eine Kette, indem wir die
+beiden Kopien aneinanderhängen.
+Die dazu gehörigen Knotennamen sind dabei $0, \dotsc, 2n-1$, wobei wir die Knoten $n, \dotsc, 2n-1$ durch
+$0', \dotsc, (n-1)'$ als die zweite Kopie der Knoten kennzeichnen.
+Die Pfade werden diesem Schema angepasst, sodass Pfade in $P_1$ nur Kanten der ersten Kopie belegen, wohingegen
+jeder Pfad $p \in P_2$ aus zwei Teilpfaden besteht: Dem {\em Kopf}, der von $s_p$ bis nach $0'$ auf der ersten
+Kopie der Kanten liegt, und dem {\em Schwanz}, der von $0'$ bis $t_p '$ auf der zweiten Kopie liegt.
+In \todo{FIGURE} kann man den vorherigen Ring umgewandelt in die Kettenstruktur sehen.
+Wir definieren im Weiteren für eine Menge $Q$ von Pfaden die Belastung $L_1(Q, e_i)$ bzw. $L_2(Q, e_i)$ der Kante
+$e_i$ in der ersten bzw. zweiten Kopie als die Anzahl der Pfade von $Q$, die die erste bzw. zweite Kopie der Kante
+$e_i$ beinhalten.
+\begin{definition}[Profil]
+    Sei $Q$ eine Menge von Pfaden. Die monoton fallende Folge
+    \[\pi_{Q}\colonequals  (L_2(Q, e_0), \dots, L_2(Q, e_{n-1}))\]
+    der Belastungen der $n$ Kanten in den zweiten Kopien heißt Profil.
+    Außerdem bezeichne $\pi_Q(e_i) \colonequals L_2(Q, e_i)$ und wir schreiben für zwei Profile $\pi$ und $\pi'$,
+    dass $\pi \leq \pi'$, falls $\pi(e_i) \leq \pi'(e_i)$ für alle Kanten $e$.
+\end{definition}
+Wir bezeichnen eine Menge $Q$ von Pfaden im Ring als {\em kettengeeignet},
+falls es in der oben konstruierten Kette keine Kapazität überschreitet, d. h. falls $L_1(Q, e) \leq c(e)$ und
+$L_2(Q, e_i) \leq c(e)$ für alle Kanten $e$.
+Gilt darüber hinaus $L_1(Q, e) + \pi(e) \leq c(e)$ für alle Kanten $e$, so heißt $Q$ {\em kettengeeignet zum Startprofil $\pi$}.
+Anschaulich betrachtet, werden hier von den Kanten der ersten Kopie einige Kapazitäten bereits vom Startprofil belegt.
+Betrachtet man nun nochmals die Konstruktion der Kette kann man leicht erkennen, dass eine Menge $Q$ von Pfaden geeignet im
+Ring ist genau dann, wenn $Q$ kettengeeignet zum eigens generierten Startprofil $\pi_Q$ ist, welches ja gerade den
+\todo{überstehenden} Pfaden entspricht.
+Nachdem wir nun alle notwendigen Vorbereitungen getroffen haben, können wir nun mit dem eigentlichen Algorithmus
+beginnen.
