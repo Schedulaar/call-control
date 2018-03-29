@@ -10,8 +10,10 @@ Außerdem können wir ohne Einschränkung von $n \leq 2m$ ausgehen, da wir solch
 Anfangs- oder Zielknoten eines Pfades sind.
 Dabei ersetzen wir die zwei Kanten, die am zu entfernenden Knoten anliegen, durch eine einzige Kante, dessen
 Kapazität das Minimum der vorherigen beiden ist.
+
 \todo{FIGURE} zeigt ein Beispiel eines Rings (innen) mit den gegebenen Pfaden (außen).
 \todo{check if feasible set is defined}
+
 Das Call-Control-Problem beschreibt hier wieder das Problem, eine möglichst große geeignete Teilmenge
 $Q \subseteq P$ zu finden.
 Dazu teilen wir die Menge der Pfade $P$ in zwei disjunkte Teilmengen $P_1$ und $P_2$.
@@ -21,6 +23,7 @@ Diese Partition können wir ganz einfach berechnen:
 Sagen wir, dass jeder Pfad, dessen Zielknoten $0$ ist, eigentlich den Zielknoten $n$ hat, so können wir durch alle
 Pfade $p$ iterieren und falls $s_p < t_p$ gilt, so ist $0$ kein innerer Knoten von $p$ und wird daher $P_1$
 zugeordnet, sonst $P_2$.
+
 Nun transformieren wir den Ring in eine Kette mit $2n$ Knoten:
 Wir fertigen zwei Kopien der Kanten $e_1,\dotsc,e_n$ aus unserem Ring an und bilden eine Kette, indem wir die
 beiden Kopien aneinanderhängen.
@@ -30,6 +33,7 @@ Die Pfade werden diesem Schema angepasst, sodass Pfade in $P_1$ nur Kanten der e
 jeder Pfad $p \in P_2$ aus zwei Teilpfaden besteht: Dem {\em Kopf}, der von $s_p$ bis nach $0'$ auf der ersten
 Kopie der Kanten liegt, und dem {\em Schwanz}, der von $0'$ bis $t_p '$ auf der zweiten Kopie liegt.
 In \todo{FIGURE} kann man den vorherigen Ring umgewandelt in die Kettenstruktur sehen.
+
 Wir definieren im Weiteren für eine Menge $Q$ von Pfaden die Belastung $L_1(Q, e_i)$ bzw. $L_2(Q, e_i)$ der Kante
 $e_i$ in der ersten bzw. zweiten Kopie als die Anzahl der Pfade von $Q$, die die erste bzw. zweite Kopie der Kante
 $e_i$ beinhalten.
@@ -111,7 +115,7 @@ ewig wachsen können und, falls eine Lösung existiert, ab irgendeiner Runde kon
 Nun können wir die Korrektheit der Prozedur vervollständigen:
 
 \begin{lemma}
-    Die Prozedur liefert die korrekte Rückgabe in höchsten $n\cdot c(e_0)$ Runden.
+    Die Prozedur liefert die korrekte Rückgabe in höchstens $n\cdot c(e_0)$ Runden.
 \end{lemma}
 \begin{proof}
     Dazu unterscheiden wir, ob eine $k$-elementige geeignete Menge existiert.
@@ -136,8 +140,9 @@ Nun können wir die Korrektheit der Prozedur vervollständigen:
     $\sum_{j=0}^{n-1}\pi_{Q^*}(e_j) \leq n \cdot \pi_{Q^*}(e_0) \leq n \cdot c(e_0)$ Runden.
 \end{proof}
 
+\begin{theorem}
 
-
+\end{theorem}
 
 
 
