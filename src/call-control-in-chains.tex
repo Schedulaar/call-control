@@ -18,7 +18,7 @@ $a_1 <_G \dots <_G a_k$.
 Für $A=\{a_1,\dots,a_k\}$ und $B=\{b_1,\dots,b_k\}$ schreiben wir $A \leq_G B$, falls $\forall i \in \{1,\dots,k\}\colon a_i \leq_G b_i$.
 Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls für jede gleichmächtige, geeignete Menge $B$
 gilt $A \leq_G B$.
-\begin{lemma}[Optimalität des gierigen Algorithmus']\label{lem:greedyAlgorithm}
+\begin{lemma}[Optimalität des gierigen Algorithmus']\label{lem:optimalityGreedyAlgorithm}
     Existiert bei einer Menge $P$ von Pfaden einer Kette eine geeignete Teilmenge mit $k \in \set N$ Pfaden, so ist die
     Menge der ersten $k$ Pfade nach gieriger Ordnung, die der gierige Algorithmus berechnet, eine minimale Menge.
 \end{lemma}
@@ -61,7 +61,7 @@ gilt $A \leq_G B$.
 
 Daraus folgt, dass der gierige Algorithmus das Call-Control-Problem in Ketten löst:
 Sei $Q$ eine Lösung, also eine möglichst große, geeignete Teilmenge von Pfaden in $P$, so liefert der gierige
-Algorithmus nach Lemma~\ref{lem:greedyAlgorithm} eine gleichmächtige, sogar minimale Lösung.
+Algorithmus nach Lemma~\ref{lem:optimalityGreedyAlgorithm} eine gleichmächtige, sogar minimale Lösung.
 
 Eine einfache Implementierung dieses Algorithmus' könnte in $O(m \cdot n)$ erfolgen, wobei $m$ die Anzahl der gegebenen
 Pfade und $n$ die Anzahl der Knoten ist, indem einfach für jeden Pfad einzeln an jeder Kante überprüft wird, ob durch
@@ -158,7 +158,7 @@ Wir beschäftigen uns zunächst näher mit dem Hinzufügen der Platzhalter:
 \todo{das machen wir eigentlich immer: (links, rechts)}Dabei gehen wir von einer Kette aus mit den Knoten $V=\{v_0,\dots,v_{n-1}\}$ und den Kanten
 $E=\{e_1,\dots,e_{n-1}\}$, wobei $e_i$ die Knoten $v_{i-1}$ und $v_i$ verbindet.
 Wir durchlaufen nun die Kette von links nach rechts und berechnen dabei, wie viele Platzhalterpfade an jedem Knoten
-beginnen bzw. enden müssen (siehe \todo{FIGURE}):
+beginnen bzw.\ enden müssen (siehe \todo{FIGURE}):
 Beim ersten Knoten $v_0$ müssen $C - c(e_1)$ Platzhalterpfade beginnen und wir schreiben $(C - c(e_1))$ mal $v_1$ in einen
 leeren Keller $K$.
 Beim Knoten $v_i$ wird, falls $c(e_i) > c(e_{i+1})$, $v_i$ genau $(c(e_i) - c(E_{i+1}))$ mal in K gelegt.
@@ -184,8 +184,8 @@ Diese können wir in $O(n + m) = O(m)$ Zeit berechnen: Dazu gehen wir für jeden
 \todo{Liste der Endknoten aller Pfade}, bis wir alle Pfade mit Anfangsknoten $v_i$ gesehen haben, womit wir
 $n_i$ wissen und $c'(e_i)$ berechnen können.
 Durch das Verwenden von $c'$ statt $c$ wird die Lösung des Problems auch nicht verändert, da nur Kapazitäten entfernt
-werden, die durch die Pfade P sowieso nicht nutzbar gewesen wären. Insbesondere ist also jede geeignete Menge mit den
-Kapazitäten c auch eine geeignete Menge mit den Kapazitäten c'.
+werden, die durch die Pfade P sowieso nicht nutzbar gewesen wären.
+Insbesondere ist also jede geeignete Menge mit den Kapazitäten c auch eine geeignete Menge mit den Kapazitäten c'.
 Das nächste Lemma soll nun aufklären, ob unser Vorgehen die Anzahl an Platzhaltern ausreichend verringern konnte:
 
 \begin{lemma}
@@ -224,8 +224,10 @@ Auch die Union-Find-Struktur bleibt die gleiche und jeder Pfad startet in seiner
 Nun iteriert der Algorithmus durch L und verarbeitet dabei Platzhalterpfade beim Antreffen vom
 Anfangsknoten und tatsächliche Pfade beim Antreffen vom Zielknoten.
 Die eigentliche Verarbeitung eines Pfades $p$ hat sich aber nicht geändert: Es wird der bevorzugte Pfad $q$ von $p$
-betrachtet; falls $\find(q)$ der fiktive Anführer ist, wird $p$ abgelehnt und die Gruppe von $p$ mit der
-Gruppe des Vorgängers von $p$ in gieriger Ordnung vereinigt; andernfalls wird p akzeptiert, in der Farbe von $\find(q)$
+betrachtet;
+falls $\find(q)$ der fiktive Anführer ist, wird $p$ abgelehnt und die Gruppe von $p$ mit der
+Gruppe des Vorgängers von $p$ in gieriger Ordnung vereinigt;
+andernfalls wird p akzeptiert, in der Farbe von $\find(q)$
 gefärbt und die Gruppe von $\find(q)$ mit der Gruppe seines Vorgängers in gieriger Ordnung vereinigt.
 
 Das nächste Lemma soll nun zeigen, dass das Auffüllen mit Platzhaltern zusammen mit diesem Verfahren eine korrekte
@@ -261,13 +263,15 @@ Implementierung des gierigen Algorithmus' darstellt:
     Dabei sei $l$ der in gieriger Ordnung kleinste Anführer einer Farbe und $e$ die letzte Kante seines Pfades.
     Von dieser wissen wir sicher, dass sie sich mit $p$ überschneidet.
 
-    Angenommen, es existiere eine Farbe $c^*$, sodass kein Pfad in dieser Farbe $e$ enthält. Da $l$ der kleinste Anführer
-    ist, existiert ein Pfad $p_1$ in $c^*$ links von $e$ und ein Pfad $p_2$ in $c^*$ rechts von $e$.
+    Angenommen, es existiere eine Farbe $c^*$, sodass kein Pfad in dieser Farbe $e$ enthält.
+    Da $l$ der kleinste Anführer ist, existiert ein Pfad $p_1$ in $c^*$ links von $e$ und ein Pfad $p_2$ in $c^*$
+    rechts von $e$.
     Wählt man diese jeweils möglichst nah an $e$, so erkennt man einen Widerspruch, da als $p_2$ mit $p_1$ als den
     scheinbar optimalen Anführer in $c^*$ gefärbt wurde, war tatsächlich $l$ ein besserer Anführer von $p_2$.
 
     Also besitzen alle $C$ Farben einen Pfad, der $e$ enthält, insgesamt gibt es also $C+1$ Pfade in $A \cup \{p\}$, die
-    $e$ enthalten. Das ist allerdings ein Widerspruch dazu, dass $A \cup \{p\}$ eine geeignete Menge ist.
+    $e$ enthalten.
+    Das ist allerdings ein Widerspruch dazu, dass $A \cup \{p\}$ eine geeignete Menge ist.
 \end{proof}
 
 Darauf folgt nun:
