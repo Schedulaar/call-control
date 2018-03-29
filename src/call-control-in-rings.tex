@@ -34,19 +34,117 @@ Wir definieren im Weiteren für eine Menge $Q$ von Pfaden die Belastung $L_1(Q, 
 $e_i$ in der ersten bzw. zweiten Kopie als die Anzahl der Pfade von $Q$, die die erste bzw. zweite Kopie der Kante
 $e_i$ beinhalten.
 \begin{definition}[Profil]
-    Sei $Q$ eine Menge von Pfaden. Die monoton fallende Folge
+    Sei $Q$ eine Menge von Pfaden. Die \todo{should i outsource this to a lemma?} monoton fallende Folge
     \[\pi_{Q}\colonequals  (L_2(Q, e_0), \dots, L_2(Q, e_{n-1}))\]
     der Belastungen der $n$ Kanten in den zweiten Kopien heißt Profil.
     Außerdem bezeichne $\pi_Q(e_i) \colonequals L_2(Q, e_i)$ und wir schreiben für zwei Profile $\pi$ und $\pi'$,
     dass $\pi \leq \pi'$, falls $\pi(e_i) \leq \pi'(e_i)$ für alle Kanten $e$.
 \end{definition}
-Wir bezeichnen eine Menge $Q$ von Pfaden im Ring als {\em kettengeeignet},
+Wir bezeichnen eine Menge $Q$ von Pfaden als {\em kettengeeignet},
 falls es in der oben konstruierten Kette keine Kapazität überschreitet, d. h. falls $L_1(Q, e) \leq c(e)$ und
 $L_2(Q, e_i) \leq c(e)$ für alle Kanten $e$.
 Gilt darüber hinaus $L_1(Q, e) + \pi(e) \leq c(e)$ für alle Kanten $e$, so heißt $Q$ {\em kettengeeignet zum Startprofil $\pi$}.
 Anschaulich betrachtet, werden hier von den Kanten der ersten Kopie einige Kapazitäten bereits vom Startprofil belegt.
-Betrachtet man nun nochmals die Konstruktion der Kette kann man leicht erkennen, dass eine Menge $Q$ von Pfaden geeignet im
-Ring ist genau dann, wenn $Q$ kettengeeignet zum eigens generierten Startprofil $\pi_Q$ ist, welches ja gerade den
+Betrachtet man nun nochmals die Konstruktion der Kette kann man leicht erkennen, dass eine Menge $Q$ von Pfaden geeignet
+(im Ring) ist genau dann, wenn $Q$ kettengeeignet zum eigens generierten Startprofil $\pi_Q$ ist, welches ja gerade den
 \todo{überstehenden} Pfaden entspricht.
-Nachdem wir nun alle notwendigen Vorbereitungen getroffen haben, können wir nun mit dem eigentlichen Algorithmus
-beginnen.
+
+\todo{check path sorting}
+
+Nachdem wir nun alle notwendigen Vorbereitung getroffen haben, können wir mit dem eigentlichen Algorithmus beginnen.
+Dabei gehen wir wie folgt vor:
+Wir versuchen für jedes $k \in \set N$ eine geeignete Teilmenge $Q_k \subseteq P$ mit $k$ Pfaden zu finden.
+Existiert eine solche nicht, so wissen wir, dass $Q_{k-1}$ eine größte geeignete Menge, also die gesuchte Lösung, ist.
+
+Die Prozedur für das Finden einer geeigneten $k$-elementigen Menge von Pfaden bauen wir dabei wie folgt auf.
+Wir starten mit dem leeren Profil $\pi_0$, das überall 0 ist.
+In jeder Runde $i \in \set N$ initialisieren wir die Kapazitäten der beiden Kopien jeder Kante $e$ mit $c(e)$, wobei wir
+in den ersten Kopie von $c(e)$ noch $\pi_{i-1}(e)$ Kapazitäten abziehen.
+Das Profil $\pi_{i-1}$ belegt also bereits einige Kanten in der ersten Kopie und eine Menge $Q$ ist mit diesen Kapazitäten
+kettengeeignet genau dann, wenn sie auf den ursprünglichen Kapazitäten kettengeeignet zum Startprofil $\pi_{i-1}$ ist.
+Nun bestimmen wir mit dem gierigen Algorithmus eine größtmögliche Menge $G$, die in der resultierende Kette
+geeignet ist.
+Enthält $G$ weniger als $k$ Pfade, so bricht die Prodzedur ab mit der Antwort, dass eine geeignete $k$-elementige Menge
+nicht existiert.
+Ansonsten sei $G_i$ die Menge der ersten $k$ Pfade von $G$ in gieriger Ordnung und $\pi_{i}$ das dadurch erzeugte
+Profil.
+Ist nun $\pi_i = \pi_{i-1}$, so meldet die Prozedur einen Erfolg mit $G_i$ als Rückgabe, sonst wird die nächste Runde
+berechnet.
+
+Ein Beispiel kann man in \todo{FIGURE} sehen.
+
+\subsection{Korrektheit des Algorithmus'}
+Um die Korrektheit des gesamten Algorithmus einzusehen, beweisen wir in den nächsten Lemmata, dass die Prozedur zum
+Finden einer geeigneten $k$-elementigen Menge korrekt ist.
+Dabei benutzen wir die vom Algorithmus generierten Mengen $G_i$, sowie dessen Profile $\pi_i$.
+
+\begin{lemma}\label{lem:monotonousProfiles}
+    Die Folge der Profile ist monoton wachsend, d. h. $\pi_i \leq \pi_{i+1}$ für alle $i \in \set N_0$.
+\end{lemma}
+\begin{proof}
+    Durch Induktion: Für $i=0$ gilt die Aussage, da $\pi_0$ überall 0 ist.
+    Angenommen, es gilt $\pi_{i-1} \leq \pi_i$.
+    Nach Lemma~\ref{lem:greedyAlgorithm} ist $G_{i}$ eine minimale Menge mit $k$ Pfaden, die auf der Kette mit den durch $\pi_{i}$
+    reduzierten Kapazitäten geeignet ist.
+    Da $G_{i-1}$ geeignet zum Startprofil $\pi_{i-1}$ ist und es gilt $\pi_{i-1} \leq \pi_i$, ist $G_{i-1}$ auch
+    geeignet zum Startprofil $\pi_{i}$ und aufgrund der Minimalität von $G_i$ ist insbesondere $G_i \leq G_{i-1}$.
+    Daraus folgt direkt $\pi_i \leq \pi_{i+1}$.
+\end{proof}
+
+Als Kondition dafür, dass unser Algorithmus hält, benötigen wir noch, dass die generierten Profile nicht
+ewig wachsen können und, falls eine Lösung existiert, ab irgendeiner Runde konstant bleibt.
+
+\begin{lemma}\label{lem:upperBoundProfiles}
+    Falls eine im Ring geeignete Lösung $Q^*$ mit $k$ Pfaden existiert, dann ist $\pi_{Q^*}$ eine obere Grenze der
+    generierten Profile $\pi_i$.
+\end{lemma}
+\begin{proof}
+    Sei also $Q*$ eine geeignete Lösung mit $k$ Pfaden.
+    Wir zeigen wieder per Induktion für $i \in \set N_0$, dass $\pi_i \leq \pi_{Q*}$.
+    Für $i=0$ ist das offensichtlich, da $\pi_0$ überall 0 ist.
+    Angenommen, $\pi_i \leq \pi_{Q*}$.
+    Wie wir oben gesehen haben, ist $Q*$ kettengeeignet zum Startprofil $\pi_{Q^*}$, da es geeignet im Ring ist.
+    Da $G_{i}$ mittels des gierigen Algorithmus' zum Startprofil $\pi_i$ ermittelt wird und $Q^*$ ebenfalls kettengeeignet
+    zum Startprofil $\pi_i$ ist (da $\pi_i \leq \pi_{Q^*}$), gilt nach Lemma~\ref{lem:greedyAlgorithm}, dass $G_{i} \leq Q^*$.
+\end{proof}
+
+Nun können wir die Korrektheit der Prozedur vervollständigen:
+
+\begin{lemma}
+    Die Prozedur liefert die korrekte Rückgabe in höchsten $n\cdot c(e_0)$ Runden.
+\end{lemma}
+\begin{proof}
+    Dazu unterscheiden wir, ob eine $k$-elementige geeignete Menge existiert.
+    Nehmen wir an, es existiert keine solche Menge und der Algorithmus bricht nicht ab, sondern liefert eine Menge $Q_i$
+    als Rückgabe.
+    Dann müssen die letzten beiden Profile $\pi_{i-1}$ und $\pi_{i} = \pi_{Q_i}$ identisch gewesen sein.
+    Da $Q_i$ aber durch den gierigen Algorithmus so berechnet wurde, dass es kettengeeignet zum Startprofil
+    $\pi_{i-1}$ ist, ist es kettengeeignet zum eigenen Startprofil, insbesondere eine geeignete Menge im Ring, was im
+    Widerspruch zur Annahme steht.
+
+    Angenommen es existiere eine geeignete Menge $Q^*$ mit $k$ Elementen.
+    Dann ist die Folge der generierten Profile $(\pi_i)_{i}$ nach Lemma~\ref{lem:upperBoundProfiles} mit $\pi_{Q^*}$
+    nach oben beschränkt.
+    Daher existiert zu jedem dieser Profile eine kettengeeignete $k$-elementige Menge (nämlich $Q^*$),
+    weswegen der gierige Algorithmus nach Lemma~\ref{lem:greedyAlgorithm} eine mindestens $k$-elementige Menge zurückgibt.
+    Daher kann der Algorithmus nicht ohne Rückgabe abbrechen.
+    Da die Folge $(\pi_i)_i$ nach Lemma~\ref{lem:monotonousProfiles} außerdem monoton wachsend ist, konvergiert sie nach
+    maximal $\sum_{j=0}^{n-1}\pi_{Q^*}(e_j)$ Runden.
+    Also existiert ein minimales $i\in \set N$ mit $\pi_i = \pi_{i-1}$ und der Algorithmus gibt $Q_i$ zurück.
+    Da $\pi_{i-1} = \pi_{Q_{i}}$, ist $Q_i$ kettengeeignet zum eigenen Startprofil und damit eine geeignete Menge.
+    Weil ein Profil eine monoton fallende Folge ist, bekommen wir zusätzlich die Abschätzung von maximal
+    $\sum_{j=0}^{n-1}\pi_{Q^*}(e_j) \leq n \cdot \pi_{Q^*}(e_0) \leq n \cdot c(e_0)$ Runden.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+

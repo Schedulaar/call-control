@@ -18,8 +18,7 @@ $a_1 <_G \dots <_G a_k$.
 Für $A=\{a_1,\dots,a_k\}$ und $B=\{b_1,\dots,b_k\}$ schreiben wir $A \leq_G B$, falls $\forall i \in \{1,\dots,k\}\colon a_i \leq_G b_i$.
 Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls für jede gleichmächtige, geeignete Menge $B$
 gilt $A \leq_G B$.
-\begin{lemma}[Optimalität des gierigen Algorithmus']
-    \label{greedyAlgorithm}
+\begin{lemma}[Optimalität des gierigen Algorithmus']\label{lem:greedyAlgorithm}
     Existiert bei einer Menge $P$ von Pfaden einer Kette eine geeignete Teilmenge mit $k \in \set N$ Pfaden, so ist die
     Menge der ersten $k$ Pfade nach gieriger Ordnung, die der gierige Algorithmus berechnet, eine minimale Menge.
 \end{lemma}
@@ -62,7 +61,7 @@ gilt $A \leq_G B$.
 
 Daraus folgt, dass der gierige Algorithmus das Call-Control-Problem in Ketten löst:
 Sei $Q$ eine Lösung, also eine möglichst große, geeignete Teilmenge von Pfaden in $P$, so liefert der gierige
-Algorithmus nach Lemma~\ref{greedyAlgorithm} eine gleichmächtige, sogar minimale Lösung.
+Algorithmus nach Lemma~\ref{lem:greedyAlgorithm} eine gleichmächtige, sogar minimale Lösung.
 
 Eine einfache Implementierung dieses Algorithmus' könnte in $O(m \cdot n)$ erfolgen, wobei $m$ die Anzahl der gegebenen
 Pfade und $n$ die Anzahl der Knoten ist, indem einfach für jeden Pfad einzeln an jeder Kante überprüft wird, ob durch
