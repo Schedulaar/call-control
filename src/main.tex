@@ -41,6 +41,8 @@ urlcolor=black
 \newcommand\todo[1]{\textcolor{red}{#1}}
 \newcommand{\set}{\mathbb}
 \newcommand{\find}{\text{\em find}}
+\newcommand{\cost}{\text{\em cost}}
+\newcommand{\capacity}{\text{\em cap}}
 \newcommand{\Mod}{~\mathrm{mod}~}
 
 
@@ -94,16 +96,8 @@ urlcolor=black
     \input{call-control-in-rings}
 
     \section{Gewichtetes Call-Control-Problem}\label{sec:weighted-call-control}
-    Nachdem wir nun optimale Lösungen für das Call-Control-Problem in Ketten und Ringen gefunden haben, modifizieren
-    wir in diesem Kapitel die Problemstellung ein wenig.
-    So geben wir nun jedem der Pfade $p$ in einer Kette oder einem Ring ein besimmtes Gewicht $\lambda_p$ und versuchen
-    nun, statt der Anzahl der akzeptierten Pfade, das Gesamtgewicht $\sum_{p\in Q}\lambda_p$ zu maximieren, ohne dabei
-    die Kapazität einer Kante zu verletzen.
-    Dabei verbraucht weiterhin jeder Pfad eine Kapazitätseinheit einer Kante, falls die Kante Teil des Pfades ist.
+    \input{weighted-call-control}
 
-    Wir werden dazu für das Problem in Ketten einen optimalen Algorithmus finden, jedoch für das Problem in Ringen
-    nur Approximationsalgorithmen kennenlernen. \todo{PTAS? BIPARTITE?}
-
-    \subsection{Gewichtetes Call-Control-Problem in Ketten}
-    Für identische Kapazitäten
 \end{document}
+
+[ll] R.E. Tarjan, Data Structures and Network Algorithms (SIAM, Philadelphia, PA, 1983).
