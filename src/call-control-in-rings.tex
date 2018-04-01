@@ -11,6 +11,13 @@ Anfangs- oder Zielknoten eines Pfades sind.
 Dabei ersetzen wir die zwei Kanten, die am zu entfernenden Knoten anliegen, durch eine einzige Kante, dessen
 Kapazität das Minimum der vorherigen beiden ist.
 
+\begin{figure}[htbp]
+    \centering
+    \def\svgwidth{250bp}
+    \input{example_ring.pdf_tex}
+    \caption{Ein Ringnetzwerk mit 8 Knoten (mod. nach \todo{[1]})}
+\end{figure}
+
 \todo{FIGURE} zeigt ein Beispiel eines Rings (innen) mit den gegebenen Pfaden (außen).
 \todo{check if feasible set is defined}
 
@@ -34,6 +41,14 @@ jeder Pfad $p \in P_2$ aus zwei Teilpfaden besteht: Dem {\em Kopf}, der von $s_p
 Kopie der Kanten liegt, und dem {\em Schwanz}, der von $0'$ bis $t_p '$ auf der zweiten Kopie liegt.
 In \todo{FIGURE} kann man den vorherigen Ring umgewandelt in die Kettenstruktur sehen.
 
+
+\begin{figure}[htbp]
+    \centering
+    \def\svgwidth{240bp}
+    \input{pic1.pdf_tex}
+    \caption{svg image}
+\end{figure}
+
 Wir definieren im Weiteren für eine Menge $Q$ von Pfaden die Belastung $L_1(Q, e_i)$ bzw.\ $L_2(Q, e_i)$ der Kante
 $e_i$ in der ersten bzw.\ zweiten Kopie als die Anzahl der Pfade von $Q$, die die erste bzw.\ zweite Kopie der Kante
 $e_i$ beinhalten.
@@ -50,7 +65,7 @@ falls es in der oben konstruierten Kette keine Kapazität überschreitet, d.h.\ 
 $L_2(Q, e_i) \leq c(e)$ für alle Kanten $e$.
 Gilt darüber hinaus $L_1(Q, e) + \pi(e) \leq c(e)$ für alle Kanten $e$, so heißt $Q$ {\em kettengeeignet zum Startprofil $\pi$}.
 Anschaulich betrachtet, werden hier von den Kanten der ersten Kopie einige Kapazitäten bereits vom Startprofil belegt.
-Betrachtet man nun nochmals die Konstruktion der Kette kann man leicht erkennen, dass eine Menge $Q$ von Pfaden geeignet
+Betrachtet man jetzt nochmals die Konstruktion der Kette kann man leicht erkennen, dass eine Menge $Q$ von Pfaden geeignet
 (im Ring) ist genau dann, wenn $Q$ kettengeeignet zum eigens generierten Startprofil $\pi_Q$ ist, welches ja gerade den
 \todo{überstehenden} Pfaden entspricht.
 
