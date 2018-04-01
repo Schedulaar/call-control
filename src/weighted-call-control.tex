@@ -1,14 +1,14 @@
 Nachdem wir nun optimale Lösungen für das Call-Control-Problem in Ketten und Ringen gefunden haben, modifizieren
 wir in diesem Kapitel die Problemstellung ein wenig.
-So geben wir nun jedem der Pfade $p$ in einer Kette oder einem Ring ein besimmtes Gewicht $\lambda_p$ und versuchen
-nun, statt der Anzahl der akzeptierten Pfade, das Gesamtgewicht $\sum_{p\in Q}\lambda_p$ zu maximieren, ohne dabei
-die Kapazität einer Kante zu verletzen.
+So geben wir jedem der Pfade $p$ ein bestimmtes Gewicht $\lambda_p \in \set R_+$ und versuchen statt der
+Anzahl der akzeptierten Pfade $Q$ das Gesamtgewicht $\omega(Q) \colonequals \sum_{p\in Q}\lambda_p$ zu maximieren, ohne
+dabei die Kapazität einer Kante zu verletzen.
 Dabei verbraucht weiterhin jeder Pfad eine Kapazitätseinheit einer Kante, falls die Kante Teil des Pfades ist.
 
 Wir werden dazu für das Problem in Ketten einen optimalen Algorithmus finden, jedoch für das Problem in Ringen
 nur Approximationsalgorithmen kennenlernen. \todo{PTAS? BIPARTITE?}
 
-\subsection{Gewichtetes Call-Control-Problem in Ketten}
+\subsection{Gewichtetes Call-Control-Problem in Ketten}\label{subsec:weighted-call-control-in-chains}
 Für den Fall, dass alle Kanten $e$ wieder identische Kapazitäten $c(e) = C \in \set N$ haben, stellt \todo{REFERENZ CARLISLE}
 eine optimale Lösung für das äquivalente Problem des $C$-Färbens von gewichteten Intervallen vor. \todo{check that we described why we can assemble these problems}.
 Dabei wird das Problem auf ein Minimum-Cost Flow Problem reduziert, und dadurch eine Laufzeit von $O(C\cdot S(m))$
@@ -38,7 +38,7 @@ Die Intuition hinter der Korrektheit dieser Problemformulierung besteht darin, d
 den Fluss der einzelnen $C$ Einheiten zu betrachten.
 Dadurch erkennt man schnell, dass maximal $C$ Flusseinheiten sich überschneidende Pfade belegen können.
 Für eine genauere Beschreibung und Analyse des Verfahren sowie dessen Laufzeit betrachte man \todo{referenz carlisle sec. 3}.
-Wir wollen uns dagegen wieder dem Problem mit willkürlichen Kapazitäten widmen.
+Wir wollen uns dagegen dem Problem mit willkürlichen Kapazitäten widmen.
 
 \begin{theorem}
     Das gewichtete Call-Control-Problem einer Kette $(V, E)$ mit willkürlichen Kapazitäten kann in $O(n + m\cdot S(m))$
@@ -50,9 +50,9 @@ Wir wollen uns dagegen wieder dem Problem mit willkürlichen Kapazitäten widmen
     Wir führen auch dieses Problem wieder auf ein Problem mit identischen Kapazitäten zurück.
     Dabei ist $C = \max_{e \in E}c(e)$ die maximale Kantenkapazität.
     Wie in Abschnitt~\ref{subsec:anpassenAnWillkürlicheKapazitäten} müssen die zusätzlichen $C - c(e)$ Kapazitäten
-    aller Kanten $e$ durch Platzhalterpfade aufgefüllt werden und erhalten wir eine optimale Lösung, in der alle
-    Platzhalterpfade akzeptiert wurden, so ist die Menge der akzeptierten Originalpfade eine optimale Lösung für
-    das Ursprungsproblem.
+    aller Kanten $e$ durch Platzhalterpfade aufgefüllt werden.
+    Erhalten wir eine optimale Lösung, in der alle Platzhalterpfade akzeptiert wurden, so ist die Menge der akzeptierten
+    Originalpfade wieder eine optimale Lösung für das Ursprungsproblem.
 
     Um dafür zu sorgen, dass alle Platzhalterpfade $p$ in jedem Fall akzeptiert werden, setzen wir
     $\lambda_p \colonequals G + 1$, wobei $G$ die Summe der Gewichte aller Originalpfade ist.
@@ -60,5 +60,39 @@ Wir wollen uns dagegen wieder dem Problem mit willkürlichen Kapazitäten widmen
     da jede Menge an Originalpfaden, die er stattdessen akzeptieren könnte, ein geringeres Gewicht hat und es nach
     Konstruktion genügend Kapazitäten gibt, um jeden Platzhalterpfad zu akzeptieren.
 
+    Für die Sortierung der Endpunkte aller Pfade benötigen wir noch $O(n+m)$ Zeit und erhalten insgesamt eine Laufzeit
+    von $O(n+m\cdot S(m))$.
+\end{proof}
 
+\subsection{Approximationsalgorithmus von Güte 2 für Ringe}
+In diesem Abschnitt betrachten wir einen simplen Approximationsalgorithmus von Güte 2 für das Gewichtete
+Call-Control-Problem in Ringen, d.h.\ einen Algorithmus der die optimale Lösung bis auf den Faktor 2 annähert.
+Dabei gehen wir wie folgt vor:
+
+Wir suchen die Kante $e$ des Rings mit der geringsten Kapazität $c_{\min}$ und betrachten die beiden Pfadmengen
+$Q_{\overline e}^*$ und $Q_{e}^*$.
+Dabei berechnen wir $Q_{\overline e}^*$ mit Hilfe von Abschnitt~\ref{subsec:weighted-call-control-in-chains} als die
+optimale Lösung des Gewichteten Call-Control-Problem der Kette, die durch
+Weglassen der Kante $e$ entsteht, mit allen Pfaden, die $e$ nicht enthalten.
+Dagegen stellt $Q_e^*$ die Menge der $c_{\min}$ Pfade größten Gewichts, die $e$ enthalten, dar.
+Zwischen $Q_{\overline e}^*$ und $Q_{e}^*$ wird nun die Menge mit größerem Gesamtgewicht als
+Approximationslösung von Güte 2 gewählt.
+
+\begin{theorem}
+    Der vorangehende Algorithmus birgt eine Approximation von Güte 2 für das Gewichtete Call-Controll-Problem in Ringen.
+\end{theorem}
+\begin{proof}
+    Es beschreibe $e$ die Kante aus dem Algorithmus mit der geringsten Kapazität.
+    Zunächst sehen wir, dass $Q_{\overline e}^*$ und $Q_e^*$ geeignete Mengen darstellen.
+    Das ist klar, da $Q_{\overline e}^*$ sogar eine geeignete Menge für die Kette ohne $e$ ist und $Q_e^*$ nur $c_{\min}$
+    Pfade enthält, weshalb in beiden Fällen keine Kapazitäten verletzt werden.
+
+    Sei $\OPT$ eine optimale Lösung für das Gewichtete Call-Control-Problem im Ring,
+    $\OPT$ ist eine Partition der beiden Mengen $\OPT_e \colonequals \{p \in \OPT \mid p\ \text{enthält}\ e\}$ und
+    $\OPT_{\overline e} \colonequals \{p\in\OPT\mid p\ \text{enthält}\ e\ \text{nicht}\}$.
+    Es gilt insbesondere, dass $\omega(Q_{\overline e}^*) \geq \omega(\OPT_{\overline e})$ und
+    $\omega(Q_e^*) \geq \omega(\OPT_{e})$, da $Q_{\overline e}$ und $Q_e$ in ihren Bereichen maximal gewählt wurden.
+    Daher folgt für die berechnete Lösung $Q^*$:
+    \[2 \cdot \omega(Q^*) = 2 \cdot  \max\{\omega(Q_e^*), \omega(Q_{\overline e}^*)\} \geq
+    \omega(\OPT_e) + \omega(\OPT_{\overline e}) = \omega(\OPT) \]
 \end{proof}
