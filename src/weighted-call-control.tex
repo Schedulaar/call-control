@@ -30,7 +30,7 @@ Sei $v_1 < \dots < v_r$ die sortierte Liste der Endpunkte aller Pfade ohne Dupli
 Dann erstellen wir den gerichteten Graphen mit den Endpunkten $s = v_0, \dots, v_{r+1}=t$ und erstellen
 für $1 \leq i \leq r+1$ eine Kante $(v_i-1, v_i)$ mit Kapazität $C$ und Kosten $0$.
 Außerdem erstellen wir für jeden Pfad $p$ eine {\em Pfadkante} $(s_p, t_p)$ mit $s_p$ Start- und $t_p$ Zielknoten von $p$,
-wobei die Kosten der Kante den negativen des Pfades und die Kapazität $1$ entsprechen.
+wobei die Kosten der Kante den negativen Gewichten des Pfades und die Kapazität der Kante $1$ entsprechen.
 In \todo{FIGURE} ist eine solche Transformation erkennbar.
 In einem Fluss $f$ repräsentieren dann die Pfadkanten $e$ mit $f(e)=1$ die zu akzeptiertenden Pfade.
 
@@ -38,11 +38,27 @@ Die Intuition hinter der Korrektheit dieser Problemformulierung besteht darin, d
 den Fluss der einzelnen $C$ Einheiten zu betrachten.
 Dadurch erkennt man schnell, dass maximal $C$ Flusseinheiten sich überschneidende Pfade belegen können.
 Für eine genauere Beschreibung und Analyse des Verfahren sowie dessen Laufzeit betrachte man \todo{referenz carlisle sec. 3}.
-Wir wollen uns dagegen wieder dem Problem mit willkürlichen Kapazitäten stellen.
+Wir wollen uns dagegen wieder dem Problem mit willkürlichen Kapazitäten widmen.
 
 \begin{theorem}
-    Das gewichtete Call-Control-Problem in Ketten kann in $O(N + m\cdot S(m))$ Zeitaufwand optimal gelöst werden,
-    wobei $n$ die Anzahl der Knoten, $m$ die Anzahl der Kanten und $S(m)$ die Laufzeit eines Kürzesten-Pfade-Algorithmus
-    in gerichteten Graphen mit positiven Kantengewichten und $m$ Kanten ist.
+    Das gewichtete Call-Control-Problem einer Kette $(V, E)$ mit willkürlichen Kapazitäten kann in $O(n + m\cdot S(m))$
+    Zeitaufwand optimal gelöst werden.
+    Dabei ist $n = |V|$, $m=|E|$ und $S(m)$ die Laufzeit eines Kürzesten-Pfade-Algorithmus in gerichteten Graphen mit
+    positiven Kantengewichten und $m$ Kanten.
 \end{theorem}
+\begin{proof}
+    Wir führen auch dieses Problem wieder auf ein Problem mit identischen Kapazitäten zurück.
+    Dabei ist $C = \max_{e \in E}c(e)$ die maximale Kantenkapazität.
+    Wie in Abschnitt~\ref{subsec:anpassenAnWillkürlicheKapazitäten} müssen die zusätzlichen $C - c(e)$ Kapazitäten
+    aller Kanten $e$ durch Platzhalterpfade aufgefüllt werden und erhalten wir eine optimale Lösung, in der alle
+    Platzhalterpfade akzeptiert wurden, so ist die Menge der akzeptierten Originalpfade eine optimale Lösung für
+    das Ursprungsproblem.
 
+    Um dafür zu sorgen, dass alle Platzhalterpfade $p$ in jedem Fall akzeptiert werden, setzen wir
+    $\lambda_p \colonequals G + 1$, wobei $G$ die Summe der Gewichte aller Originalpfade ist.
+    Nun hat der Algorithmus für identische Kapazitäten keine andere Wahl mehr, als jeden Platzhalterpfad zu akzeptieren,
+    da jede Menge an Originalpfaden, die er stattdessen akzeptieren könnte, ein geringeres Gewicht hat und es nach
+    Konstruktion genügend Kapazitäten gibt, um jeden Platzhalterpfad zu akzeptieren.
+
+
+\end{proof}
