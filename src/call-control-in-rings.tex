@@ -6,30 +6,32 @@ Anfangsknoten $s_p$ mit einem Zielknoten $t_p$ verbindet mit $s_p \neq t_p$.
 Dabei enthält der Pfad alle Kanten, auf die man trifft, wenn man sich vom Anfangsknoten im Uhrzeigersinn - das heißt
 bis auf $\mathrm{mod}~n$ mit aufsteigenden Knotennamen - zum Zielknoten bewegt.
 Alle Knoten eines Pfades bis auf den Anfangs- und Zielknoten heißen {\em innere Knoten}.
-Außerdem können wir ohne Einschränkung von $n \leq 2m$ ausgehen, da wir solche Knoten entfernen können, die nicht
+
+Wir können außerdem ohne Einschränkung von $n \leq 2m$ ausgehen, da wir solche Knoten entfernen können, die nicht
 Anfangs- oder Zielknoten eines Pfades sind.
 Dabei ersetzen wir die zwei Kanten, die am zu entfernenden Knoten anliegen, durch eine einzige Kante, dessen
 Kapazität das Minimum der vorherigen beiden ist.
 
 \begin{figure}[htbp]
     \centering
-    \def\svgwidth{250bp}
+    \def\svgwidth{220bp}
     \input{example_ring.pdf_tex}
-    \caption{Ein Ringnetzwerk mit 8 Knoten (mod. nach \todo{[1]})}
+    \caption{Ein Ringnetzwerk mit 8 Kanten (innen) und 7 Pfaden (außen) (mod. nach~\cite{paper})}   
+    \label{fig:example-ring}
 \end{figure}
-
-\todo{FIGURE} zeigt ein Beispiel eines Rings (innen) mit den gegebenen Pfaden (außen).
-\todo{check if feasible set is defined}
 
 Das Call-Control-Problem beschreibt hier wieder das Problem, eine möglichst große geeignete Teilmenge
 $Q \subseteq P$ zu finden.
 Dazu teilen wir die Menge der Pfade $P$ in zwei disjunkte Teilmengen $P_1$ und $P_2$.
-Dabei bildet $P_1$ die Menge der Pfade in $P$, die den Knoten $0$ nicht als inneren Knoten haben, $P_2$
+Es bildet $P_1$ die Menge der Pfade in $P$, die den Knoten $0$ nicht als inneren Knoten haben, $P_2$
 beinhaltet die restlichen Pfade, also $P \setminus P_1$.
 Diese Partition können wir ganz einfach berechnen:
-Sagen wir, dass jeder Pfad, dessen Zielknoten $0$ ist, eigentlich den Zielknoten $n$ hat, so können wir durch alle
-Pfade $p$ iterieren und falls $s_p < t_p$ gilt, so ist $0$ kein innerer Knoten von $p$ und wird daher $P_1$
-zugeordnet, sonst $P_2$.
+Wir sagen nun, dass jeder Pfad $p$, dessen Zielknoten $0$ ist, eigentlich den Zielknoten $n$ hat.
+Ist dann $s_p < t_p$, so ist $0$ kein innerer Knoten von $p$ und $p$ wird $P_1$ zugeordnet, sonst $P_2$.
+
+Abbildung~\ref{fig:example-ring} zeigt ein Beispiel eines Rings mit 8 Knoten sowie die Menge der sieben gegebenen Pfade (außen).
+Dabei stellen die Pfade $p_1,\dots,p_5$ die Menge $P_1$ dar, $p_6$ und $p_7$ die Menge $P_2$.
+
 
 Nun transformieren wir den Ring in eine Kette mit $2n$ Knoten:
 Wir fertigen zwei Kopien der Kanten $e_1,\dotsc,e_n$ aus unserem Ring an und bilden eine Kette, indem wir die
@@ -39,26 +41,26 @@ $0', \dotsc, (n-1)'$ als die zweite Kopie der Knoten kennzeichnen.
 Die Pfade werden diesem Schema angepasst, sodass Pfade in $P_1$ nur Kanten der ersten Kopie belegen, wohingegen
 jeder Pfad $p \in P_2$ aus zwei Teilpfaden besteht: Dem {\em Kopf}, der von $s_p$ bis nach $0'$ auf der ersten
 Kopie der Kanten liegt, und dem {\em Schwanz}, der von $0'$ bis $t_p '$ auf der zweiten Kopie liegt.
-In \todo{FIGURE} kann man den vorherigen Ring umgewandelt in die Kettenstruktur sehen.
-
+In Abbildung~\ref{fig:example-ring-to-chain} wurde der Ring aus aus Abbildung~\ref{fig:example-ring} in die Kettenstruktur umgewandelt.
 
 \begin{figure}[htbp]
     \centering
-    \def\svgwidth{240bp}
-    \input{pic1.pdf_tex}
-    \caption{svg image}
+    \def\svgwidth{270bp}
+    \input{example_ring_to_chain.pdf_tex}
+    \caption{Die aus dem Ring in Abb.~\ref{fig:example-ring} konstruierte Kette (mod. nach \cite{paper})}
+    \label{fig:example-ring-to-chain}
 \end{figure}
 
-Wir definieren im Weiteren für eine Menge $Q$ von Pfaden die Belastung $L_1(Q, e_i)$ bzw.\ $L_2(Q, e_i)$ der Kante
-$e_i$ in der ersten bzw.\ zweiten Kopie als die Anzahl der Pfade von $Q$, die die erste bzw.\ zweite Kopie der Kante
-$e_i$ beinhalten.
+Wir definieren im Weiteren für eine Menge $Q$ von Pfaden die {\em Belastung} $L_1(Q, e_i)$ der Kante
+$e_i$ in der ersten Kopie als die Anzahl der Pfade von $Q$, die die erste Kopie der Kante $e_i$ beinhalten.
+Analog dazu sei $L_2(Q, e_i)$ die Belastung von $e_i$ in der zweiten Kopie.
 \begin{definition}[Profil]
     Sei $Q$ eine Menge von Pfaden.
     Die \todo{should i outsource this to a lemma?} monoton fallende Folge
     \[\pi_{Q}\colonequals  (L_2(Q, e_0), \dots, L_2(Q, e_{n-1}))\]
     der Belastungen der $n$ Kanten in den zweiten Kopien heißt Profil.
-    Außerdem bezeichne $\pi_Q(e_i) \colonequals L_2(Q, e_i)$ und wir schreiben für zwei Profile $\pi$ und $\pi'$,
-    dass $\pi \leq \pi'$, falls $\pi(e_i) \leq \pi'(e_i)$ für alle Kanten $e$.
+    Außerdem bezeichne $\pi_Q(e_i) \colonequals L_2(Q, e_i)$ und für zwei Profile $\pi$ und $\pi'$ schreiben wir $\pi \leq \pi'$,
+    falls $\pi(e_i) \leq \pi'(e_i)$ für alle Kanten~$e$.
 \end{definition}
 Wir bezeichnen eine Menge $Q$ von Pfaden als {\em kettengeeignet},
 falls es in der oben konstruierten Kette keine Kapazität überschreitet, d.h.\ falls $L_1(Q, e) \leq c(e)$ und
@@ -159,17 +161,17 @@ Nun können wir die Korrektheit der Prozedur vervollständigen:
 \end{proof}
 Unsere Ergebnisse können wir nun im folgenden Theorem zusammenfassen:
 \begin{theorem}
-    Das Call-Control-Problem in Ringen kann optimal in $O(m \cdot n \cdot c_{\min} \cdot \log m)$ Zeit gelöst werden,
+    Das Call-Control-Problem in Ringen kann optimal in $\mathcal O(m \cdot n \cdot c_{\min} \cdot \log m)$ Zeit gelöst werden,
     wobei $n$ die Anzahl der Knoten, $m$ die Anzahl der Pfade und $c_{\min}$ die kleinste Kantenkapazität ist.
 \end{theorem}
 \begin{proof}
     Jede Runde des Entscheidungsalgorithmus ruft einmal den gierigen Algorithmus auf.
-    Dieser benötigt nach Theorem~\ref{lem:optimalityGreedyAlgorithm} eine Laufzeit von $O(n+m)$ und ,da o.E.\
-    $n \leq 2m$, gilt $O(n+m) = O(m)$.
-    Nach Lemma~\ref{lem:decisionProcedure} können wir in $O(n \cdot c(e_0))$ Runden eine geeignete $k$-elementige Menge finden.
-    Dies kann auf $O(n \cdot c_{\min})$ reduziert werden, indem die Kanten und Knoten des Rings so benannt werden, dass
-    die Kante $e_0$ derjenigen mit der geringsten Kapazität entspricht (dies gelingt in $O(m)$ Zeit).
-    Mit binärer Suche benötigen wir schließlich noch $O(\log m)$ Entscheidungsrunden, um das größte $k \in \{0, \dots, m\}$
+    Dieser benötigt nach Theorem~\ref{lem:optimalityGreedyAlgorithm} eine Laufzeit von $\mathcal O(n+m)$ und ,da o.E.\
+    $n \leq 2m$, gilt $\mathcal O(n+m) = \mathcal O(m)$.
+    Nach Lemma~\ref{lem:decisionProcedure} können wir in $\mathcal O(n \cdot c(e_0))$ Runden eine geeignete $k$-elementige Menge finden.
+    Dies kann auf $\mathcal O(n \cdot c_{\min})$ reduziert werden, indem die Kanten und Knoten des Rings so benannt werden, dass
+    die Kante $e_0$ derjenigen mit der geringsten Kapazität entspricht (dies gelingt in $\mathcal \mathcal O(m)$ Zeit).
+    Mit binärer Suche benötigen wir schließlich noch $\mathcal O(\log m)$ Entscheidungsrunden, um das größte $k \in \{0, \dots, m\}$
     mit einer geeigneten $k$-elementigen Menge zu finden.
 \end{proof}
 

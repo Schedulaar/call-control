@@ -21,6 +21,7 @@
 \usepackage{xcolor}
 \usepackage{titling}
 \usepackage{graphicx}
+
 \renewcommand{\baselinestretch}{1.2}
 
 \setlength{\droptitle}{-5em}
@@ -51,50 +52,15 @@ urlcolor=black
 \newcommand{\capacity}{\text{\em cap}}
 \newcommand{\Mod}{~\mathrm{mod}~}
 \newcommand{\OPT}{\text{OPT}}
+\newcommand{\CallControl}{\text{Call-Control}}
+\newcommand{\WeightedCallControl}{\text{Weighted-Call-Control}}
 
 % Document
 \begin{document}
     \maketitle
 
-
     \section{Einführung}\label{sec:einführung}
-
-    \todo{Lösung heißt Menge von Pfaden}
-
-    \begin{definition}[Call-Control-Problem]
-        Sei $(V,E)$ ein ungerichteter Graph, dessen Kanten die Kapazitäten $c: E \to \mathbb{N}$ besitzen, und $P$ eine
-        (Multi-)Menge von $m \in \mathbb{N}$ Pfaden in $(V,E)$.
-        Eine Menge $Q \subseteq P$ heißt {\em geeignet}, falls für jede Kante $e \in E$ die Anzahl aller Pfade in $Q$,
-        die $e$ enthalten, höchstens $c(e)$ ist.
-        Die Pfade einer geeigneten Menge heißen $akzeptiert$.
-        Das {\em Call-Control-Problem} besteht darin, die Anzahl der akzeptierten Pfade zu maximieren.
-    \end{definition}
-
-    Im Speziellen betrachten wir das Call-Control-Problem in Ringen und Ketten.
-    Eine {\em Kette} ist ein ungerichteter Graph $(V,E)$, der nur aus den Kanten und Knoten eines Weges besteht.
-    Ein {\em Ring} ist dabei ein ungerichteter Graph, der nur aus den Kanten und Knoten eines Zyklus' besteht.
-    Betrachten wir einen Ring $(V,E)$ mit $V=\{0, \dots , n-1\}$ aufgezeichnet auf einer Ebene, bei dem die Knoten nach
-    dem Uhrzeigersinn nummeriert werden, können wir jeden Pfad im Ring durch einen Anfangs- und Zielknoten identifizieren,
-    wobei der Pfad vom Anfangsknoten aus im Uhrzeigersinn bis zum Zielknoten \glqq verläuft\grqq.
-    Für einen Pfad $p$ in einem solchen Ring oder einer Kette, nennen wir $s_p$ den
-    Anfangsknoten und $t_p$ den Zielknoten des Pfades und schreiben $p=(s_p, t_p)$.
-
-
-    \subsection{Motivation und Anwendungen}\label{subsec:motivationUndAnwendungen}
-    Diese Problemstellung findet seine Anwendung darin, in einem (Kommunikations-)Netzwerk mit festen Bandbreiten jeder
-    Kante und einer gegebenen Menge an Anfragen möglichst viele dieser Anfragen zuzulassen, wobei jede Anfrage auf allen
-    Kanten ihres Pfades genau eine Bandbreiteneinheit aufbraucht und keine Kante ihre Bandbreite überschreiten kann.
-
-    Oft trifft man zwar auf die online-Variante des Problems, das heißt, dass jede Anfrage schon bei Eintreffen und
-    ohne Wissen über künftige Anfragen akzeptiert oder abgelehnt werden muss.
-    Jedoch sind die Erkenntnisse über das offline-Problem auch hier relevant, um eine entsprechende Lösung für das
-    online-Problem entwerfen zu können.
-    Außerdem kann die optimale Lösung des offline-Problems als Vergleichspunkt bei der Bewertung von Lösungen des
-    online-Problems genutzt werden.
-
-    Eine Anwendung bietet das Problem der zyklischen Ablaufplanung:
-
-    \todo{Kette ist schon durchnummeriert definiert}
+    \input{introduction}
 
 	\section{Optimale Lösung des Call-Control-Problems in Ketten}\label{sec:call-control-in-chains}
 	\input{call-control-in-chains}
@@ -105,6 +71,7 @@ urlcolor=black
     \section{Gewichtetes Call-Control-Problem}\label{sec:weighted-call-control}
     \input{weighted-call-control}
 
-\end{document}
+    \bibliographystyle{plain}
+    \bibliography{main}
 
-[ll] R.E. Tarjan, Data Structures and Network Algorithms (SIAM, Philadelphia, PA, 1983).
+\end{document}

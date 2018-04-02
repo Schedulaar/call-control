@@ -1,0 +1,66 @@
+Bei der Optimierung von Kommunikationssystemen geht es oft darum, konkrete Probleme auf abstrakte, mathematische 
+Problemstellungen zurückzuführen, und man gelangt so in vielen Fällen zu Problemen in Graphen.
+Eines dieser Problem beschreibt das Call-Control-Problem (auch Call-Admission-Control-Problem), bei dem
+in einem Netzwerk eine Menge von Anfragen (sog.\ calls) gestellt werden und jede Anfrage gemäß einer bestimmten Zielsetzung
+akzeptiert oder verworfen werden muss.
+Es soll insbesondere sichergestellt werden, dass durch das Durchführen der akzeptierten Anfragen die Bandbreiten,
+die das Netzwerk zur Verfügung stellt, nicht überstrapaziert werden.
+Eine weitere Zielsetzung könnte dann beispielsweise sein, die Anzahl der akzeptierten Anfragen zu maximieren.
+
+Da es meist schwierig ist, über willkürliche Graphen weitreichende Aussagen zu treffen, schränkt
+man sich oft auf bestimmte Typen eines Graphen ein.
+So werden wir uns im Folgenden auf Netzwerke beschränken, die sich als Ring- oder Kettengraph darstellen lassen.
+
+\subsection{Problemdefinition}
+Im Speziellen behandeln wir nur das sogenannte Offline-Problem.
+Das bedeutet, dass die Menge von Anfragen bereits zu Beginn feststeht und keine weiteren Anfragen während der
+Laufzeit hinzukommen.
+
+Zunächst wollen wir einige wichtige Begriffe wie dem eines (ungerichteten) Netzwerks einführen:
+
+\begin{definition}[Netzwerk]
+	Sei $(V,E)$ ein ungerichteter Graph mit Knoten $V$ und Kanten $E$, und $c: E \to \set N$ eine Kapazitätsfunktion.
+	Das Tupel $(V,E,c)$ heißt (ungerichtetes) Netzwerk und eine Kante $e$ besitzt darin die Kapazität $c(e)$.
+\end{definition}
+
+Die Anfragen werden nun als Pfade in einem Netzwerk betrachtet.
+Dabei verbraucht ein Pfad eine Kapazitätseinheit einer Kante, falls er die Kante enthält.
+Für die Zielsetzung, die Anzahl der Anfragen zu maximieren, nennen wir das entstehende Problem \CallControl.
+Sind die Pfade gewichtet und wir wollen das Gesamtgewicht maximieren, reden wir von \WeightedCallControl.
+
+\begin{definition}[\CallControl\ und \WeightedCallControl]
+    Sei $(V,E,c)$ ein ungerichtetes Netzwerk und $P$ eine (Multi-)Menge von $m \in \set N$ Pfaden in $(V,E,c)$.
+    Eine Menge $Q \subseteq P$ heißt {\em geeignet}, falls für jede Kante $e \in E$ die Anzahl aller Pfade in $Q$,
+    die $e$ enthalten, höchstens $c(e)$ ist.
+    
+    {\em \CallControl} besteht darin, eine geeignete Menge $Q$ maximaler Mächtigkeit zu finden.
+    Eine solche Menge nennen wir dann eine {\em Lösung} des \CallControl-Problems.
+    
+    Gibt es außerdem eine Gewichtsfunktion $\omega \colon P \rightarrow \set R_+$, die jedem Pfad in $P$ ein 
+    positives Gewicht zuweist, heißt das Problem, eine geeignete Menge $Q$ mit maximalem Gesamtgewicht
+    $\omega(Q) \coloneqq \sum_{p \in Q} \omega(p)$ zu finden, {\em \WeightedCallControl}.
+    Eine solche Menge $Q$ ist eine {\em Lösung} des \WeightedCallControl-Problems.
+\end{definition}
+
+Im Speziellen betrachten wir das Call-Control-Problem in Ringen und Ketten.
+Eine {\em Kette} ist ein ungerichteter Graph $(V,E)$, der nur aus den Kanten und Knoten eines Weges besteht.
+Ein {\em Ring} ist dabei ein ungerichteter Graph, der nur aus den Kanten und Knoten eines Zyklus' besteht.
+Betrachten wir einen Ring $(V,E)$ mit $V=\{0, \dots , n-1\}$ aufgezeichnet auf einer Ebene, bei dem die Knoten nach
+dem Uhrzeigersinn nummeriert werden, können wir jeden Pfad im Ring durch einen Anfangs- und Zielknoten identifizieren,
+wobei der Pfad vom Anfangsknoten aus im Uhrzeigersinn bis zum Zielknoten \glqq verläuft\grqq.
+Für einen Pfad $p$ in einem solchen Ring oder einer Kette, nennen wir $s_p$ den
+Anfangsknoten und $t_p$ den Zielknoten des Pfades und schreiben $p=(s_p, t_p)$.
+
+
+\subsection{Motivation und Anwendungen}\label{subsec:motivationUndAnwendungen}
+
+Oft trifft man in praktischen Anwendungen zwar auf die online-Variante des Problems, bei der jede Anfrage schon bei Eintreffen und
+ohne Wissen über künftige Anfragen akzeptiert oder abgelehnt werden muss.
+Jedoch sind die Erkenntnisse über das offline-Problem auch hier relevant, um eine entsprechende Lösung für das
+online-Problem entwerfen zu können.
+Außerdem kann die optimale Lösung des offline-Problems als Vergleichspunkt bei der Bewertung von Lösungen des
+online-Problems genutzt werden.
+
+Eine Anwendung bietet das Problem der zyklischen Ablaufplanung:
+
+\todo{Kette ist schon durchnummeriert definiert}

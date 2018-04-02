@@ -16,7 +16,7 @@ Im Folgenden bezeichne $\leq_G$ eine feste gierige Ordnung.
 Jede geeignete Menge $A$ von $k$ Pfaden kann identifiziert werden durch eine Menge $\{a_1, \dots, a_k\}$ mit
 $a_1 <_G \dots <_G a_k$.
 Für $A=\{a_1,\dots,a_k\}$ und $B=\{b_1,\dots,b_k\}$ schreiben wir $A \leq_G B$, falls $\forall i \in \{1,\dots,k\}\colon a_i \leq_G b_i$.
-Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls für jede gleichmächtige, geeignete Menge $B$
+Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls für jede gleich-mächtige, geeignete Menge $B$
 gilt $A \leq_G B$.
 \begin{lemma}[Optimalität des gierigen Algorithmus']\label{lem:optimalityGreedyAlgorithm}
     Existiert bei einer Menge $P$ von Pfaden einer Kette eine geeignete Teilmenge mit $k \in \set N$ Pfaden, so ist die
@@ -76,7 +76,7 @@ Wir gehen davon aus, dass $(V,E)$ eine Kette ist, $P$ eine Menge von $m$ Pfaden 
 feste Kapazität $C \in \set N$ besitzt.
 Dabei können wir ohne Beschränkung der Allgemeinheit von $C \leq m$ ausgehen.
 Die Idee des Algorithmus besteht darin, die akzeptierten Pfade nach gieriger Ordnung in $C$ verschiedene Farben zu
-färben.
+färben, wobei sich zwei akzeptierte Pfade derselben Farbe nicht überschneiden sollen.
 
 Dabei wird zu jeder Farbe der aktuelle {\em Anführer} gespeichert, das heißt, der in gieriger Ordnung größte, bereits
 verarbeitete Pfad mit der Farbe.
@@ -180,7 +180,7 @@ damit Schwankungen in den Kapazitäten etwas ausgleichen.
 Um diese Erkenntnis umzusetzen, definieren wir eine neue Kapazitätsfunktion $c'$ mit $c'(e_0) = \min(c(e_0), n_0)$ und
 $ c'(e_i) \colonequals \min(c(e_i), c'(e_{i-1}) + n_i)$ für $i \geq 1$ , wobei $n_i$ die Anzahl der Pfade in P mit
 Anfangsknoten $v_i$ ist.
-Diese können wir in $O(n + m) = O(m)$ Zeit berechnen: Dazu gehen wir für jeden Knoten $v_i$ solange durch die sortierte
+Diese können wir in $\mathcal O(n + m) = \mathcal O(m)$ Zeit berechnen: Dazu gehen wir für jeden Knoten $v_i$ solange durch die sortierte
 \todo{Liste der Endknoten aller Pfade}, bis wir alle Pfade mit Anfangsknoten $v_i$ gesehen haben, womit wir
 $n_i$ wissen und $c'(e_i)$ berechnen können.
 Durch das Verwenden von $c'$ statt $c$ wird die Lösung des Problems auch nicht verändert, da nur Kapazitäten entfernt
@@ -189,7 +189,7 @@ Insbesondere ist also jede geeignete Menge mit den Kapazitäten c auch eine geei
 Das nächste Lemma soll nun aufklären, ob unser Vorgehen die Anzahl an Platzhaltern ausreichend verringern konnte:
 
 \begin{lemma}
-    Mit den neuen Kapazitäten $c'$ werden nur noch O(m) Platzhalterpfade erzeugt.
+    Mit den neuen Kapazitäten $c'$ werden nur noch $\mathcal O(m)$ Platzhalterpfade erzeugt.
 \end{lemma}
 \begin{proof}
     \todo{check n-1}
@@ -200,10 +200,10 @@ Das nächste Lemma soll nun aufklären, ob unser Vorgehen die Anzahl an Platzhal
     Insbesondere ist also $I$ beschränkt durch die Anzahl an Pfaden $m$.
     Ein Platzhalterpfad wir außerdem nur dann erzeugt, wenn der Algorithmus auf einen Zuwachs in den Kapazitäten stößt
     oder das Ende der Kette erreicht ist.
-    Das heißt es werden höchstens $I + C = O(m)$ Platzhalterpfade erzeugt.
+    Das heißt es werden höchstens $I + C = \mathcal O(m)$ Platzhalterpfade erzeugt.
 \end{proof}
 
-Insbesondere gelingt also die Anpassung der Kapazitäten, sowie das Auffüllen mit Platzhalterpfaden in $O(m)$ Zeit.
+Insbesondere gelingt also die Anpassung der Kapazitäten, sowie das Auffüllen mit Platzhalterpfaden in $\mathcal O(m)$ Zeit.
 Nun müssen wir uns nur noch der Herausforderung stellen, beim Lösen des Problems mit identischen Kapazitäten alle
 Platzhalter zu akzeptieren.
 Die Idee dabei ist, die Platzhalterpfade so früh wie möglich zu akzeptieren, und erst danach alle anderen Pfade zu
@@ -219,7 +219,7 @@ Wir benutzen mit dem fiktiven Anführer und den $C$ virtuellen Pfaden wieder die
 Abschnitt~\ref{subsec:algorithmusGleicheKapazitäten}, wobei diese in $\leq_G$ wieder vor den restlichen Pfaden stehen.
 Für die Berechnung der bevorzugten Anführer jedes Pfades $p$ (also dem in $\leq_G$ größten Pfad, dessen
 Zielknoten kleinergleich dem Anfangsknoten von $p$ ist) benötigen wir mit $\leq_G$ ebenfalls einen Zeitaufwand von
-$O(m)$.
+$\mathcal O(m)$.
 Auch die Union-Find-Struktur bleibt die gleiche und jeder Pfad startet in seiner eigenen Gruppe.
 Nun iteriert der Algorithmus durch L und verarbeitet dabei Platzhalterpfade beim Antreffen vom
 Anfangsknoten und tatsächliche Pfade beim Antreffen vom Zielknoten.
@@ -278,7 +278,7 @@ Darauf folgt nun:
 
 \begin{theorem}
     Der gierige Algorithmus berechnet eine optimale Lösung in Ketten mit beliebigen Kapazitäten in einer Laufzeit von
-    $O(n+m)$, wobei $n$ die Anzahl der Knoten und $m$ die Anzahl der gegebenen Pfade ist.
+    $\mathcal O(n+m)$, wobei $n$ die Anzahl der Knoten und $m$ die Anzahl der gegebenen Pfade ist.
 \end{theorem}
 
 

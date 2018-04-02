@@ -1,7 +1,7 @@
 Nachdem wir nun optimale Lösungen für das Call-Control-Problem in Ketten und Ringen gefunden haben, modifizieren
 wir in diesem Kapitel die Problemstellung ein wenig.
-So geben wir jedem der Pfade $p$ ein bestimmtes Gewicht $\lambda_p \in \set R_+$ und versuchen statt der
-Anzahl der akzeptierten Pfade $Q$ das Gesamtgewicht $\omega(Q) \colonequals \sum_{p\in Q}\lambda_p$ zu maximieren, ohne
+So geben wir jedem der Pfade $p$ ein bestimmtes Gewicht $\omega(p) \in \set R_+$ und versuchen statt der
+Anzahl der akzeptierten Pfade $Q$ das Gesamtgewicht $\omega(Q) \colonequals \sum_{p\in Q}\omega(p)$ zu maximieren, ohne
 dabei die Kapazität einer Kante zu verletzen.
 Dabei verbraucht weiterhin jeder Pfad eine Kapazitätseinheit einer Kante, falls die Kante Teil des Pfades ist.
 
@@ -41,7 +41,7 @@ Für eine genauere Beschreibung und Analyse des Verfahren sowie dessen Laufzeit 
 Wir wollen uns dagegen dem Problem mit willkürlichen Kapazitäten widmen.
 
 \begin{theorem}
-    Das gewichtete Call-Control-Problem einer Kette $(V, E)$ mit willkürlichen Kapazitäten kann in $O(n + m\cdot S(m))$
+    Das gewichtete Call-Control-Problem einer Kette $(V, E)$ mit willkürlichen Kapazitäten kann in $\mathcal O(n + m\cdot S(m))$
     Zeitaufwand optimal gelöst werden.
     Dabei ist $n = |V|$, $m=|E|$ und $S(m)$ die Laufzeit eines Kürzesten-Pfade-Algorithmus in gerichteten Graphen mit
     positiven Kantengewichten und $m$ Kanten.
@@ -55,13 +55,13 @@ Wir wollen uns dagegen dem Problem mit willkürlichen Kapazitäten widmen.
     Originalpfade wieder eine optimale Lösung für das Ursprungsproblem.
 
     Um dafür zu sorgen, dass alle Platzhalterpfade $p$ in jedem Fall akzeptiert werden, setzen wir
-    $\lambda_p \colonequals G + 1$, wobei $G$ die Summe der Gewichte aller Originalpfade ist.
+    $\omega(p) \colonequals G + 1$, wobei $G$ die Summe der Gewichte aller Originalpfade ist.
     Nun hat der Algorithmus für identische Kapazitäten keine andere Wahl mehr, als jeden Platzhalterpfad zu akzeptieren,
     da jede Menge an Originalpfaden, die er stattdessen akzeptieren könnte, ein geringeres Gewicht hat und es nach
     Konstruktion genügend Kapazitäten gibt, um jeden Platzhalterpfad zu akzeptieren.
 
-    Für die Sortierung der Endpunkte aller Pfade benötigen wir noch $O(n+m)$ Zeit und erhalten insgesamt eine Laufzeit
-    von $O(n+m\cdot S(m))$.
+    Für die Sortierung der Endpunkte aller Pfade benötigen wir noch $\mathcal O(n+m)$ Zeit und erhalten insgesamt eine Laufzeit
+    von $\mathcal O(n+m\cdot S(m))$.
 \end{proof}
 
 \subsection{Approximationsalgorithmus von Güte 2 für Ringe}
