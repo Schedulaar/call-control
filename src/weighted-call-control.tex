@@ -1,4 +1,4 @@
-Nachdem wir nun optimale Lösungen für das Call-Control-Problem in Ketten und Ringen gefunden haben, modifizieren
+Nachdem wir nun optimale Lösungen für das \CallControl-Problem in Ketten und Ringen gefunden haben, modifizieren
 wir in diesem Kapitel die Problemstellung ein wenig.
 So geben wir jedem der Pfade $p$ ein bestimmtes Gewicht $\omega(p) \in \set R_+$ und versuchen statt der
 Anzahl der akzeptierten Pfade $Q$ das Gesamtgewicht $\omega(Q) \colonequals \sum_{p\in Q}\omega(p)$ zu maximieren, ohne
@@ -8,7 +8,7 @@ Dabei verbraucht weiterhin jeder Pfad eine Kapazitätseinheit einer Kante, falls
 Wir werden dazu für das Problem in Ketten einen optimalen Algorithmus finden, jedoch für das Problem in Ringen
 nur Approximationsalgorithmen kennenlernen. \todo{PTAS? BIPARTITE?}
 
-\subsection{Gewichtetes Call-Control-Problem in Ketten}\label{subsec:weighted-call-control-in-chains}
+\subsection{\WeightedCallControl-Problem in Ketten}\label{subsec:weighted-call-control-in-chains}
 Für den Fall, dass alle Kanten $e$ wieder identische Kapazitäten $c(e) = C \in \set N$ haben, stellt \todo{REFERENZ CARLISLE}
 eine optimale Lösung für das äquivalente Problem des $C$-Färbens von gewichteten Intervallen vor. \todo{check that we described why we can assemble these problems}.
 Dabei wird das Problem auf ein Minimum-Cost Flow Problem reduziert, und dadurch eine Laufzeit von $O(C\cdot S(m))$

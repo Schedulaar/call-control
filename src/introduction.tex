@@ -12,7 +12,7 @@ man sich oft auf bestimmte Typen eines Graphen ein.
 So werden wir uns im Folgenden auf Netzwerke beschränken, die sich als Ring- oder Kettengraph darstellen lassen.
 
 \subsection{Problemdefinition}
-Im Speziellen behandeln wir nur das sogenannte Offline-Problem.
+Im Speziellen behandeln wir nur das sogenannte off-line Szenario.
 Das bedeutet, dass die Menge von Anfragen bereits zu Beginn feststeht und keine weiteren Anfragen während der
 Laufzeit hinzukommen.
 
@@ -38,11 +38,10 @@ Sind die Pfade gewichtet und wir wollen das Gesamtgewicht maximieren, reden wir 
     
     Gibt es außerdem eine Gewichtsfunktion $\omega \colon P \rightarrow \set R_+$, die jedem Pfad in $P$ ein 
     positives Gewicht zuweist, heißt das Problem, eine geeignete Menge $Q$ mit maximalem Gesamtgewicht
-    $\omega(Q) \coloneqq \sum_{p \in Q} \omega(p)$ zu finden, {\em \WeightedCallControl}.
-    Eine solche Menge $Q$ ist eine {\em Lösung} des \WeightedCallControl-Problems.
+    $\omega(Q) \coloneqq \sum_{p \in Q} \omega(p)$ zu finden, {\em \WeightedCallControl} und $Q$ heißt 
+    {\em Lösung} des \WeightedCallControl-Problems.
 \end{definition}
 
-Im Speziellen betrachten wir das Call-Control-Problem in Ringen und Ketten.
 Eine {\em Kette} ist ein ungerichteter Graph $(V,E)$, der nur aus den Kanten und Knoten eines Weges besteht.
 Ein {\em Ring} ist dabei ein ungerichteter Graph, der nur aus den Kanten und Knoten eines Zyklus' besteht.
 Betrachten wir einen Ring $(V,E)$ mit $V=\{0, \dots , n-1\}$ aufgezeichnet auf einer Ebene, bei dem die Knoten nach
