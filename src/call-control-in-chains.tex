@@ -1,17 +1,17 @@
 Zunächst betrachten wir den einfacheren Fall des Problems, nämlich den in einer Kette:
 Sei $(V,E)$ eine Kette mit Kapazitäten $c: E \to \set N$ und $V=\{0,\dots,n\}$, sodass für $i \in \{0,\dots,n-1\}$
-eine Kante $e_i$ existiert, die die Knoten $i$ und $i+1$ verbindet.
-Eine solche Kette nennen wir \todo{todo} {\em $(0, n)$-durchnummeriert}.
+die Kante $e_i$ die Knoten $i$ und $i+1$ verbindet.
 \begin{definition}[Gierige Ordnung]
     Auf einer Menge $P$ von Pfaden in einer Kette $(V,E)$ nennen wir eine totale Ordnung $\leq_G$ {\em gierig},
     falls sie die Pfade nach ihren Zielknoten aufsteigend ordnet, das heißt, falls
     $\forall p, q \in P \colon t_p < t_q \Rightarrow p <_G q$.
 \end{definition}
-Die Berechnung der Lösung erfolgt nun mit dem {\em gierigen Algorithmus}: Dieser arbeitet auf der Eingabe einer
-Kette $(V,E)$ sowie einer Menge $A$ von Pfaden in $(V,E)$ in gieriger Ordnung sortiert. \todo{check sorting (p.229)}
+Die Berechnung der Lösung für \CallControl\ im Ring erfolgt mit dem {\em gierigen Algorithmus}: 
+Dieser arbeitet auf der Eingabe einer Kette $(V,E)$ sowie einer Menge $A$ von Pfaden in $(V,E)$ in gieriger Ordnung sortiert. \todo{check sorting (p.229)}
 Er bearbeitet alle Pfade in gieriger Ordnung und akzeptiert einen Pfad, falls dadurch keine der Kapazitäten
 überschritten wird, ansonsten lehnt er den Pfad ab.
 Nachdem alle Pfade bearbeitet wurden, endet der Algorithmus und liefert die akzeptierten Pfade als Rückgabe.
+
 Im Folgenden bezeichne $\leq_G$ eine feste gierige Ordnung.
 Jede geeignete Menge $A$ von $k$ Pfaden kann identifiziert werden durch eine Menge $\{a_1, \dots, a_k\}$ mit
 $a_1 <_G \dots <_G a_k$.
@@ -38,12 +38,12 @@ gilt $A \leq_G B$.
 
     Für den Fall $p \in Q_{i-1}$ ist $p$ auch bereits der $i$-te Pfad von $Q_{i-1}$, da der Algorithmus nach
     gieriger Ordnung vorgeht und $Q_{i-1}$ mit $G$ auf den ersten $i-1$ Pfaden übereinstimmmt.
-    Setzt man $Q_i \colonequals Q_{i-1}$ so bleiben alle Invarianten erhalten.
+    Setzt man $Q_i \coloneqq Q_{i-1}$ so bleiben alle Invarianten erhalten.
 
     Sonst gilt $p \notin Q_{i-1}$ und die Menge der Pfade $q \in Q_{i-1}$ mit $q >_G p$ ist nicht leer.
     Von diesen Pfaden sei $q$ ein solcher mit kleinstem Startknoten, der an $j$-ter Stelle in $Q_{i-1}$ steht
     ($j \geq i$).
-    Setzen wir nun $Q_{i} \colonequals Q_{i-1} \setminus \{ q \} \cup \{ p \}$, so stimmen $Q_{i}$ und $G$ an den
+    Setzen wir nun $Q_{i} \coloneqq Q_{i-1} \setminus \{ q \} \cup \{ p \}$, so stimmen $Q_{i}$ und $G$ an den
     ersten $i$ Stellen wieder überein und alle Pfade, die in $Q_{i-1}$ an den Stellen $i$ bis $j-1$ stehen, rutschen
     in $Q_i$ eine Stelle weiter an die Positionen $i+1$ bis $j$.
     Insbesondere gilt also $Q_i \leq_G Q_{i-1}$.

@@ -11,7 +11,7 @@ Da es meist schwierig ist, über willkürliche Graphen weitreichende Aussagen zu
 man sich oft auf bestimmte Typen eines Graphen ein.
 So werden wir uns im Folgenden auf Netzwerke beschränken, die sich als Ring- oder Kettengraph darstellen lassen.
 
-\subsection{Problemdefinition}
+\subsection{Problemdefinition und Bezeichnungen}
 Im Speziellen behandeln wir nur das sogenannte off-line Szenario.
 Das bedeutet, dass die Menge von Anfragen bereits zu Beginn feststeht und keine weiteren Anfragen während der
 Laufzeit hinzukommen.
@@ -42,24 +42,43 @@ Sind die Pfade gewichtet und wir wollen das Gesamtgewicht maximieren, reden wir 
     {\em Lösung} des \WeightedCallControl-Problems.
 \end{definition}
 
-Eine {\em Kette} ist ein ungerichteter Graph $(V,E)$, der nur aus den Kanten und Knoten eines Weges besteht.
-Ein {\em Ring} ist dabei ein ungerichteter Graph, der nur aus den Kanten und Knoten eines Zyklus' besteht.
-Betrachten wir einen Ring $(V,E)$ mit $V=\{0, \dots , n-1\}$ aufgezeichnet auf einer Ebene, bei dem die Knoten nach
-dem Uhrzeigersinn nummeriert werden, können wir jeden Pfad im Ring durch einen Anfangs- und Zielknoten identifizieren,
-wobei der Pfad vom Anfangsknoten aus im Uhrzeigersinn bis zum Zielknoten \glqq verläuft\grqq.
-Für einen Pfad $p$ in einem solchen Ring oder einer Kette, nennen wir $s_p$ den
-Anfangsknoten und $t_p$ den Zielknoten des Pfades und schreiben $p=(s_p, t_p)$.
+Eine {\em Kette} ist ein ungerichteter Graph $(V,E)$, der nur aus den Kanten und Knoten eines Pfades besteht, also einem
+Weg mit den Kanten $E=\{(v_0, v_1),\dots,(v_{n-2},v_{n-1})\}$, sodass $v_i \neq v_j$ für $i \neq j$.
+Dabei stellen wir uns vor, dass eine Kette entlang einer horizontalen Linie aufgezeichnet ist, wobei die
+Knoten meist von $0$ bis $n$ von links nach rechts durchnummeriert sind und wir sagen entsprechend, eine Kante bzw.\ ein Knoten 
+liege {\em vor} einer anderen Kante bzw.\ einem anderen Knoten, falls diese(r) weiter links liegt.
+Jeder Teilpfad $p$ kann in einer Kette durch zwei Endknoten identifiziert werden, einem Anfangsknoten $s_p$ und einem 
+Zielknoten $t_p$, während der Anfangsknoten vor dem Zielknoten liegt.
+
+Ein {\em Ring} ist ein ungerichteter Graph, der nur aus den Kanten und Knoten eines Kreises besteht, d.h.\ aus einem Weg 
+mit den Kanten $E=\{(v_0, v_1),\dots,(v_{n-2},v_{n-1})\}$, sodass $v_0 = v_{n-1}$ und $v_i \neq v_j$ für alle anderen Paare $i,j$ 
+mit $i \neq j$.
+Betrachten wir einen Ring mit den Knoten $V=\{0, \dots , n-1\}$ aufgezeichnet auf einer Ebene, bei dem die Knoten nach
+dem Uhrzeigersinn nummeriert wurden, identifizieren wir wieder jeden Pfad $p$ im Ring durch einen Anfangsknoten $s_p$ und einen Zielknoten 
+$t_p$, wobei der Pfad alle Kanten vom Anfangsknoten aus im Uhrzeigersinn bis zum Zielknoten enthält.
 
 
 \subsection{Motivation und Anwendungen}\label{subsec:motivationUndAnwendungen}
 
 Oft trifft man in praktischen Anwendungen zwar auf die online-Variante des Problems, bei der jede Anfrage schon bei Eintreffen und
-ohne Wissen über künftige Anfragen akzeptiert oder abgelehnt werden muss.
-Jedoch sind die Erkenntnisse über das offline-Problem auch hier relevant, um eine entsprechende Lösung für das
-online-Problem entwerfen zu können.
-Außerdem kann die optimale Lösung des offline-Problems als Vergleichspunkt bei der Bewertung von Lösungen des
+ohne Wissen über künftige Anfragen akzeptiert oder abgelehnt werden muss,
+jedoch sind die Erkenntnisse über das offline-Problem auch hier relevant:
+So ist es beispielsweise während der Konzeption eines Netzwerks hilfreich, die größtmögliche Belastbarkeit unter bestimmten 
+Bedingungen untersuchen zu können.
+Daneben gibt es auch Netzwerke, die für Anfragen Bandbreiten-Reservierungen im Voraus erlauben und diese dann in einem 
+vorgeschriebenen Zeitintervall abarbeiten, welches das offline-Problem in jedem dieser Intervalle abbildet.
+Außerdem kann die optimale Lösung des offline-Problems auch als Vergleichswert bei der Bewertung von Lösungen des
 online-Problems genutzt werden.
 
-Eine Anwendung bietet das Problem der zyklischen Ablaufplanung:
+Eine direkte Anwendung bietet die zyklischen Ablaufplanung.
+Hier ist beispielsweise eine Menge an Aufgaben gegeben, die je in einem bestimmten Zeitintervall innerhalb eines Tages erledigt werden sollen.
+Diese Zeitintervalle dürfen sich beliebig überschneiden oder sogar bis in den nächsten Tag reichen - müssen jedoch immer kürzer als 24 Stunden andauern.
+Der Tag wird nun in so viele Intervalle $t_i$ aufgeteilt, sodass jedes Zeitintervall der Aufgaben als Vereinigung von 
+aufeinanderfolgender $t_i$ dargestellt werden kann.
+Außerdem stehen jeden Tag im Zeitintervall $t_i$ genau $c_i$ Maschinen zur Verfügung und jede Maschine kann jede Aufgabe erledigen, wobei immer nur 
+eine Maschine an einer Aufgabe gleichzeitig arbeiten kann.
+Ziel ist es nun einen Ablaufplan zu finden, der die Anzahl an Aufgaben, die an einem Tag bearbeitet werden, maximiert.
+Dazu kann \CallControl\ verwendet werden: Das Ringnetzwerk ist dabei durch die Kanten $t_i$ mit den Kapazitäten $c_i$ der verfügbaren Maschinen
+zu jedem Zeitintervall gegeben. Die dazugehörigen Anfragen stellen dabei die Aufgaben dar, dessen Zeitintervalle als Pfade auf dem Ring betrachtet
+werden können.
 
-\todo{Kette ist schon durchnummeriert definiert}
