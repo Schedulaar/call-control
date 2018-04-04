@@ -8,9 +8,9 @@ Außerdem sei $P$ eine Menge von Pfaden in $(V,E)$ gegeben.
     $\forall p, q \in P \colon t_p < t_q \Rightarrow p <_G q$.
 \end{definition}
 Im Folgenden bezeichne $\leq_G$ eine feste gierige Ordnung.
-Die Berechnung der Lösung für \CallControl\ im Ring erfolgt mit dem {\em gierigen Verfahren}: 
+Die Berechnung der Lösung für \CallControl\ im Ring erfolgt mit dem {\em gierigen Verfahren}:
 Dieser nimmt an, dass die Pfade $P$ bereits in gieriger Ordnung $\leq_G$ sortiert sind.
-Er bearbeitet alle Pfade in der gegebenen Sortierung und fügt ihn zu den akzeptierten Pfaden hinzu, falls diese 
+Er bearbeitet alle Pfade in der gegebenen Sortierung und fügt ihn zu den akzeptierten Pfaden hinzu, falls diese
 dadurch keine der Kantenkapazitäten verletzt, das heißt, falls diese dadurch eine geeignete Menge bleibt.
 Ansonsten lehnt er den Pfad ab.
 Nachdem alle Pfade bearbeitet wurden, endet das Verfahren und liefert die akzeptierten Pfade als Rückgabe.
@@ -66,7 +66,7 @@ Verfahren nach Lemma~\ref{lem:optimalityGreedyAlgorithm} eine gleichmächtige, s
 Eine einfache Implementierung dieses Verfahrens könnte in $\mathcal O(m \cdot n)$ erfolgen, wobei $m$ die Anzahl der gegebenen
 Pfade und $n$ die Anzahl der Kanten ist, indem einfach für jeden Pfad einzeln an jeder Kante überprüft wird, ob durch
 die Hinzunahme die Kapazität überschritten wird.
-Jedoch lässt sich dieser Zeitaufwand sogar auf $\mathcal O(m)$ verringern, wie wir in den nächsten Abschnitten erkennen werden.
+Jedoch lässt sich dieser Zeitaufwand sogar auf $\mathcal O(n+m)$ verringern, wie wir in den nächsten Abschnitten erkennen werden.
 Dabei werden wir zunächst einen Algorithmus kennenlernen, bei dem vorausgesetzt wird, dass alle Kanten die gleiche
 Kapazität haben, und werden diesen danach an unser Ausgangsproblem anpassen.
 
@@ -79,7 +79,7 @@ Der Algorithmus, den Carlisle und Lloyd in~\cite{carlisle} beschreiben, hat eine
 Es wird statt von Pfaden in einer Kette von Intervallen auf der Zahlengeraden gesprochen.
 Das Verfahren soll nun möglichst viele dieser Intervalle in $C$ verschiedene Farben färben, wobei sich zwei Intervalle derselben
 Farbe nie überschneiden dürfen.
-Wie man schnell erkennt, entspricht die größte Menge der gefärbten Intervalle im Ursprungsproblem gerade der größten Teilmenge der Pfade, 
+Wie man schnell erkennt, entspricht die größte Menge der gefärbten Intervalle im Ursprungsproblem gerade der größten Teilmenge der Pfade,
 in der sich maximal $C$ Pfade an einer Kante überschneiden dürfen, bei der also jede Kante die Kapazität $C$ hat.
 Statt also die Intervalle zu färben, reden wir im Folgenden davon, die Pfade entsprechend zu färben.
 
@@ -148,28 +148,28 @@ Eine genauere Analyse dieses Verfahrens und dessen Laufzeit $\mathcal O(m)$ besc
 
 \subsection{Gieriger Algorithmus mit willkürlichen Kapazitäten}\label{subsec:anpassenAnWillkürlicheKapazitäten}
 
-Nachdem wir nun eine Lösung für identische Kapazitäten gefunden haben, wollen wir nun das eigentliche Problem mit
-willkürlichen Kapazitäten $c: E \mapsto \set N$ durch eine geschickte Anpassung des Algorithmus' lösen.
+Nachdem wir nun eine effiziente Lösung für identische Kapazitäten gefunden haben, wollen wir nun das eigentliche Problem mit
+willkürlichen Kapazitäten $c: E \mapsto \set N$ durch eine geschickte Anpassung des Algorithmus' aus~\ref{subsec:algorithmusGleicheKapazitäten} lösen.
 Sei $C \coloneqq \max_{e \in E} c(e)$ die maximale Kapazität aller Kanten.
 Die Idee ist es, das Problem mit identischer Kapazität $C$ anzuwenden und dabei für jede Kante $e$ die $C - c(e)$
 hinzugewonnen Kapazitäten mit Platzhalterpfaden zu befüllen.
 Werden vom Algorithmus alle Platzhalterpfade akzeptiert, so können wir sicher sein, dass wir nach Entfernen der
 Platzhalterpfade eine optimale Lösung für willkürliche Kapazitäten gefunden haben.
 Wir müssen also insbesondere dafür sorgen, dass all unsere Platzhalter eingefärbt werden.
+Eine wie im vorigen Abschnitt aufsteigend sortierte Liste der Endpunkte aller Pfade berechnen wir nun allerdings selbst mit einem Aufwand von $\Omega(n+m)$
+, z.B.\ durch Sortieren durch Zählen.
 
 Wir beschäftigen uns zunächst näher mit dem Hinzufügen der Platzhalter:
-\todo{das machen wir eigentlich immer: (links, rechts)}Dabei gehen wir von einer Kette aus mit den Knoten $V=\{v_0,\dots,v_{n-1}\}$ und den Kanten
-$E=\{e_1,\dots,e_{n-1}\}$, wobei $e_i$ die Knoten $v_{i-1}$ und $v_i$ verbindet.
-Wir durchlaufen nun die Kette von links nach rechts und berechnen dabei, wie viele Platzhalterpfade an jedem Knoten
+Dazu wird die sortierte Liste der Endpunkte durchlaufen und gleichzeit berechnet, wie viele Platzhalterpfade an jedem Knoten
 beginnen bzw.\ enden müssen (siehe \todo{FIGURE}):
-Beim ersten Knoten $v_0$ müssen $C - c(e_1)$ Platzhalterpfade beginnen und wir schreiben $(C - c(e_1))$ mal $v_1$ in einen
+Beim ersten Knoten $v_0$ müssen $C - c(e_1)$ Platzhalterpfade beginnen und wir schreiben $(C - c(e_1))$ mal $v_0$ in einen
 leeren Keller $K$.
-Beim Knoten $v_i$ wird, falls $c(e_i) > c(e_{i+1})$, $v_i$ genau $(c(e_i) - c(E_{i+1}))$ mal in K gelegt.
-Ist $c(e_i) < c(e_{i+1})$, so werden $c(e_{i+1}) - c(e_i)$ Elemente aus K geholt, die jeweils als Anfangspunkt mit $v_i$
-als Endpunkt einen der Platzhalterpfade ergeben.
-Beim letzten Knoten $v_{n-1}$ werden dann alle verbleibenden Knoten aus K mit $v_{n-1}$ als Platzhalter hinzugenommen.
+Ist $c(e_i) > c(e_{i+1})$, beginnen beim Knoten $v_{i}$ weitere Platzhalter und $v_i$ wird genau $(c(e_i) - c(E_{i+1}))$ mal in $K$ gelegt.
+Ist $c(e_i) < c(e_{i+1})$, so müssen Platzhalterpfade bei $v_i$ enden und es werden $c(e_{i+1}) - c(e_i)$ Elemente aus K geholt, die jeweils als Anfangsknoten mit $v_i$
+als Zielknoten einen der Platzhalterpfade bilden.
+Beim letzten Knoten $v_{n-1}$ bilden dann alle verbleibenden Knoten aus $K$ als Anfangsknoten mit $v_{n-1}$ als Zielknoten die restlichen Platzhalter.
 
-Da wir allerdings insgesamt eine Laufzeit von $\mathcal O(m)$ zum Ziel haben, können wir das \todo{vorangegangene} Verfahren
+Da wir allerdings insgesamt eine Laufzeit von $\mathcal O(n+m)$ zum Ziel haben, können wir das \todo{vorangegangene} Verfahren
 nicht einfach übernehmen:
 Bei starken Schwankungen der einzelnen Kapazitäten kann es hier passieren, dass bis zu $\Omega(m\cdot n)$
 Platzhalter hinzugefügt werden müssen, was unsere Ziellaufzeit übersteigt (siehe \todo{FIGURE}).
@@ -180,67 +180,72 @@ Nachfolgekante auszunutzen.
 Da wir die Pfade bereits kennen, können wir also in vielen Fällen die Kapazität von solchen Nachfolgekanten verringern und
 damit Schwankungen in den Kapazitäten etwas ausgleichen.
 
-Um diese Erkenntnis umzusetzen, definieren wir eine neue Kapazitätsfunktion $c'$ mit $c'(e_0) = \min(c(e_0), n_0)$ und
-$ c'(e_i) \coloneqq \min(c(e_i), c'(e_{i-1}) + n_i)$ für $i \geq 1$ , wobei $n_i$ die Anzahl der Pfade in P mit
-Anfangsknoten $v_i$ ist.
-Diese können wir in $\mathcal O(n + m) = \mathcal O(m)$ Zeit berechnen: Dazu gehen wir für jeden Knoten $v_i$ solange durch die sortierte
-\todo{Liste der Endknoten aller Pfade}, bis wir alle Pfade mit Anfangsknoten $v_i$ gesehen haben, womit wir
-$n_i$ wissen und $c'(e_i)$ berechnen können.
+Um diese Erkenntnis umzusetzen, definieren wir eine neue Kapazitätsfunktion $c'$ mit
+\[
+	c'(e_i) =
+	\begin{cases}
+		\min(c(e_0), n_0) &\quad\text{für}\ i=0\\
+		\min(c(e_i), c'(e_{i-1}) + n_i) &\quad\text{für}\ i \geq 1
+	\end{cases}
+\]
+wobei $n_i$ die Anzahl der Pfade in P mit Anfangsknoten $v_i$ ist.
+Diese können wir in $\mathcal O(n+m)$ Zeit berechnen: Dazu gehen wir einmal durch die sortierte Liste der $2m$ Endknoten
+aller Pfade und zählen dabei für jeden Knoten $v_i$ alle Pfade mit Anfangsknoten $v_i$, womit wir $n_i$ wissen und
+$c'(e_i)$ berechnen können.
 Durch das Verwenden von $c'$ statt $c$ wird die Lösung des Problems auch nicht verändert, da nur Kapazitäten entfernt
 werden, die durch die Pfade P sowieso nicht nutzbar gewesen wären.
-Insbesondere ist also jede geeignete Menge mit den Kapazitäten c auch eine geeignete Menge mit den Kapazitäten c'.
+Insbesondere ist also jede geeignete Menge mit den Kapazitäten $c$ auch eine geeignete Menge mit den Kapazitäten $c'$.
 Das nächste Lemma soll nun aufklären, ob unser Vorgehen die Anzahl an Platzhaltern ausreichend verringern konnte:
 
 \begin{lemma}
     Mit den neuen Kapazitäten $c'$ werden nur noch $\mathcal O(m)$ Platzhalterpfade erzeugt.
 \end{lemma}
 \begin{proof}
-    \todo{check n-1}
-    Wir betrachten den Gesamtzuwachs der Kapazitäten $I = \sum_{i = 0}^{n-1} I_i$ als Summe aller Zuwächse $I_i$ am
+    Wir betrachten den Gesamtzuwachs der Kapazitäten $I = \sum_{i = 0}^{n-2} I_i$ als Summe aller Zuwächse $I_i$ am
     Knoten $v_i$ mit $I_0 = c'(e_0)$ und $I_i = \max\{c'(e_i) - c'(e_{i-1}), 0\}$ für $i \geq 1$.
     Ein Anstieg von $c'$ in $e_i$ um $I_i \in \set N_0$ bedeutet, dass $n_i \geq I_i$, da per Definition
     $c'(e_i) \leq c'(e_{i-1}) + n_i$.
     Insbesondere ist also $I$ beschränkt durch die Anzahl an Pfaden $m$.
-    Ein Platzhalterpfad wir außerdem nur dann erzeugt, wenn der Algorithmus auf einen Zuwachs in den Kapazitäten stößt
-    oder das Ende der Kette erreicht ist.
+    Ein Platzhalterpfad wird außerdem nur dann erzeugt, wenn der Algorithmus auf einen Zuwachs in den Kapazitäten (höchstens $I$)
+    oder auf das Ende der Kette (höchstens $C$) stößt.
     Das heißt es werden höchstens $I + C = \mathcal O(m)$ Platzhalterpfade erzeugt.
 \end{proof}
 
-Insbesondere gelingt also die Anpassung der Kapazitäten, sowie das Auffüllen mit Platzhalterpfaden in $\mathcal O(m)$ Zeit.
+Insbesondere gelingt also die Anpassung der Kapazitäten, sowie das Auffüllen mit Platzhalterpfaden in $\mathcal O(n+m)$ Zeit.
 Nun müssen wir uns nur noch der Herausforderung stellen, beim Lösen des Problems mit identischen Kapazitäten alle
 Platzhalter zu akzeptieren.
-Die Idee dabei ist, die Platzhalterpfade so früh wie möglich zu akzeptieren, und erst danach alle anderen Pfade zu
+Die Idee dabei ist, die Platzhalterpfade so früh wie möglich zu akzeptieren, und erst danach die Originalpfade zu
 betrachten.
 
-Dazu bilden wir zuerst eine \todo{Liste $L$ der Endknoten aller Pfade} (inklusive Platzhalterpfade), die die Knoten
-aufsteigend und bei gleichen Knoten Zielknoten vor Anfangsknoten sortiert.
-Dabei kommt jeder Knoten sooft vor, wie es Pfade mit ihm als einer der beiden Endknoten gibt.
+Dazu wird zuerst eine Liste $L$ der Endknoten aller Pfade, jetzt mit Platzhalterpfaden, die die Knoten
+aufsteigend und bei gleichem Knoten Zielknoten vor Anfangsknoten sortiert.
+Dabei kommt jeder Knoten genau so oft vor, wie es Pfade mit ihm als einer der beiden Endknoten gibt.
 Die gierige Ordnung $\leq_{G}$ erhalten wir, indem wir in der Liste jeden Zielknoten eines Pfades durch den Pfad selbst
 ersetzen und die restlichen Knoten verwerfen.
 
 Wir benutzen mit dem fiktiven Anführer und den $C$ virtuellen Pfaden wieder dieselbe Hilfspfade wie in
 Abschnitt~\ref{subsec:algorithmusGleicheKapazitäten}, wobei diese in $\leq_G$ wieder vor den restlichen Pfaden stehen.
-Für die Berechnung der bevorzugten Anführer jedes Pfades $p$ (also dem in $\leq_G$ größten Pfad, dessen
-Zielknoten kleinergleich dem Anfangsknoten von $p$ ist) benötigen wir mit $\leq_G$ ebenfalls einen Zeitaufwand von
+Für die Berechnung der bevorzugten Anführer jedes Pfades $p$ (also dem in $\leq_G$ größten Pfad $q = (s_q, t_q)$ mit
+$t_q \leq s_p$) benötigen wir mit $\leq_G$ ebenfalls einen Zeitaufwand von
 $\mathcal O(m)$.
 Auch die Union-Find-Struktur bleibt die gleiche und jeder Pfad startet in seiner eigenen Gruppe.
-Nun iteriert der Algorithmus durch L und verarbeitet dabei Platzhalterpfade beim Antreffen vom
-Anfangsknoten und tatsächliche Pfade beim Antreffen vom Zielknoten.
+Nun iteriert der Algorithmus durch die Liste $L$ der Endpunkte und verarbeitet dabei Platzhalterpfade beim Antreffen vom
+zugehörigen Anfangsknoten und Originalpfade beim Antreffen vom zugehörigen Zielknoten.
 Die eigentliche Verarbeitung eines Pfades $p$ hat sich aber nicht geändert: Es wird der bevorzugte Pfad $q$ von $p$
 betrachtet;
 falls $\find(q)$ der fiktive Anführer ist, wird $p$ abgelehnt und die Gruppe von $p$ mit der
-Gruppe des Vorgängers von $p$ in gieriger Ordnung vereinigt;
+Gruppe des Vorgängers von $p$ vereinigt;
 andernfalls wird p akzeptiert, in der Farbe von $\find(q)$
-gefärbt und die Gruppe von $\find(q)$ mit der Gruppe seines Vorgängers in gieriger Ordnung vereinigt.
+gefärbt und die Gruppe von $\find(q)$ mit der Gruppe des Vorgängers von $\find(q)$ vereinigt.
 
 Das nächste Lemma soll nun zeigen, dass das Auffüllen mit Platzhaltern zusammen mit diesem Verfahren eine korrekte
-Implementierung des gierigen Algorithmus' darstellt:
+Implementierung des gierigen Verfahrens darstellt:
 
 \begin{lemma}
-    Der \todo{vorangehende} Algorithmus entspricht dem gierigen Algorithmus.
+    Der beschriebene Algorithmus entspricht dem gierigen Verfahren.
 \end{lemma}
 \begin{proof}
-    Wir benennen $U$ als den vorangehenden Algorithmus.
+    Wir bezeichnen den oben beschriebenen Algorithmus nun mit $U$.
     Für $U$ haben wir wieder folgende Invariante für die Union-Find-Gruppen:
     Jede Gruppe mit verarbeiteten Pfaden enthält nur in $\leq_G$ aufeinanderfolgende Pfade und der Repräsentant einer
     solchen Gruppe ist entweder ein Anführer einer Farbe oder der fiktive Anführer.
@@ -249,8 +254,8 @@ Implementierung des gierigen Algorithmus' darstellt:
     Dadurch, dass die Platzhalterpfade bereits an den Anfangsknoten verarbeitet werden, haben diese immer einen farbigen
     Anführer, da sie entsprechend den Kapazitäten gewählt wurden.
     Damit wird ersichtlich, dass zumindest alle Platzhalterpfade akzeptiert werden.
-    Jetzt müssen wir noch zeigen, dass genau die tatsächlichen Pfade akzeptiert werden, die der gierige Algorithmus
-    ebenfalls akzeptiert.
+    Jetzt müssen wir noch zeigen, dass genau die Originalpfade akzeptiert werden, die auch der gierige Algorithmus
+    akzeptiert.
 
     Dazu gehen wir vom Gegenteil aus und betrachten den ersten tatsächlichen Pfad $p$ in gieriger Ordnung, bei dem die
     Entscheidung unterschiedlich ausgefallen ist.
@@ -266,8 +271,8 @@ Implementierung des gierigen Algorithmus' darstellt:
     Dabei sei $l$ der in gieriger Ordnung kleinste Anführer einer Farbe und $e$ die letzte Kante seines Pfades.
     Von dieser wissen wir sicher, dass sie sich mit $p$ überschneidet.
 
-    Angenommen, es existiere eine Farbe $c^*$, sodass kein Pfad in dieser Farbe $e$ enthält.
-    Da $l$ der kleinste Anführer ist, existiert ein Pfad $p_1$ in $c^*$ links von $e$ und ein Pfad $p_2$ in $c^*$
+    Angenommen, es existiere eine Farbe $c^*$, sodass kein $c^*$-gefärbter Pfad $e$ enthält.
+    Da $l$ der kleinste Anführer ist, existiert ein $c^*$-gefärbter Pfad $p_1$ links von $e$ und ein $c^*$-gefärbter Pfad $p_2$
     rechts von $e$.
     Wählt man diese jeweils möglichst nah an $e$, so erkennt man einen Widerspruch, da als $p_2$ mit $p_1$ als den
     scheinbar optimalen Anführer in $c^*$ gefärbt wurde, war tatsächlich $l$ ein besserer Anführer von $p_2$.
@@ -277,7 +282,7 @@ Implementierung des gierigen Algorithmus' darstellt:
     Das ist allerdings ein Widerspruch dazu, dass $A \cup \{p\}$ eine geeignete Menge ist.
 \end{proof}
 
-Darauf folgt nun:
+Daraus folgt nun:
 
 \begin{theorem}
     Der gierige Algorithmus berechnet eine optimale Lösung in Ketten mit beliebigen Kapazitäten in einer Laufzeit von

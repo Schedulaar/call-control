@@ -166,11 +166,11 @@ Unsere Ergebnisse können wir nun im folgenden Theorem zusammenfassen:
 \end{theorem}
 \begin{proof}
     Jede Runde des Entscheidungsalgorithmus ruft einmal den gierigen Algorithmus auf.
-    Dieser benötigt nach Theorem~\ref{lem:optimalityGreedyAlgorithm} eine Laufzeit von $\mathcal O(n+m)$ und ,da o.E.\
+    Dieser benötigt nach Theorem~\ref{lem:optimalityGreedyAlgorithm} eine Laufzeit von $\mathcal O(n+m)$ und, da o.E.\
     $n \leq 2m$, gilt $\mathcal O(n+m) = \mathcal O(m)$.
     Nach Lemma~\ref{lem:decisionProcedure} können wir in $\mathcal O(n \cdot c(e_0))$ Runden eine geeignete $k$-elementige Menge finden.
     Dies kann auf $\mathcal O(n \cdot c_{\min})$ reduziert werden, indem die Kanten und Knoten des Rings so benannt werden, dass
-    die Kante $e_0$ derjenigen mit der geringsten Kapazität entspricht (dies gelingt in $\mathcal \mathcal O(m)$ Zeit).
+    die Kante $e_0$ derjenigen mit der geringsten Kapazität entspricht (dies gelingt in $\mathcal \mathcal O(n+m)$ Zeit).
     Mit binärer Suche benötigen wir schließlich noch $\mathcal O(\log m)$ Entscheidungsrunden, um das größte $k \in \{0, \dots, m\}$
     mit einer geeigneten $k$-elementigen Menge zu finden.
 \end{proof}
