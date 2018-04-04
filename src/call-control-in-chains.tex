@@ -211,8 +211,8 @@ Das nächste Lemma soll nun aufklären, ob unser Vorgehen die Anzahl an Platzhal
     Das heißt es werden höchstens $I + C = \mathcal O(m)$ Platzhalterpfade erzeugt.
 \end{proof}
 
-Insbesondere gelingt also die Anpassung der Kapazitäten, sowie das Auffüllen mit Platzhalterpfaden in $\mathcal O(n+m)$ Zeit.
-Nun müssen wir uns nur noch der Herausforderung stellen, beim Lösen des Problems mit identischen Kapazitäten alle
+Insbesondere gelingt also die Anpassung der Kapazitäten sowie das Auffüllen mit Platzhalterpfaden in $\mathcal O(n+m)$ Zeit.
+Nun müssen wir uns nur noch der Herausforderung stellen, beim Lösen des konstruierten Problems mit identischen Kapazitäten alle
 Platzhalter zu akzeptieren.
 Die Idee dabei ist, die Platzhalterpfade so früh wie möglich zu akzeptieren, und erst danach die Originalpfade zu
 betrachten.
@@ -250,32 +250,40 @@ Implementierung des gierigen Verfahrens darstellt:
     Jede Gruppe mit verarbeiteten Pfaden enthält nur in $\leq_G$ aufeinanderfolgende Pfade und der Repräsentant einer
     solchen Gruppe ist entweder ein Anführer einer Farbe oder der fiktive Anführer.
     Andere Gruppen sind Einzelgruppen.
-    Insbesondere berechnet $U$ wieder eine \todo{C-färbbare Teilmenge der Pfade}.
-    Dadurch, dass die Platzhalterpfade bereits an den Anfangsknoten verarbeitet werden, haben diese immer einen farbigen
-    Anführer, da sie entsprechend den Kapazitäten gewählt wurden.
-    Damit wird ersichtlich, dass zumindest alle Platzhalterpfade akzeptiert werden.
+    
+    Es ist leicht zu sehen, dass $U$ wie im vorherigen Abschnitt alle Pfade in $C$ Farben färbt, wobei sich zwei Pfade
+    derselben Farbe nie schneiden können.
+    Um zu zeigen, dass $U$ alle Platzhalterpfade färbt, nehmen wir an, $U$ würde einen Platzhalterpfad $p$ nicht färben. 
+    Sei $p$ derjenige Platzhalter mit kleinstem Anfangsknoten, der von $U$ nicht gefärbt wird, und sei $q$ sein bevorzugter Anführer.
+    Das bedeutet, dass bei der Entdeckung von $p$ der Repräsentant $\find(q)$ der fiktive Anführer war.
+    Insbesondere gab es unter den $C$ gefärbten Anführern keinen optimalen Anführer von $p$, sondern alle gefärbten Anführer
+    haben zu der Zeit einen Zielknoten, der rechts vom Anfangsknoten von $p$ liegt (sonst gäbe es einen optimalen Anführer).
+    Da $p$ bereits am Anfangsknoten bearbeitet wird und alle Originalpfade erst am Zielknoten, kann kein Originalpfad einer 
+    dieser gefärbten Anführer sein, sondern es sind allesamt Platzhalterpfade, die bereits vor $p$ gefärbt worden sein müssen.
+    Dementsprechend ist liegen dann auf der ersten Kante von $p$ mindestens $C+1$ Platzhalterpfade, was ein Widerspruch zur Konstruktion
+    der Platzhalterpfade darstellt.
+    
+    Insbesondere berechnet $U$ wieder eine geeignete Teilmenge der Pfade.
     Jetzt müssen wir noch zeigen, dass genau die Originalpfade akzeptiert werden, die auch der gierige Algorithmus
     akzeptiert.
 
-    Dazu gehen wir vom Gegenteil aus und betrachten den ersten tatsächlichen Pfad $p$ in gieriger Ordnung, bei dem die
+    Dazu gehen wir vom Gegenteil aus und betrachten den ersten Originalpfad $p$ in gieriger Ordnung, bei dem die
     Entscheidung unterschiedlich ausgefallen ist.
-    Da wir von $U$ bereits wissen, dass er eine C-Färbung mit allen Platzhalterpfaden durchführt, sind
-    seine akzeptierten Pfade eine geeignete Menge für das Call-Control-Problem.
-    Da der gierige Algorithmus immer eine minimale Lösung liefert, muss $p$ vom gierigen Algorithmus akzeptiert und von
-    $U$ abgelehnt worden sein.
-    Ist $A$ die Menge der Pfade, die bisher (von beiden Verfahren) akzeptiert wurden.
+    Da das gierige Verfahren immer eine minimale Lösung liefert, muss $p$ vom gierigen Verfahren akzeptiert und von
+    $U$ abgelehnt worden sein, da die Menge, die $U$ berechnet ebenfalls geeignet ist.
+    Sei $A$ die Menge der Pfade, die bisher (von beiden Verfahren) akzeptiert wurden.
     Da der gierige Algorithmus zusätzlich $p$ akzeptiert hat, wissen wir, dass $A \cup \{p\}$ geeignet ist, was wir
     im Folgenden zum Widerspruch führen:
-    Da $U$ $p$ am Zielknoten verarbeitete (und $p$ damit der aktuell größte Pfad in gieriger Ordnung
+    Da $U$ den Pfad $p$ am Zielknoten verarbeitete (und $p$ damit der aktuell größte Pfad in gieriger Ordnung
     war), mussten sich zu dieser Zeit alle Anführer von Farben mit $p$ überschnitten haben.
     Dabei sei $l$ der in gieriger Ordnung kleinste Anführer einer Farbe und $e$ die letzte Kante seines Pfades.
     Von dieser wissen wir sicher, dass sie sich mit $p$ überschneidet.
 
-    Angenommen, es existiere eine Farbe $c^*$, sodass kein $c^*$-gefärbter Pfad $e$ enthält.
-    Da $l$ der kleinste Anführer ist, existiert ein $c^*$-gefärbter Pfad $p_1$ links von $e$ und ein $c^*$-gefärbter Pfad $p_2$
-    rechts von $e$.
+    Angenommen, es existiere eine Farbe $c$, sodass kein $c$-gefärbter Pfad $e$ enthält.
+    Da $l$ der kleinste Anführer ist, existiert ein $c$-gefärbter Pfad $p_1$ links von $e$ (z.B.\ der $c$-gefärbte virtuelle Pfad) und ein $c$-gefärbter Pfad $p_2$
+    rechts von $e$ (z.B.\ der $c$-gefärbte Anführer).
     Wählt man diese jeweils möglichst nah an $e$, so erkennt man einen Widerspruch, da als $p_2$ mit $p_1$ als den
-    scheinbar optimalen Anführer in $c^*$ gefärbt wurde, war tatsächlich $l$ ein besserer Anführer von $p_2$.
+    scheinbar optimalen Anführer in $c$ gefärbt wurde, war tatsächlich $l$ ein besserer Anführer von $p_2$, da sein Zielpunkt weiter rechts war.
 
     Also besitzen alle $C$ Farben einen Pfad, der $e$ enthält, insgesamt gibt es also $C+1$ Pfade in $A \cup \{p\}$, die
     $e$ enthalten.
@@ -285,8 +293,8 @@ Implementierung des gierigen Verfahrens darstellt:
 Daraus folgt nun:
 
 \begin{theorem}
-    Der gierige Algorithmus berechnet eine optimale Lösung in Ketten mit beliebigen Kapazitäten in einer Laufzeit von
-    $\mathcal O(n+m)$, wobei $n$ die Anzahl der Knoten und $m$ die Anzahl der gegebenen Pfade ist.
+    Das gierige Verfahren berechnet eine Lösung in Ketten mit beliebigen Kapazitäten und kann in einer Laufzeit von
+    $\mathcal O(n+m)$ implementiert werden, wobei $n$ die Anzahl der Knoten und $m$ die Anzahl der gegebenen Pfade ist.
 \end{theorem}
 
 
