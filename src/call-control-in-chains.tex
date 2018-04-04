@@ -147,7 +147,7 @@ k-coloring of intervals'}.
 
 Nachdem wir nun eine Lösung für identische Kapazitäten gefunden haben, wollen wir nun das eigentliche Problem mit
 willkürlichen Kapazitäten $c: E \mapsto \set N$ durch eine geschickte Anpassung des Algorithmus' lösen.
-Sei $C \colonequals \max_{e \in E} c(e)$ die maximale Kapazität aller Kanten.
+Sei $C \coloneqq \max_{e \in E} c(e)$ die maximale Kapazität aller Kanten.
 Die Idee ist es, das Problem mit identischer Kapazität $C$ anzuwenden und dabei für jede Kante $e$ die $C - c(e)$
 hinzugewonnen Kapazitäten mit Platzhalterpfaden zu befüllen.
 Werden vom Algorithmus alle Platzhalterpfade akzeptiert, so können wir sicher sein, dass wir nach Entfernen der
@@ -178,7 +178,7 @@ Da wir die Pfade bereits kennen, können wir also in vielen Fällen die Kapazit�
 damit Schwankungen in den Kapazitäten etwas ausgleichen.
 
 Um diese Erkenntnis umzusetzen, definieren wir eine neue Kapazitätsfunktion $c'$ mit $c'(e_0) = \min(c(e_0), n_0)$ und
-$ c'(e_i) \colonequals \min(c(e_i), c'(e_{i-1}) + n_i)$ für $i \geq 1$ , wobei $n_i$ die Anzahl der Pfade in P mit
+$ c'(e_i) \coloneqq \min(c(e_i), c'(e_{i-1}) + n_i)$ für $i \geq 1$ , wobei $n_i$ die Anzahl der Pfade in P mit
 Anfangsknoten $v_i$ ist.
 Diese können wir in $\mathcal O(n + m) = \mathcal O(m)$ Zeit berechnen: Dazu gehen wir für jeden Knoten $v_i$ solange durch die sortierte
 \todo{Liste der Endknoten aller Pfade}, bis wir alle Pfade mit Anfangsknoten $v_i$ gesehen haben, womit wir

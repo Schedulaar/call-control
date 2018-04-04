@@ -1,7 +1,7 @@
 Nachdem wir nun optimale Lösungen für das \CallControl-Problem in Ketten und Ringen gefunden haben, modifizieren
 wir in diesem Kapitel die Problemstellung ein wenig.
 So geben wir jedem der Pfade $p$ ein bestimmtes Gewicht $\omega(p) \in \set R_+$ und versuchen statt der
-Anzahl der akzeptierten Pfade $Q$ das Gesamtgewicht $\omega(Q) \colonequals \sum_{p\in Q}\omega(p)$ zu maximieren, ohne
+Anzahl der akzeptierten Pfade $Q$ das Gesamtgewicht $\omega(Q) \coloneqq \sum_{p\in Q}\omega(p)$ zu maximieren, ohne
 dabei die Kapazität einer Kante zu verletzen.
 Dabei verbraucht weiterhin jeder Pfad eine Kapazitätseinheit einer Kante, falls die Kante Teil des Pfades ist.
 
@@ -55,7 +55,7 @@ Wir wollen uns dagegen dem Problem mit willkürlichen Kapazitäten widmen.
     Originalpfade wieder eine optimale Lösung für das Ursprungsproblem.
 
     Um dafür zu sorgen, dass alle Platzhalterpfade $p$ in jedem Fall akzeptiert werden, setzen wir
-    $\omega(p) \colonequals G + 1$, wobei $G$ die Summe der Gewichte aller Originalpfade ist.
+    $\omega(p) \coloneqq G + 1$, wobei $G$ die Summe der Gewichte aller Originalpfade ist.
     Nun hat der Algorithmus für identische Kapazitäten keine andere Wahl mehr, als jeden Platzhalterpfad zu akzeptieren,
     da jede Menge an Originalpfaden, die er stattdessen akzeptieren könnte, ein geringeres Gewicht hat und es nach
     Konstruktion genügend Kapazitäten gibt, um jeden Platzhalterpfad zu akzeptieren.
@@ -88,8 +88,8 @@ Approximationslösung von Güte 2 gewählt.
     Pfade enthält, weshalb in beiden Fällen keine Kapazitäten verletzt werden.
 
     Sei $\OPT$ eine optimale Lösung für das Gewichtete Call-Control-Problem im Ring.
-    $\OPT$ ist eine Partition der beiden Mengen $\OPT_e \colonequals \{p \in \OPT \mid p\ \text{enthält}\ e\}$ und
-    $\OPT_{\overline e} \colonequals \{p\in\OPT\mid p\ \text{enthält}\ e\ \text{nicht}\}$.
+    $\OPT$ ist eine Partition der beiden Mengen $\OPT_e \coloneqq \{p \in \OPT \mid p\ \text{enthält}\ e\}$ und
+    $\OPT_{\overline e} \coloneqq \{p\in\OPT\mid p\ \text{enthält}\ e\ \text{nicht}\}$.
     Es gilt insbesondere, dass $\omega(Q_{\overline e}^*) \geq \omega(\OPT_{\overline e})$ und
     $\omega(Q_e^*) \geq \omega(\OPT_{e})$, da $Q_{\overline e}$ und $Q_e$ in ihren Bereichen maximal gewählt wurden.
     Daher folgt für die berechnete Lösung $Q^*$:
