@@ -1,6 +1,6 @@
 Bei der Optimierung von Kommunikationssystemen geht es oft darum, konkrete Probleme auf abstrakte, mathematische 
 Problemstellungen zurückzuführen, und man gelangt so in vielen Fällen zu Problemen in Graphen.
-Eines dieser Problem beschreibt das Call-Control-Problem (auch Call-Admission-Control-Problem), bei dem
+Eines dieser Probleme beschreibt \CallControl\ (auch Call-Admission-Control), bei dem
 in einem Netzwerk eine Menge von Anfragen (sog.\ calls) gestellt werden und jede Anfrage gemäß einer bestimmten Zielsetzung
 akzeptiert oder verworfen werden muss.
 Es soll insbesondere sichergestellt werden, dass durch das Durchführen der akzeptierten Anfragen die Bandbreiten,
@@ -16,7 +16,7 @@ Im Speziellen behandeln wir nur das sogenannte offline Szenario.
 Das bedeutet, dass die Menge von Anfragen bereits zu Beginn feststeht und keine weiteren Anfragen während der
 Laufzeit hinzukommen.
 
-Zunächst wollen wir einige wichtige Begriffe wie dem eines (ungerichteten) Netzwerks einführen:
+Zunächst führen wir einige wichtige Begriffe wie den eines (ungerichteten) Netzwerks ein:
 
 \begin{definition}[Netzwerk]
 	Sei $(V,E)$ ein ungerichteter Graph mit Knoten $V$ und Kanten $E$, und $c: E \to \set N$ eine Kapazitätsfunktion.
@@ -26,7 +26,7 @@ Zunächst wollen wir einige wichtige Begriffe wie dem eines (ungerichteten) Netz
 Die Anfragen werden nun als Pfade in einem Netzwerk betrachtet.
 Dabei verbraucht ein Pfad eine Kapazitätseinheit einer Kante, falls er die Kante enthält.
 Für die Zielsetzung, die Anzahl der Anfragen zu maximieren, nennen wir das entstehende Problem \CallControl.
-Sind die Pfade gewichtet und wir wollen das Gesamtgewicht maximieren, reden wir von \WeightedCallControl.
+Sind die Pfade gewichtet und wollen wir das Gesamtgewicht maximieren, reden wir von \WeightedCallControl.
 
 \begin{definition}[\CallControl\ und \WeightedCallControl]
     Sei $(V,E,c)$ ein ungerichtetes Netzwerk und $P$ eine (Multi-)Menge von $m \in \set N$ Pfaden in $(V,E,c)$.
@@ -44,14 +44,15 @@ Sind die Pfade gewichtet und wir wollen das Gesamtgewicht maximieren, reden wir 
 
 Eine {\em Kette} ist ein ungerichteter Graph $(V,E)$, der nur aus den Kanten und Knoten eines Pfades besteht, also einem
 Weg mit den Kanten $E=\{(v_0, v_1),\dots,(v_{n-2},v_{n-1})\}$, sodass $v_i \neq v_j$ für $i \neq j$.
-Dabei stellen wir uns vor, dass eine Kette entlang einer horizontalen Linie aufgezeichnet ist, wobei die
-Knoten meist bei $0$ beginnend von links nach rechts durchnummeriert sind. Entsprechend sagen wir, eine Kante bzw.\ ein Knoten 
-liege {\em vor} einer anderen Kante bzw.\ einem anderen Knoten, falls diese(r) weiter links liegt.
+Dabei stellen wir uns vor, dass eine Kette entlang einer horizontalen Linie aufgezeichnet ist und die
+Knoten bei $0$ beginnend von links nach rechts durchnummeriert sind. 
+Entsprechend sagen wir, eine Kante bzw.\ ein Knoten liege {\em vor} einer anderen Kante bzw.\ einem anderen Knoten, 
+falls diese(r) weiter links liegt.
 Jeder Teilpfad $p$ kann in einer Kette durch zwei Endknoten identifiziert werden, einem Anfangsknoten $s_p$ und einem 
-Zielknoten $t_p$, während der Anfangsknoten vor dem Zielknoten liegt.
+Zielknoten $t_p$, wobei der Anfangsknoten vor dem Zielknoten liegt.
 
 Ein {\em Ring} ist ein ungerichteter Graph, der nur aus den Kanten und Knoten eines Kreises besteht, d.h.\ aus einem Weg 
-mit den Kanten $E=\{(v_0, v_1),\dots,(v_{n-2},v_{n-1})\}$, sodass $v_0 = v_{n-1}$ und $v_i \neq v_j$ für alle anderen Paare $i,j$ 
+mit den Kanten $E=\{(v_0, v_1),\dots,(v_{n-1},v_{n})\}$, sodass $v_0 = v_n$ und $v_i \neq v_j$ für alle anderen Paare $i,j$ 
 mit $i \neq j$.
 Betrachten wir einen Ring mit den Knoten $V=\{0, \dots , n-1\}$ aufgezeichnet auf einer Ebene, bei dem die Knoten nach
 dem Uhrzeigersinn nummeriert wurden, identifizieren wir wieder jeden Pfad $p$ im Ring durch einen Anfangsknoten $s_p$ und einen Zielknoten 
@@ -82,7 +83,7 @@ Aufgabe von Maschine zu Maschine, z.B.\ beim Wechsel eines Zeitintervalls, ohne 
 Ziel ist es nun einen Ablaufplan zu finden, der die Anzahl an Aufgaben, die an einem Tag bearbeitet werden, maximiert.
 Dieser Ablaufplan soll dann fortlaufend über mehrere Tage hinweg eingesetzt werden können.
 Dazu kann \CallControl\ verwendet werden: Das Ringnetzwerk ist dabei durch die Kanten $t_i$ mit den Kapazitäten $c_i$ der verfügbaren Maschinen
-zu jedem Zeitintervall gegeben. Die dazugehörigen Anfragen stellen dabei die Aufgaben dar, dessen Zeitintervalle als Pfade auf dem Ring betrachtet
+zu jedem Zeitintervall gegeben. Die dazugehörigen Anfragen stellen dabei die Aufgaben dar, deren Zeitintervalle als Pfade auf dem Ring betrachtet
 werden können.
 Löst man nun das Call-Control-Problem, erhält man eine größtmögliche Menge an Pfaden, die keine Kapazitäten verletzt, und dadurch auch die
 größtmögliche Menge an Aufgaben, die an einem Tag bearbeitet werden können.

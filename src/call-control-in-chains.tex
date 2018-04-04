@@ -3,21 +3,22 @@ Sei $(V,E)$ eine Kette mit Kapazitäten $c: E \to \set N$ und $V=\{0,\dots,n\}$,
 die Kante $e_i$ die Knoten $i$ und $i+1$ verbindet.
 Außerdem sei $P$ eine Menge von Pfaden in $(V,E)$ gegeben.
 \begin{definition}[Gierige Ordnung]
-    Auf einer Menge $P$ von Pfaden in einer Kette nennen wir eine totale Ordnung $\leq_G$ {\em gierig},
+    Auf einer Menge $P$ von Pfaden in einer Kette nennen wir eine Striktordnung $<_G$ sowie die zugehörige totale
+    Ordnung $\leq_G$ {\em gierig},
     falls sie die Pfade nach ihren Zielknoten aufsteigend ordnet, das heißt, falls
     $\forall p, q \in P \colon t_p < t_q \Rightarrow p <_G q$.
 \end{definition}
-Im Folgenden bezeichne $\leq_G$ eine feste gierige Ordnung.
+Im Folgenden bezeichne $\leq_G$ eine feste gierige Ordnung auf $P$.
 Die Berechnung der Lösung für \CallControl\ im Ring erfolgt mit dem {\em gierigen Verfahren}:
-Dieser nimmt an, dass die Pfade $P$ bereits in gieriger Ordnung $\leq_G$ sortiert sind.
-Er bearbeitet alle Pfade in der gegebenen Sortierung und fügt ihn zu den akzeptierten Pfaden hinzu, falls diese
-dadurch keine der Kantenkapazitäten verletzt, das heißt, falls diese dadurch eine geeignete Menge bleibt.
-Ansonsten lehnt er den Pfad ab.
+Dieses nimmt an, dass die Pfade $P$ bereits in gieriger Ordnung $\leq_G$ sortiert sind.
+Es bearbeitet alle Pfade in der gegebenen Sortierung und fügt einen Pfad zu den akzeptierten Pfaden hinzu, falls die
+akzeptierten Pfade dadurch keine der Kantenkapazitäten verletzt, das heißt, falls die akzeptierten Pfade eine geeignete Menge bleiben.
+Ansonsten wird der Pfad abgelehnt.
 Nachdem alle Pfade bearbeitet wurden, endet das Verfahren und liefert die akzeptierten Pfade als Rückgabe.
 
-Jede Menge $A \subseteq P$ von $k$ Pfaden kann als eine Menge $\{a_1, \dots, a_k\}$ dargestellt werden mit
+Jede Menge $A \subseteq P$ von $k$ Pfaden kann als ein Menge $\{a_1, \dots, a_k\}$ dargestellt werden mit
 $a_1 <_G \dots <_G a_k$.
-Für $A=\{a_1,\dots,a_k\}$ und $B=\{b_1,\dots,b_k\}$ schreibe man dann $A \leq_G B$, falls $\forall i \in \{1,\dots,k\}\colon a_i \leq_G b_i$.
+Für solche $A=\{a_1,\dots,a_k\}$ und $B=\{b_1,\dots,b_k\}$ schreibe man dann $A \leq_G B$, falls $\forall i \in \{1,\dots,k\}\colon a_i \leq_G b_i$.
 Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls $A \leq_G B$ für jede gleich-mächtige, geeignete Menge $B$.
 \begin{lemma}[Optimalität des gierigen Verfahrens]\label{lem:optimalityGreedyAlgorithm}
     Existiert bei einer Menge $P$ von Pfaden einer Kette eine geeignete Teilmenge mit $k \in \set N$ Pfaden, so ist die
@@ -39,7 +40,7 @@ Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls $A \leq_G B$ für
 
     Für den Fall $p \in Q_{i-1}$ ist $p$ auch bereits der $i$-te Pfad von $Q_{i-1}$, da das Verfahren nach
     gieriger Ordnung vorgeht und $Q_{i-1}$ mit $G$ auf den ersten $i-1$ Pfaden übereinstimmt.
-    Setzt man $Q_i \coloneqq Q_{i-1}$ so bleiben alle Invarianten erhalten.
+    Setzt man $Q_i \coloneqq Q_{i-1}$, bleiben alle Invarianten erhalten.
 
     Sonst gilt $p \notin Q_{i-1}$ und die Menge der Pfade $q \in Q_{i-1}$ mit $q >_G p$ ist nicht leer.
     Von diesen Pfaden sei $q$ ein solcher mit kleinstem Startknoten $s_q$, der in $Q_{i-1}$ an $j$-ter Stelle steht
@@ -104,7 +105,7 @@ Stattdessen verwenden Carlisle und Lloyd in ihrem Algorithmus eine spezielle Uni
 Static-Tree-Set-Union-Instanz aus~\cite{static-tree-set-union}, bei der die möglichen Vereinigungen bereits zu Beginn feststehen und in einem Baum
 dargestellt werden können, wodurch $m$ union- und find-Aufrufe bei $n$ Elementen in einer Laufzeit von $\mathcal O(m + n)$ erfolgen können.
 Außerdem geht man beim Algorithmus davon aus, dass eine bereits aufsteigend sortierte Liste der Endpunkte aller Pfade existiert.
-Diese List hat also $2\cdot m$ Einträge, d.h.\ ein Punkt kann für verschiedene Pfade öfters vorkommen, dabei sind doppelte Einträge entsprechend der gierigen
+Diese Liste hat also $2\cdot m$ Einträge, d.h.\ ein Punkt kann für verschiedene Pfade öfters vorkommen, dabei sind doppelte Einträge entsprechend der gierigen
 Ordnung der zugehörigen Pfade sortiert.
 
 Genauer führt der Algorithmus zuerst $C$ weitere sogenannte {\em virtuelle Pfade} ein, die in gieriger Ordnung
@@ -119,7 +120,7 @@ zählen jedoch bereits als verarbeitet.
 Jede andere, sogenannte {\em aktive Gruppe} enthält nur (in gieriger Ordnung) aufeinanderfolgende Pfade.
 Der Repräsentant einer aktiven Gruppe ist dabei entweder ein Anführer einer Farbe oder der fiktive Anführer.
 Dementsprechend gibt es zu jeder Zeit genau $C+1$ aktive Gruppen, wobei die Gruppe des fiktiven
-Anführers immer die kleinste Gruppe bleibt.
+Anführers immer die Gruppe mit den in gieriger Ordnung kleinsten Pfaden bleibt.
 
 Zunächst berechnet der Algorithmus zu jedem Pfad $p \in P$ den {\em bevorzugten Anführer von $p$}, also den größten Pfad
 in gieriger Ordnung, dessen Zielknoten nicht nach dem Anfangsknoten $s_p$ von $p$ steht.
