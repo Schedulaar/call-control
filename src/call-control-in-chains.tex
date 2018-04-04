@@ -1,30 +1,31 @@
-Zunächst betrachten wir den einfacheren Fall des Problems, nämlich den in einer Kette:
+Dieser Abschnitt analysiert den einfacheren Fall des Problems, nämlich den in einer Kette:
 Sei $(V,E)$ eine Kette mit Kapazitäten $c: E \to \set N$ und $V=\{0,\dots,n\}$, sodass für $i \in \{0,\dots,n-1\}$
 die Kante $e_i$ die Knoten $i$ und $i+1$ verbindet.
+Außerdem sei $P$ eine Menge von Pfaden in $(V,E)$ gegeben.
 \begin{definition}[Gierige Ordnung]
-    Auf einer Menge $P$ von Pfaden in einer Kette $(V,E)$ nennen wir eine totale Ordnung $\leq_G$ {\em gierig},
+    Auf einer Menge $P$ von Pfaden in einer Kette nennen wir eine totale Ordnung $\leq_G$ {\em gierig},
     falls sie die Pfade nach ihren Zielknoten aufsteigend ordnet, das heißt, falls
     $\forall p, q \in P \colon t_p < t_q \Rightarrow p <_G q$.
 \end{definition}
-Die Berechnung der Lösung für \CallControl\ im Ring erfolgt mit dem {\em gierigen Algorithmus}: 
-Dieser arbeitet auf der Eingabe einer Kette $(V,E)$ sowie einer Menge $A$ von Pfaden in $(V,E)$ in gieriger Ordnung sortiert. \todo{check sorting (p.229)}
-Er bearbeitet alle Pfade in gieriger Ordnung und akzeptiert einen Pfad, falls dadurch keine der Kapazitäten
-überschritten wird, ansonsten lehnt er den Pfad ab.
-Nachdem alle Pfade bearbeitet wurden, endet der Algorithmus und liefert die akzeptierten Pfade als Rückgabe.
-
 Im Folgenden bezeichne $\leq_G$ eine feste gierige Ordnung.
-Jede geeignete Menge $A$ von $k$ Pfaden kann identifiziert werden durch eine Menge $\{a_1, \dots, a_k\}$ mit
+Die Berechnung der Lösung für \CallControl\ im Ring erfolgt mit dem {\em gierigen Verfahren}: 
+Dieser nimmt an, dass die Pfade $P$ bereits in gieriger Ordnung $\leq_G$ sortiert sind.
+Er bearbeitet alle Pfade in der gegebenen Sortierung und fügt ihn zu den akzeptierten Pfaden hinzu, falls diese 
+dadurch keine der Kantenkapazitäten verletzt, das heißt, falls diese dadurch eine geeignete Menge bleibt.
+Ansonsten lehnt er den Pfad ab.
+Nachdem alle Pfade bearbeitet wurden, endet das Verfahren und liefert die akzeptierten Pfade als Rückgabe.
+
+Jede Menge $A \subseteq P$ von $k$ Pfaden kann als eine Menge $\{a_1, \dots, a_k\}$ dargestellt werden mit
 $a_1 <_G \dots <_G a_k$.
-Für $A=\{a_1,\dots,a_k\}$ und $B=\{b_1,\dots,b_k\}$ schreiben wir $A \leq_G B$, falls $\forall i \in \{1,\dots,k\}\colon a_i \leq_G b_i$.
-Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls für jede gleich-mächtige, geeignete Menge $B$
-gilt $A \leq_G B$.
-\begin{lemma}[Optimalität des gierigen Algorithmus']\label{lem:optimalityGreedyAlgorithm}
+Für $A=\{a_1,\dots,a_k\}$ und $B=\{b_1,\dots,b_k\}$ schreibe man dann $A \leq_G B$, falls $\forall i \in \{1,\dots,k\}\colon a_i \leq_G b_i$.
+Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls $A \leq_G B$ für jede gleich-mächtige, geeignete Menge $B$.
+\begin{lemma}[Optimalität des gierigen Verfahrens]\label{lem:optimalityGreedyAlgorithm}
     Existiert bei einer Menge $P$ von Pfaden einer Kette eine geeignete Teilmenge mit $k \in \set N$ Pfaden, so ist die
-    Menge der ersten $k$ Pfade nach gieriger Ordnung, die der gierige Algorithmus berechnet, eine minimale Menge.
+    Menge der in gieriger Ordnung $\leq_G$ kleinsten $k$ Pfade, die das gierige Verfahren berechnet, eine minimale Menge.
 \end{lemma}
 \begin{proof}
     Sei $Q_0$ eine geeignete Menge mit $k$ Pfaden.
-    Wir nennen $G$ die Menge der ersten $k$ Pfade nach gieriger Ordnung, die der gierige Algorithmus berechnet, und
+    Wir nennen $G$ die Menge der in $\leq_G$ kleinsten $k$ Pfade, die das gierige Verfahren berechnet, und
     transformieren $Q_0$ schrittweise zu $Q_k = G$.
     Dabei soll für $i \in \{1,\dots\,k\}$ gelten, dass $Q_i$ geeignet ist sowie $Q_i \leq_G Q_{i-1}$.
     Dadurch ist auch $G$ geeignet und durch die Transitivität von $\leq_G$ auf Mengen von Pfaden folgt auch $G \leq_G Q_0$,
@@ -34,46 +35,44 @@ gilt $A \leq_G B$.
     übereinstimmen.
     Für $i=0$ gelten alle Voraussetzungen.
     Nehmen wir also an, $Q_{i-1}$ sei geeignet und stimme auf den ersten $i-1$ Pfaden mit $G$ überein.
-    Wir benennen $p$ als den $i$-ten Pfad von $G$.
+    Wir benennen $p=(s_p, t_p)$ als den $i$-ten Pfad von $G$.
 
-    Für den Fall $p \in Q_{i-1}$ ist $p$ auch bereits der $i$-te Pfad von $Q_{i-1}$, da der Algorithmus nach
-    gieriger Ordnung vorgeht und $Q_{i-1}$ mit $G$ auf den ersten $i-1$ Pfaden übereinstimmmt.
+    Für den Fall $p \in Q_{i-1}$ ist $p$ auch bereits der $i$-te Pfad von $Q_{i-1}$, da das Verfahren nach
+    gieriger Ordnung vorgeht und $Q_{i-1}$ mit $G$ auf den ersten $i-1$ Pfaden übereinstimmt.
     Setzt man $Q_i \coloneqq Q_{i-1}$ so bleiben alle Invarianten erhalten.
 
     Sonst gilt $p \notin Q_{i-1}$ und die Menge der Pfade $q \in Q_{i-1}$ mit $q >_G p$ ist nicht leer.
-    Von diesen Pfaden sei $q$ ein solcher mit kleinstem Startknoten, der an $j$-ter Stelle in $Q_{i-1}$ steht
-    ($j \geq i$).
-    Setzen wir nun $Q_{i} \coloneqq Q_{i-1} \setminus \{ q \} \cup \{ p \}$, so stimmen $Q_{i}$ und $G$ an den
+    Von diesen Pfaden sei $q$ ein solcher mit kleinstem Startknoten $s_q$, der in $Q_{i-1}$ an $j$-ter Stelle steht
+    (insb.\ $j \geq i$).
+    Setzt man nun $Q_{i} \coloneqq Q_{i-1} \cup \{ p \} \setminus \{ q \} $, so stimmen $Q_{i}$ und $G$ an den
     ersten $i$ Stellen wieder überein und alle Pfade, die in $Q_{i-1}$ an den Stellen $i$ bis $j-1$ stehen, rutschen
     in $Q_i$ eine Stelle weiter an die Positionen $i+1$ bis $j$.
     Insbesondere gilt also $Q_i \leq_G Q_{i-1}$.
-    Bleibt zu zeigen, dass $Q_i$ wieder geeignet ist:
-    Die Kanten, die links des Anfangsknoten $s_q$ von $q$ stehen, sind nicht betroffen, da aufgrund der Minimalität
+    Es bleibt zu zeigen, dass $Q_i$ wieder geeignet ist, wozu die Kapazitäten der einzelnen Kanten betrachtet wird:
+    Die Kanten, die links der beiden Anfangsknoten $s_q$ und $s_p$ stehen, sind nicht betroffen, da aufgrund der Minimalität
     von $s_q$ dort nach $q$ keine weiteren Kapazitäten benötigt werden.
-    Ist $s_q$ kleiner als der Anfangsknoten $s_p$ von $p$, so sparen die Kanten zwischen $s_q$ und $s_p$ sogar eine
-    Kapazität ein.
+    Ist $s_q$ kleiner als $s_p$, so sparen die Kanten zwischen $s_q$ und $s_p$ sogar eine Kapazität ein.
     Ist andersrum $s_p$ kleiner als $s_q$, verletzt $Q_i$ auf den Zwischenkanten trotzdem keine Kapazitäten, da
     hier nach $p$ aufgrund der Minimalität von $s_q$ keine weiteren Pfade eine Kapazität verbrauchen und $p$ vom
-    Algorithmus akzeptiert wurde, weil bis zum Pfad $p$ keine Kapazität verletzt wurde.
+    Verfahren akzeptiert wurde, weil bis zum Pfad $p$ keine Kapazität verletzt wurde.
     Die Kanten, bei denen sich $p$ und $q$ überschneiden, spielen offensichtlich keine Rolle und die Kanten
     vom Zielknoten von $p$ bis zum Zielknoten von $q$ benötigen wieder eine Kapazität weniger.
 \end{proof}
 
-Daraus folgt, dass der gierige Algorithmus das Call-Control-Problem in Ketten löst:
-Sei $Q$ eine Lösung, also eine möglichst große, geeignete Teilmenge von Pfaden in $P$, so liefert der gierige
-Algorithmus nach Lemma~\ref{lem:optimalityGreedyAlgorithm} eine gleichmächtige, sogar minimale Lösung.
+Daraus folgt, dass das gierige Verfahren das Call-Control-Problem in Ketten löst:
+Sei $Q$ eine Lösung, also eine möglichst große, geeignete Teilmenge von Pfaden in $P$, so liefert das gierige
+Verfahren nach Lemma~\ref{lem:optimalityGreedyAlgorithm} eine gleichmächtige, sogar minimale Lösung.
 
-Eine einfache Implementierung dieses Algorithmus' könnte in $O(m \cdot n)$ erfolgen, wobei $m$ die Anzahl der gegebenen
-Pfade und $n$ die Anzahl der Knoten ist, indem einfach für jeden Pfad einzeln an jeder Kante überprüft wird, ob durch
-die Hinzunahme die Kapazität überschritten würde.
-Jedoch lässt sich dieser Zeitaufwand sogar auf $O(m)$ verringern, wie wir in den nächsten Lemmata \todo{LEMMATA}
-erkennen werden.
-Dabei werden wir zunächst einen Algorithmus betrachten, bei dem vorausgesetzt wird, dass alle Kanten die gleiche
+Eine einfache Implementierung dieses Verfahrens könnte in $O(m \cdot n)$ erfolgen, wobei $m$ die Anzahl der gegebenen
+Pfade und $n$ die Anzahl der Kanten ist, indem einfach für jeden Pfad einzeln an jeder Kante überprüft wird, ob durch
+die Hinzunahme die Kapazität überschritten wird.
+Jedoch lässt sich dieser Zeitaufwand sogar auf $O(m)$ verringern, wie wir in den nächsten Abschnitten erkennen werden.
+Dabei werden wir zunächst einen Algorithmus kennenlernen, bei dem vorausgesetzt wird, dass alle Kanten die gleiche
 Kapazität haben, und werden diesen danach an unser Ausgangsproblem anpassen.
 
 \subsection{Gieriger Algorithmus für gleiche Kapazitäten von Carlisle und Lloyd}\label{subsec:algorithmusGleicheKapazitäten}
-Wir gehen davon aus, dass $(V,E)$ eine Kette ist, $P$ eine Menge von $m$ Pfaden in $(V,E)$ und jede Kante in $E$ nun eine
-feste Kapazität $C \in \set N$ besitzt.
+Sei wieder $(V,E)$ eine Kette ist, $P$ eine Menge von $m$ Pfaden in $(V,E)$ und alle Kanten in $E$ besitzen nun die
+feste Kapazität $C \in \set N$.
 Dabei können wir ohne Beschränkung der Allgemeinheit von $C \leq m$ ausgehen.
 Die Idee des Algorithmus besteht darin, die akzeptierten Pfade nach gieriger Ordnung in $C$ verschiedene Farben zu
 färben, wobei sich zwei akzeptierte Pfade derselben Farbe nicht überschneiden sollen.
