@@ -128,8 +128,8 @@ Es ist offensichtlich, dass kein optimaler Anführer von $p$ in gieriger Ordnung
 $p$ sein kann.
 
 Der Algorithmus bearbeitet danach jeden Pfad $p \in P$ nach gieriger Reihenfolge, wobei er jeweils wie folgt vorgeht.
-Es wird der bevorzugte Pfad $q$ von $p$ betrachtet:
-Ist $\find(q)$, also der Repräsentant der Gruppe von $q$, der fiktive Anführer $f$, so sind alle Pfade in $P$, die kleinergleich dem bevorzugten Pfad $q$
+Es wird der bevorzugte Anführer $q$ von $p$ betrachtet:
+Ist $\find(q)$, also der Repräsentant der Gruppe von $q$, der fiktive Anführer $f$, so sind alle Pfade in $P$, die kleinergleich dem bevorzugten Anführer $q$
 sind und damit Kandidaten für einen optimalen Anführer von $p$ wären, auch in der Gruppe von $f$. Daher kann es keinen optimalen Anführer zu $p$ geben,
 da alle Anführer die Repräsentanten der anderen $C$ aktiven Gruppen sind und daher in gieriger Ordnung nach dem bevorzugten Anführer $q$ kommen.
 Daher wird $p$ abgelehnt und die Gruppe von $p$ mit der Gruppe des Vorgängers von $p$ in gieriger Ordnung vereinigt.
@@ -149,7 +149,7 @@ Eine genauere Analyse dieses Verfahrens und dessen Laufzeit $\mathcal O(m)$ besc
 \subsection{Gieriger Algorithmus mit willkürlichen Kapazitäten}\label{subsec:anpassenAnWillkürlicheKapazitäten}
 
 Nachdem wir nun eine effiziente Lösung für identische Kapazitäten gefunden haben, wollen wir nun das eigentliche Problem mit
-willkürlichen Kapazitäten $c: E \mapsto \set N$ durch eine geschickte Anpassung des Algorithmus' aus~\ref{subsec:algorithmusGleicheKapazitäten} lösen.
+willkürlichen Kapazitäten $c: E \mapsto \set N$ durch eine geschickte Anpassung des Algorithmus aus~\ref{subsec:algorithmusGleicheKapazitäten} lösen.
 Sei $C \coloneqq \max_{e \in E} c(e)$ die maximale Kapazität aller Kanten.
 Die Idee ist es, das Problem mit identischer Kapazität $C$ anzuwenden und dabei für jede Kante $e$ die $C - c(e)$
 hinzugewonnen Kapazitäten mit Platzhalterpfaden zu befüllen.
@@ -231,7 +231,7 @@ $\mathcal O(m)$.
 Auch die Union-Find-Struktur bleibt die gleiche und jeder Pfad startet in seiner eigenen Gruppe.
 Nun iteriert der Algorithmus durch die Liste $L$ der Endpunkte und verarbeitet dabei Platzhalterpfade beim Antreffen vom
 zugehörigen Anfangsknoten und Originalpfade beim Antreffen vom zugehörigen Zielknoten.
-Die eigentliche Verarbeitung eines Pfades $p$ hat sich aber nicht geändert: Es wird der bevorzugte Pfad $q$ von $p$
+Die eigentliche Verarbeitung eines Pfades $p$ hat sich aber nicht geändert: Es wird der bevorzugte Anführer $q$ von $p$
 betrachtet;
 falls $\find(q)$ der fiktive Anführer ist, wird $p$ abgelehnt und die Gruppe von $p$ mit der
 Gruppe des Vorgängers von $p$ vereinigt;
