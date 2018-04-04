@@ -260,7 +260,7 @@ Implementierung des gierigen Verfahrens darstellt:
     haben zu der Zeit einen Zielknoten, der rechts vom Anfangsknoten von $p$ liegt (sonst gäbe es einen optimalen Anführer).
     Da $p$ bereits am Anfangsknoten bearbeitet wird und alle Originalpfade erst am Zielknoten, kann kein Originalpfad einer
     dieser gefärbten Anführer sein, sondern es sind allesamt Platzhalterpfade, die bereits vor $p$ gefärbt worden sein müssen.
-    Dementsprechend ist liegen dann auf der ersten Kante von $p$ mindestens $C+1$ Platzhalterpfade, was ein Widerspruch zur Konstruktion
+    Dementsprechend ist liegen dann auf der ersten Kante von $p$ mindestens $C+1$ Platzhalterpfade, was einen Widerspruch zur Konstruktion
     der Platzhalterpfade darstellt.
 
     Insbesondere berechnet $U$ wieder eine geeignete Teilmenge der Pfade.
@@ -293,6 +293,6 @@ Implementierung des gierigen Verfahrens darstellt:
 Daraus folgt nun:
 
 \begin{theorem}
-    Das gierige Verfahren berechnet eine Lösung in Ketten mit beliebigen Kapazitäten und kann in einer Laufzeit von
-    $\mathcal O(n+m)$ implementiert werden, wobei $n$ die Anzahl der Knoten und $m$ die Anzahl der gegebenen Pfade ist.
+    Das gierige Verfahren berechnet eine Lösung für \CallControl\ in Kettennetzwerken mit beliebigen Kapazitäten und kann in einer Laufzeit von
+    $\mathcal O(n+m)$ implementiert werden, wobei $n$ die Anzahl der Knoten der Kette und $m$ die Anzahl der gegebenen Pfade ist.
 \end{theorem}
