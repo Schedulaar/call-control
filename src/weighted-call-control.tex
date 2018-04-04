@@ -1,43 +1,45 @@
 Nachdem wir nun optimale Lösungen für das \CallControl-Problem in Ketten und Ringen gefunden haben, modifizieren
-wir in diesem Kapitel die Problemstellung ein wenig.
+wir in diesem Kapitel die Problemstellung ein wenig und kümmern uns nun um das \WeightedCallControl-Problem.
 So geben wir jedem der Pfade $p$ ein bestimmtes Gewicht $\omega(p) \in \set R_+$ und versuchen statt der
 Anzahl der akzeptierten Pfade $Q$ das Gesamtgewicht $\omega(Q) \coloneqq \sum_{p\in Q}\omega(p)$ zu maximieren, ohne
 dabei die Kapazität einer Kante zu verletzen.
 Dabei verbraucht weiterhin jeder Pfad eine Kapazitätseinheit einer Kante, falls die Kante Teil des Pfades ist.
 
 Wir werden dazu für das Problem in Ketten einen optimalen Algorithmus finden, jedoch für das Problem in Ringen
-nur Approximationsalgorithmen kennenlernen. \todo{PTAS? BIPARTITE?}
+nur einen 2-Approximationsalgorithmus kennenlernen.
 
 \subsection{\WeightedCallControl-Problem in Ketten}\label{subsec:weighted-call-control-in-chains}
-Für den Fall, dass alle Kanten $e$ wieder identische Kapazitäten $c(e) = C \in \set N$ haben, stellt \todo{REFERENZ CARLISLE}
-eine optimale Lösung für das äquivalente Problem des $C$-Färbens von gewichteten Intervallen vor. \todo{check that we described why we can assemble these problems}.
+Für den Fall, dass alle Kanten $e$ wieder identische Kapazitäten $c(e) = C \in \set N$ haben, stellen Carlisle und Lloyd
+in~\cite{carlisle} eine optimale Lösung für das äquivalente Problem des $C$-Färbens von gewichteten Intervallen vor.
 Dabei wird das Problem auf ein Minimum-Cost Flow Problem reduziert, und dadurch eine Laufzeit von $O(C\cdot S(m))$
 erreicht, wobei $m$ die Anzahl der Intervalle (hier: Pfade) und $S(m)$ die Laufzeit eines Kürzesten-Pfade-Algorithmus
 in gerichteten Graphen mit positiven Kantengewichten und $m$ Kanten ist.
-Außerdem wird angenommen, dass eine sortierte Liste aller Endpunkte bereits zur Verfügung steht. \todo{Sortieren :/}
+Außerdem wird wieder angenommen, dass bereits eine sortierte Liste aller Endpunkte zur Verfügung steht.
 
-Eine Instanz der Größe $C$ des Minimum-Cost Flow Problem besteht dabei aus einem gerichteten Graphen $(V,E)$ mit
-einem Startknoten $s$ und Zielknoten $t$, wobei jede Kante $e$ des Graphen die Kosten $\cost(e)$ und die Kapazität
+Eine Instanz der Größe $C$ des Minimum-Cost Flow Problem besteht dabei aus einem gerichteten Graphen $(V,E)$ mit zwei
+ausgezeichneten Knoten $s$ und $t$, wobei jede Kante $e$ des Graphen die Kosten $\cost(e)$ und die Kapazität
 $\capacity(e) \geq 0$ besitzt.
-Eine Funktion $f\colon E \rightarrow \set R$ heißt dabei {\em Fluss}, falls  $0 \leq f(e) \leq \capacity(e)$ für alle
+Eine Funktion $f\colon E \rightarrow \set R$ heißt {\em Fluss}, falls $0 \leq f(e) \leq \capacity(e)$ für alle
 Kanten $e$ und in jeden Knoten $v$ (ausgenommen $s$ und $t$) genauso viel hineinfließt wie auch wieder herausfließt, d.h.
 die Summe des Flusses aller eingehenden Kanten von $v$ mit der der ausgehenden Kanten übereinstimmt.
 Bei $s$ beträgt der ausgehende und bei $t$ der eingehende Fluss dabei jeweils $C$.
 Gesucht ist nun ein Fluss, dessen Kosten $\sum_{e\in E}f(e) \cdot \cost(e)$ minimal sind.
 
-Übertragen auf die Nomenklatur des Call-Control-Problems, skizzieren wir im Folgenden die Reduktion unseres Problems.
-Sei $v_1 < \dots < v_r$ die sortierte Liste der Endpunkte aller Pfade ohne Duplikate.
-Dann erstellen wir den gerichteten Graphen mit den Endpunkten $s = v_0, \dots, v_{r+1}=t$ und erstellen
-für $1 \leq i \leq r+1$ eine Kante $(v_i-1, v_i)$ mit Kapazität $C$ und Kosten $0$.
-Außerdem erstellen wir für jeden Pfad $p$ eine {\em Pfadkante} $(s_p, t_p)$ mit $s_p$ Start- und $t_p$ Zielknoten von $p$,
+Übertragen auf das \WeightedCallControl-Problem, skizzieren wir für das Kettennetzwerk $(V,E,c)$
+und der Menge $P$ der gegebenen Pfade in $(V,E)$ im Folgenden die Reduktion unseres Problems.
+Die Knoten der Kette $(V,E)$ seien wieder wie gewohnt von links nach rechts durchnummeriert.
+Sei $v_0 < \dots < v_r$ die sortierte Liste der Endpunkte aller Pfade ohne Duplikate.
+Wir bauen den gerichteten Graphen als gerichteten Pfad mit den Knoten $\{s = v_0, \dots, v_r=t\}$ und erstellen
+für $1 \leq i \leq r$ eine Kante $(v_{i-1}, v_i)$ mit Kapazität $C$ und Kosten $0$.
+Zusätzlich erstellen wir für jeden Pfad $p \in P$ eine sogenannte {\em Pfadkante} $(s_p, t_p)$ mit $s_p$ Anfangs- und $t_p$ Zielknoten von $p$,
 wobei die Kosten der Kante den negativen Gewichten des Pfades und die Kapazität der Kante $1$ entsprechen.
 In \todo{FIGURE} ist eine solche Transformation erkennbar.
-In einem Fluss $f$ repräsentieren dann die Pfadkanten $e$ mit $f(e)=1$ die zu akzeptiertenden Pfade.
+In einem Fluss $f$ repräsentieren dann die Pfadkanten $e$ mit $f(e)=1$ die akzeptierten Pfade.
 
 Die Intuition hinter der Korrektheit dieser Problemformulierung besteht darin, den Fluss nicht als Ganzes, sondern
 den Fluss der einzelnen $C$ Einheiten zu betrachten.
 Dadurch erkennt man schnell, dass maximal $C$ Flusseinheiten sich überschneidende Pfade belegen können.
-Für eine genauere Beschreibung und Analyse des Verfahren sowie dessen Laufzeit betrachte man \todo{referenz carlisle sec. 3}.
+Für eine genauere Beschreibung und Analyse des Verfahren sowie dessen Laufzeit betrachte man~\cite{carlisle}.
 Wir wollen uns dagegen dem Problem mit willkürlichen Kapazitäten widmen.
 
 \begin{theorem}
@@ -71,7 +73,7 @@ Dabei gehen wir wie folgt vor:
 
 Wir suchen die Kante $e$ des Rings mit der geringsten Kapazität $c_{\min}$ und betrachten die beiden Pfadmengen
 $Q_{\overline e}^*$ und $Q_{e}^*$.
-Dabei berechnen wir $Q_{\overline e}^*$ mit Hilfe von Abschnitt~\ref{subsec:weighted-call-control-in-chains} als die
+Wir berechnen $Q_{\overline e}^*$ mit Hilfe von Abschnitt~\ref{subsec:weighted-call-control-in-chains} als die
 optimale Lösung des Gewichteten Call-Control-Problem der Kette, die durch
 Weglassen der Kante $e$ entsteht, mit allen Pfaden, die $e$ nicht enthalten.
 Dagegen stellt $Q_e^*$ die Menge der $c_{\min}$ Pfade größten Gewichts, die $e$ enthalten, dar.
@@ -79,7 +81,7 @@ Zwischen $Q_{\overline e}^*$ und $Q_{e}^*$ wird nun die Menge mit größerem Ges
 Approximationslösung von Güte 2 gewählt.
 
 \begin{theorem}
-    Der vorangehende Algorithmus birgt eine Approximation von Güte 2 für das Gewichtete Call-Controll-Problem in Ringen.
+    Der beschriebene Algorithmus birgt eine Approximation von Güte 2 für das Gewichtete Call-Controll-Problem in Ringen.
 \end{theorem}
 \begin{proof}
     Es beschreibe $e$ die Kante aus dem Algorithmus mit der geringsten Kapazität.
@@ -87,8 +89,8 @@ Approximationslösung von Güte 2 gewählt.
     Das ist klar, da $Q_{\overline e}^*$ sogar eine geeignete Menge für die Kette ohne $e$ ist und $Q_e^*$ nur $c_{\min}$
     Pfade enthält, weshalb in beiden Fällen keine Kapazitäten verletzt werden.
 
-    Sei $\OPT$ eine optimale Lösung für das Gewichtete Call-Control-Problem im Ring.
-    $\OPT$ ist eine Partition der beiden Mengen $\OPT_e \coloneqq \{p \in \OPT \mid p\ \text{enthält}\ e\}$ und
+    Sei $\OPT$ eine optimale Lösung für \WeightedCallControl\ im Ring.
+    $\OPT$ ist die disjunkte Vereinigung der beiden Mengen $\OPT_e \coloneqq \{p \in \OPT \mid p\ \text{enthält}\ e\}$ und
     $\OPT_{\overline e} \coloneqq \{p\in\OPT\mid p\ \text{enthält}\ e\ \text{nicht}\}$.
     Es gilt insbesondere, dass $\omega(Q_{\overline e}^*) \geq \omega(\OPT_{\overline e})$ und
     $\omega(Q_e^*) \geq \omega(\OPT_{e})$, da $Q_{\overline e}$ und $Q_e$ in ihren Bereichen maximal gewählt wurden.
