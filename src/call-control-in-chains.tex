@@ -103,12 +103,15 @@ $\mathcal O(m)$ verpassen.
 Stattdessen verwenden Carlisle und Lloyd in ihrem Algorithmus eine spezielle Union-Find-Instanz, die sogenannte
 Static-Tree-Set-Union-Instanz aus~\cite{static-tree-set-union}, bei der die möglichen Vereinigungen bereits zu Beginn feststehen und in einem Baum
 dargestellt werden können, wodurch $m$ union- und find-Aufrufe bei $n$ Elementen in einer Laufzeit von $\mathcal O(m + n)$ erfolgen können.
+Außerdem geht man beim Algorithmus davon aus, dass eine bereits aufsteigend sortierte Liste der Endpunkte aller Pfade existiert.
+Diese List hat also $2\cdot m$ Einträge, d.h.\ ein Punkt kann für verschiedene Pfade öfters vorkommen, dabei sind doppelte Einträge entsprechend der gierigen
+Ordnung der zugehörigen Pfade sortiert.
 
 Genauer führt der Algorithmus zuerst $C$ weitere sogenannte {\em virtuelle Pfade} ein, die in gieriger Ordnung
 vor den eigentlichen Pfaden $P$ stehen und die initialen Anführer der $C$ Farben sind.
 In gieriger Ordnung an erster Stelle (noch vor den virtuellen Pfaden) wird ein weiterer {\em fiktiver Anführer}
-eingefügt, der die \todo{Darstellung} nicht-akzeptierter Pfade ermöglicht.
-Zu Beginn ist jeder Pfad in einer eigenen Gruppe der Union-Find-Struktur.
+eingefügt, der ermöglicht, nicht-akzeptierte Pfade in der Datenstruktur zu behandeln.
+Zu Beginn ist jeder Pfad in einer eigenen Gruppe der Union-Find-Instanz.
 Wir erhalten folgende Invarianten:
 Der Repräsentant jeder Gruppe entspricht immer dem kleinsten Pfad (in gieriger Ordnung) innerhalb der Gruppe.
 Ist ein Pfad noch nicht verarbeitet, so ist er in einer Einzelgruppe - die virtuellen Pfade und der fiktive Anführer
@@ -119,19 +122,16 @@ Dementsprechend gibt es zu jeder Zeit genau $C+1$ aktive Gruppen, wobei die Grup
 Anführers immer die kleinste Gruppe bleibt.
 
 Zunächst berechnet der Algorithmus zu jedem Pfad $p \in P$ den {\em bevorzugten Anführer von $p$}, also den größten Pfad
-in gieriger Ordnung, dessen Zielknoten gleich oder vor dem Anfangsknoten von $p$ ist.
-\todo{check this:}
-Das kann man mit einfachem Durchlaufen aller Endpunkte in $P$ in aufsteigender Reihenfolge erreichen, also in $\mathcal O(n)$
-Zeit.
+in gieriger Ordnung, dessen Zielknoten nicht nach dem Anfangsknoten $s_p$ von $p$ steht.
+Das kann man mit einfachem Durchlaufen der Liste aller Endpunkte in $P$ erreichen, also in $\mathcal O(n)$ Zeit.
 Es ist offensichtlich, dass kein optimaler Anführer von $p$ in gieriger Ordnung größer als der bevorzugte Anführer von
 $p$ sein kann.
 
 Der Algorithmus bearbeitet danach jeden Pfad $p \in P$ nach gieriger Reihenfolge, wobei er jeweils wie folgt vorgeht.
 Es wird der bevorzugte Pfad $q$ von $p$ betrachtet:
-Ist $\find(q)$, also der Repräsentant der Gruppe von $q$, der fiktive Anführer $f$, so gibt es keinen optimalen Anführer
-zu $p$, da auch alle Pfade in $P$, die kleinergleich dem bevorzugten Pfad $q$ und damit Kandidaten für einen optimalen
-Anführer von $p$ wären, auch in der Gruppe von $f$ liegen und damit kein Anführer einer Farbe dabei ist, da diese die
-Repräsentanten der anderen C Gruppen sind.
+Ist $\find(q)$, also der Repräsentant der Gruppe von $q$, der fiktive Anführer $f$, so sind alle Pfade in $P$, die kleinergleich dem bevorzugten Pfad $q$
+sind und damit Kandidaten für einen optimalen Anführer von $p$ wären, auch in der Gruppe von $f$. Daher kann es keinen optimalen Anführer zu $p$ geben,
+da alle Anführer die Repräsentanten der anderen $C$ aktiven Gruppen sind und daher in gieriger Ordnung nach dem bevorzugten Anführer $q$ kommen.
 Daher wird $p$ abgelehnt und die Gruppe von $p$ mit der Gruppe des Vorgängers von $p$ in gieriger Ordnung vereinigt.
 Die Invarianten bleiben erhalten, da wieder $C+1$ Gruppen unter den verarbeiteten Pfaden existieren mit den gleichen
 Anführern.
@@ -144,8 +144,7 @@ Da $\find(q)$ nun kein Anführer mehr ist, wird seine Gruppe aufgelöst und mit 
 vereinigt.
 Wieder erhalten wir alle Invarianten.
 
-Eine genauere Analyse dieses Verfahrens und dessen Laufzeit $\mathcal O(m)$ beschreiben \todo{Carlisle und Llyod in 'On the
-k-coloring of intervals'}.
+Eine genauere Analyse dieses Verfahrens und dessen Laufzeit $\mathcal O(m)$ beschreiben Carlisle und Llyod in~\cite{carlisle}.
 
 \subsection{Gieriger Algorithmus mit willkürlichen Kapazitäten}\label{subsec:anpassenAnWillkürlicheKapazitäten}
 
