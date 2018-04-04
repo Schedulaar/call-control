@@ -250,19 +250,19 @@ Implementierung des gierigen Verfahrens darstellt:
     Jede Gruppe mit verarbeiteten Pfaden enthält nur in $\leq_G$ aufeinanderfolgende Pfade und der Repräsentant einer
     solchen Gruppe ist entweder ein Anführer einer Farbe oder der fiktive Anführer.
     Andere Gruppen sind Einzelgruppen.
-    
+
     Es ist leicht zu sehen, dass $U$ wie im vorherigen Abschnitt alle Pfade in $C$ Farben färbt, wobei sich zwei Pfade
     derselben Farbe nie schneiden können.
-    Um zu zeigen, dass $U$ alle Platzhalterpfade färbt, nehmen wir an, $U$ würde einen Platzhalterpfad $p$ nicht färben. 
+    Um zu zeigen, dass $U$ alle Platzhalterpfade färbt, nehmen wir an, $U$ würde einen Platzhalterpfad $p$ nicht färben.
     Sei $p$ derjenige Platzhalter mit kleinstem Anfangsknoten, der von $U$ nicht gefärbt wird, und sei $q$ sein bevorzugter Anführer.
     Das bedeutet, dass bei der Entdeckung von $p$ der Repräsentant $\find(q)$ der fiktive Anführer war.
     Insbesondere gab es unter den $C$ gefärbten Anführern keinen optimalen Anführer von $p$, sondern alle gefärbten Anführer
     haben zu der Zeit einen Zielknoten, der rechts vom Anfangsknoten von $p$ liegt (sonst gäbe es einen optimalen Anführer).
-    Da $p$ bereits am Anfangsknoten bearbeitet wird und alle Originalpfade erst am Zielknoten, kann kein Originalpfad einer 
+    Da $p$ bereits am Anfangsknoten bearbeitet wird und alle Originalpfade erst am Zielknoten, kann kein Originalpfad einer
     dieser gefärbten Anführer sein, sondern es sind allesamt Platzhalterpfade, die bereits vor $p$ gefärbt worden sein müssen.
     Dementsprechend ist liegen dann auf der ersten Kante von $p$ mindestens $C+1$ Platzhalterpfade, was ein Widerspruch zur Konstruktion
     der Platzhalterpfade darstellt.
-    
+
     Insbesondere berechnet $U$ wieder eine geeignete Teilmenge der Pfade.
     Jetzt müssen wir noch zeigen, dass genau die Originalpfade akzeptiert werden, die auch der gierige Algorithmus
     akzeptiert.
@@ -296,14 +296,3 @@ Daraus folgt nun:
     Das gierige Verfahren berechnet eine Lösung in Ketten mit beliebigen Kapazitäten und kann in einer Laufzeit von
     $\mathcal O(n+m)$ implementiert werden, wobei $n$ die Anzahl der Knoten und $m$ die Anzahl der gegebenen Pfade ist.
 \end{theorem}
-
-
-
-
-
-
-
-
-
-
-
