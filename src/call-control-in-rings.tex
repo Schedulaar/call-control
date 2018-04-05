@@ -93,7 +93,34 @@ Profil.
 Ist nun $\pi_i = \pi_{i-1}$, so meldet die Prozedur einen Erfolg mit $G_i$ als Rückgabe, sonst wird die nächste Runde
 berechnet.
 
-Ein Beispiel kann man in \todo{FIGURE} sehen.
+Ein Beispiel kann man in Abbildung~\ref{fig:example-ring-procedure} sehen.
+Hier wird überprüft, ob eine $5$-elementige geeignete Teilmenge an Pfaden existiert, wobei
+das Beispiel aus Abbildung~\ref{fig:example-ring-to-chain} weitergeführt wird.
+Nach drei Schritten hält der Algorithmus mit einer geeigneten Menge $G_3$, da, wie man sieht, das Profil $\pi_2$
+dem Profil $\pi_{G_3}$ von $G_3$ selbst entspricht.
+
+\begin{figure}[h]
+	\begin{subfigure}{\textwidth}
+		\centering
+		\def\svgwidth{230bp}
+		\input{ring_procedure_k_1.pdf_tex}
+		\caption{$i=1$: Die Menge $G_1$ ist schwarz markiert.}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\def\svgwidth{230bp}
+		\input{ring_procedure_k_2.pdf_tex}
+		\caption{$i=2$: Die Menge $G_2$ ist schwarz, $\pi_1$ grau markiert.}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\def\svgwidth{230bp}
+		\input{ring_procedure_k_3.pdf_tex}
+		\caption{$i=3$: Die Menge $G_3$ ist schwarz, $\pi_2$ grau markiert. $G_3$ ist geeignet.}
+	\end{subfigure}
+	\caption{Die Prozedur mit 3 Runden anhand des Beispiels aus Abb.~\ref{fig:example-ring} für $k=5$, wobei alle Kanten die Kapazität $2$ haben (mod. nach~\cite{paper})}
+	\label{fig:example-ring-procedure}
+\end{figure}
 
 \subsection{Korrektheit des Algorithmus}\label{subsec:korrektheitCallControlInRings}
 Um die Korrektheit des gesamten Algorithmus einzusehen, beweisen wir in den nächsten Lemmata, dass die Prozedur zum
