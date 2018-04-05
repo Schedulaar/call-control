@@ -84,7 +84,7 @@ In jeder Runde $i \in \set N$ initialisieren wir die Kapazitäten der beiden Kop
 in den ersten Kopie von $c(e)$ noch $\pi_{i-1}(e)$ Kapazitäten abziehen.
 Das Profil $\pi_{i-1}$ belegt also bereits einige Kanten in der ersten Kopie und eine Menge $Q$ ist mit diesen Kapazitäten
 kettengeeignet genau dann, wenn sie auf den ursprünglichen Kapazitäten kettengeeignet zum Startprofil $\pi_{i-1}$ ist.
-Nun bestimmen wir mit dem gierigen Verfahren eine größtmögliche Menge $G$, die in der resultierende Kette
+Nun bestimmen wir mit dem gierigen Verfahren eine größtmögliche Menge $G$, die in der resultierenden Kette
 geeignet ist.
 Enthält $G$ weniger als $k$ Pfade, so bricht die Prodzedur ab mit der Antwort, dass eine geeignete $k$-elementige Menge
 nicht existiert.
@@ -108,7 +108,7 @@ Dabei benutzen wir die vom Algorithmus generierten Mengen $G_i$, sowie dessen Pr
     Angenommen, es gilt $\pi_{i-1} \leq \pi_i$.
     Nach Lemma~\ref{lem:optimalityGreedyAlgorithm} ist $G_{i}$ eine minimale Menge mit $k$ Pfaden, die auf der Kette mit den durch $\pi_{i}$
     reduzierten Kapazitäten geeignet ist.
-    Da $G_{i-1}$ geeignet zum Startprofil $\pi_{i-1}$ ist und es gilt $\pi_{i-1} \leq \pi_i$, ist $G_{i-1}$ auch
+    Da $G_{i-1}$ geeignet zum Startprofil $\pi_{i-1}$ ist und $\pi_{i-1} \leq \pi_i$, ist $G_{i-1}$ auch
     geeignet zum Startprofil $\pi_{i}$ und aufgrund der Minimalität von $G_i$ ist insbesondere $G_i \leq_G G_{i-1}$.
     Daraus folgt direkt $\pi_i \leq \pi_{i+1}$.
 \end{proof}
