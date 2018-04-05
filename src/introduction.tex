@@ -74,7 +74,7 @@ Eine direkte Anwendung bietet die zyklische Ablaufplanung.
 Hier ist beispielsweise eine Menge an Aufgaben gegeben, die je in einem bestimmten Zeitintervall innerhalb eines Tages erledigt werden sollen.
 Diese Zeitintervalle dürfen sich beliebig überschneiden oder sich sogar bis in den nächsten Tag erstrecken - sie müssen aber immer kürzer 
 als 24 Stunden andauern.
-Der Tag wird nun in so viele Intervalle $t_i$ aufgeteilt, sodass jedes Zeitintervall der Aufgaben als Vereinigung  
+Der Tag wird nun in so viele Intervalle $t_i$ aufgeteilt, sodass das Zeitintervall jeder Aufgabe als Vereinigung  
 aufeinanderfolgender $t_i$ dargestellt werden kann.
 Außerdem stehen jeden Tag im Zeitintervall $t_i$ genau $c_i$ Maschinen zur Verfügung und jede Maschine kann jede Aufgabe erledigen, wobei immer nur 
 eine Maschine an einer Aufgabe gleichzeitig arbeiten kann.
@@ -83,7 +83,7 @@ Aufgabe von Maschine zu Maschine, z.B.\ beim Wechsel eines Zeitintervalls, ohne 
 Ziel ist es nun einen Ablaufplan zu finden, der die Anzahl an Aufgaben, die an einem Tag bearbeitet werden, maximiert.
 Dieser Ablaufplan soll dann fortlaufend über mehrere Tage hinweg eingesetzt werden können.
 Dazu kann \CallControl\ verwendet werden: Das Ringnetzwerk ist dabei durch die Kanten $t_i$ mit den Kapazitäten $c_i$ der verfügbaren Maschinen
-zu jedem Zeitintervall gegeben. Die dazugehörigen Anfragen stellen dabei die Aufgaben dar, deren Zeitintervalle als Pfade auf dem Ring betrachtet
-werden können.
+zu jedem Zeitintervall gegeben. Die dazugehörigen Aufgaben stellen dabei die Anfragen im Netzwerk dar, die als Pfade auf dem Ring die Zeitintervalle
+der Aufgaben abbilden.
 Löst man nun das Call-Control-Problem, erhält man eine größtmögliche Menge an Pfaden, die keine Kapazitäten verletzt, und dadurch auch die
 größtmögliche Menge an Aufgaben, die an einem Tag bearbeitet werden können.

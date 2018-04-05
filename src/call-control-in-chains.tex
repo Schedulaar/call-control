@@ -84,9 +84,12 @@ Wie man schnell erkennt, entspricht die größte Menge der gefärbten Intervalle
 in der sich maximal $C$ Pfade an einer Kante überschneiden dürfen, bei der also jede Kante die Kapazität $C$ hat.
 Statt also die Intervalle zu färben, reden wir im Folgenden davon, die Pfade entsprechend zu färben.
 
-Der Algorithmus verarbeitet alle Pfade in gieriger Ordnung.
+Genauer führt der Algorithmus zuerst $C$ weitere sogenannte {\em virtuelle Pfade} ein, die in gieriger Ordnung
+vor den eigentlichen Pfaden $P$ stehen und jeweils in einer der $C$ Farben gefärbt sind.
+Dann werden alle Pfade in gieriger Ordnung verarbeitet.
 Dabei wird zu jeder Farbe $c$ der aktuelle {\em Anführer} gespeichert, das heißt, der in gieriger Ordnung größte, bereits
 verarbeitete Pfad mit der Farbe $c$.
+Die virtuellen Pfade stellen dabei die initialen Anführer der Farben dar.
 Der Algorithmus sucht jetzt für jeden Pfad $p$ den größten Anführer, der sich nicht mit $p$ überschneidet.
 Ein solcher Pfad heißt {\em optimaler Anführer von $p$}.
 Findet er einen solchen, wird $p$ akzeptiert, in die Farbe seines optimalen Anführers gefärbt und damit neuer Anführer
@@ -108,10 +111,8 @@ Außerdem geht man beim Algorithmus davon aus, dass eine bereits aufsteigend sor
 Diese Liste hat also $2\cdot m$ Einträge, d.h.\ ein Punkt kann für verschiedene Pfade öfters vorkommen, dabei sind doppelte Einträge entsprechend der gierigen
 Ordnung der zugehörigen Pfade sortiert.
 
-Genauer führt der Algorithmus zuerst $C$ weitere sogenannte {\em virtuelle Pfade} ein, die in gieriger Ordnung
-vor den eigentlichen Pfaden $P$ stehen und die initialen Anführer der $C$ Farben sind.
-In gieriger Ordnung an erster Stelle (noch vor den virtuellen Pfaden) wird ein weiterer {\em fiktiver Anführer}
-eingefügt, der ermöglicht, nicht-akzeptierte Pfade in der Datenstruktur zu behandeln.
+Genauer fügt der Algorithmus in gieriger Ordnung an erster Stelle (noch vor den virtuellen Pfaden) einen weiteren {\em fiktiven Anführer}
+ein, der ermöglicht, nicht-akzeptierte Pfade in der Datenstruktur zu behandeln.
 Zu Beginn ist jeder Pfad in einer eigenen Gruppe der Union-Find-Instanz.
 Wir erhalten folgende Invarianten:
 Der Repräsentant jeder Gruppe entspricht immer dem kleinsten Pfad (in gieriger Ordnung) innerhalb der Gruppe.
