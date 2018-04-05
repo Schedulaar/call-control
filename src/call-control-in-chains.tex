@@ -157,12 +157,19 @@ hinzugewonnen Kapazitäten mit Platzhalterpfaden zu befüllen.
 Werden vom Algorithmus alle Platzhalterpfade akzeptiert, so können wir sicher sein, dass wir nach Entfernen der
 Platzhalterpfade eine optimale Lösung für willkürliche Kapazitäten gefunden haben.
 Wir müssen also insbesondere dafür sorgen, dass all unsere Platzhalter eingefärbt werden.
-Eine wie im vorigen Abschnitt aufsteigend sortierte Liste der Endpunkte aller Pfade berechnen wir nun allerdings selbst mit einem Aufwand von $\Omega(n+m)$
-, z.B.\ durch Sortieren durch Zählen.
+Eine wie im vorigen Abschnitt aufsteigend sortierte Liste der Endpunkte aller Pfade berechnen wir nun allerdings selbst mit einem Aufwand von $\Omega(n+m)$, z.B.\ durch Sortieren durch Zählen.
+
+\begin{figure}[htbp]
+	\centering
+	\def\svgwidth{250bp}
+	\input{dummy_paths.pdf_tex}
+	\caption{Platzhalterpfade in schwarz dargestellt (mod. nach~\cite{paper})}
+	\label{fig:dummy-paths}
+\end{figure}
 
 Wir beschäftigen uns zunächst näher mit dem Hinzufügen der Platzhalter:
-Dazu wird die sortierte Liste der Endpunkte durchlaufen und gleichzeit berechnet, wie viele Platzhalterpfade an jedem Knoten
-beginnen bzw.\ enden müssen (siehe \todo{FIGURE}):
+Dazu wird die sortierte Liste der Endpunkte durchlaufen und gleichzeitig berechnet, wie viele Platzhalterpfade an jedem Knoten
+beginnen bzw.\ enden müssen (siehe Abbildung~\ref{fig:dummy-paths}):
 Beim ersten Knoten $v_0$ müssen $C - c(e_1)$ Platzhalterpfade beginnen und wir schreiben $(C - c(e_1))$ mal $v_0$ in einen
 leeren Keller $K$.
 Ist $c(e_i) > c(e_{i+1})$, beginnen beim Knoten $v_{i}$ weitere Platzhalter und $v_i$ wird genau $(c(e_i) - c(E_{i+1}))$ mal in $K$ gelegt.
@@ -173,13 +180,21 @@ Beim letzten Knoten $v_{n-1}$ bilden dann alle verbleibenden Knoten aus $K$ als 
 Da wir allerdings insgesamt eine Laufzeit von $\mathcal O(n+m)$ zum Ziel haben, können wir das beschriebene Verfahren
 nicht einfach übernehmen:
 Bei starken Schwankungen der einzelnen Kapazitäten kann es hier passieren, dass bis zu $\Omega(m\cdot n)$
-Platzhalter hinzugefügt werden müssen, was unsere Ziellaufzeit übersteigt (siehe \todo{FIGURE}).
+Platzhalter hinzugefügt werden müssen, was unsere Ziellaufzeit übersteigt (siehe Abbildung~\ref{fig:dummy-paths-too-many}).
 Jedoch wird schnell ersichtlich, dass in solchen Fällen viele Platzhalter unnötigerweise platziert werden:
 Hat beispielsweise die Nachfolgekante eines Knoten $v$ eine sehr hohe Kapazität, wobei die Vorgängerkante nur eine sehr
 niedrige Kapazität besitzt, so müssten extrem viele Pfade den Anfangsknoten $v$ haben, um die Kapazität der
 Nachfolgekante auszunutzen.
 Da wir die Pfade bereits kennen, können wir also in vielen Fällen die Kapazität von solchen Nachfolgekanten verringern und
 damit Schwankungen in den Kapazitäten etwas ausgleichen.
+
+\begin{figure}[htbp]
+	\centering
+	\def\svgwidth{250bp}
+	\input{dummy_paths_too_many.pdf_tex}
+	\caption{Bei jeder zweiten Kante werden $C-1=\Omega(m)$ Platzhalter eingefügt (mod. nach~\cite{paper})}
+	\label{fig:dummy-paths-too-many}
+\end{figure}
 
 Um diese Erkenntnis umzusetzen, definieren wir eine neue Kapazitätsfunktion $c'$ mit
 \[
