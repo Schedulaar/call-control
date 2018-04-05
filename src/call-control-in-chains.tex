@@ -9,7 +9,7 @@ Außerdem sei $P$ eine Menge von Pfaden in $(V,E)$ gegeben.
     $\forall p, q \in P \colon t_p < t_q \Rightarrow p <_G q$.
 \end{definition}
 Im Folgenden bezeichne $\leq_G$ eine feste gierige Ordnung auf $P$.
-Die Berechnung der Lösung für \CallControl\ im Ring erfolgt mit dem {\em gierigen Verfahren}:
+Die Berechnung der Lösung für \CallControl\ in der Kette erfolgt mit dem {\em gierigen Verfahren}:
 Dieses nimmt an, dass die Pfade $P$ bereits in gieriger Ordnung $\leq_G$ sortiert sind.
 Es bearbeitet alle Pfade in der gegebenen Sortierung und fügt einen Pfad zu den akzeptierten Pfaden hinzu, falls die
 akzeptierten Pfade dadurch keine der Kantenkapazitäten verletzt, das heißt, falls die akzeptierten Pfade eine geeignete Menge bleiben.
@@ -29,7 +29,7 @@ Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls $A \leq_G B$ für
     Wir nennen $G$ die Menge der in $\leq_G$ kleinsten $k$ Pfade, die das gierige Verfahren berechnet, und
     transformieren $Q_0$ schrittweise zu $Q_k = G$.
     Dabei soll für $i \in \{1,\dots\,k\}$ gelten, dass $Q_i$ geeignet ist sowie $Q_i \leq_G Q_{i-1}$.
-    Dadurch ist auch $G$ geeignet und durch die Transitivität von $\leq_G$ auf Mengen von Pfaden folgt auch $G \leq_G Q_0$,
+    Dadurch ist auch $G$ geeignet und durch die Transitivität von $\leq_G$ auf Mengen von Pfaden folgt $G \leq_G Q_0$,
     also insbesondere die Minimalität von $G$.
 
     Als weitere Invariante nehmen wir auf, dass die ersten $i$ Pfade (in gieriger Ordnung) von $Q_i$ mit denen von $G$
@@ -84,7 +84,7 @@ Wie man schnell erkennt, entspricht die größte Menge der gefärbten Intervalle
 in der sich maximal $C$ Pfade an einer Kante überschneiden dürfen, bei der also jede Kante die Kapazität $C$ hat.
 Statt also die Intervalle zu färben, reden wir im Folgenden davon, die Pfade entsprechend zu färben.
 
-Genauer führt der Algorithmus zuerst $C$ weitere sogenannte {\em virtuelle Pfade} ein, die in gieriger Ordnung
+Der Algorithmus führt zunächst $C$ weitere sogenannte {\em virtuelle Pfade} ein, die in gieriger Ordnung
 vor den eigentlichen Pfaden $P$ stehen und jeweils in einer der $C$ Farben gefärbt sind.
 Dann werden alle Pfade in gieriger Ordnung verarbeitet.
 Dabei wird zu jeder Farbe $c$ der aktuelle {\em Anführer} gespeichert, das heißt, der in gieriger Ordnung größte, bereits
@@ -111,9 +111,9 @@ Außerdem geht man beim Algorithmus davon aus, dass eine bereits aufsteigend sor
 Diese Liste hat also $2\cdot m$ Einträge, d.h.\ ein Punkt kann für verschiedene Pfade öfters vorkommen, dabei sind doppelte Einträge entsprechend der gierigen
 Ordnung der zugehörigen Pfade sortiert.
 
-Genauer fügt der Algorithmus in gieriger Ordnung an erster Stelle (noch vor den virtuellen Pfaden) einen weiteren {\em fiktiven Anführer}
+Genauer fügt der Algorithmus in gieriger Ordnung an erster Stelle (noch vor den virtuellen Pfaden) einen weiteren {\em fiktiven Anführer $f$}
 ein, der ermöglicht, nicht-akzeptierte Pfade in der Datenstruktur zu behandeln.
-Zu Beginn ist jeder Pfad in einer eigenen Gruppe der Union-Find-Instanz.
+Zu Beginn ist dann jeder Pfad in einer eigenen Gruppe der Union-Find-Instanz.
 Wir erhalten folgende Invarianten:
 Der Repräsentant jeder Gruppe entspricht immer dem kleinsten Pfad (in gieriger Ordnung) innerhalb der Gruppe.
 Ist ein Pfad noch nicht verarbeitet, so ist er in einer Einzelgruppe - die virtuellen Pfade und der fiktive Anführer
@@ -158,7 +158,7 @@ hinzugewonnen Kapazitäten mit Platzhalterpfaden zu befüllen.
 Werden vom Algorithmus alle Platzhalterpfade akzeptiert, so können wir sicher sein, dass wir nach Entfernen der
 Platzhalterpfade eine optimale Lösung für willkürliche Kapazitäten gefunden haben.
 Wir müssen also insbesondere dafür sorgen, dass all unsere Platzhalter eingefärbt werden.
-Eine wie im vorigen Abschnitt aufsteigend sortierte Liste der Endpunkte aller Pfade berechnen wir nun allerdings selbst mit einem Aufwand von $\Omega(n+m)$, z.B.\ durch Sortieren durch Zählen.
+Eine wie im vorigen Abschnitt aufsteigend sortierte Liste der Endpunkte aller Pfade berechnen wir nun allerdings selbst mit einem Aufwand von $\mathcal O(n+m)$, z.B.\ durch Sortieren durch Zählen.
 
 \begin{figure}[htbp]
 	\centering
@@ -173,7 +173,7 @@ Dazu wird die sortierte Liste der Endpunkte durchlaufen und gleichzeitig berechn
 beginnen bzw.\ enden müssen (siehe Abbildung~\ref{fig:dummy-paths}):
 Beim ersten Knoten $v_0$ müssen $C - c(e_1)$ Platzhalterpfade beginnen und wir schreiben $(C - c(e_1))$ mal $v_0$ in einen
 leeren Keller $K$.
-Ist $c(e_i) > c(e_{i+1})$, beginnen beim Knoten $v_{i}$ weitere Platzhalter und $v_i$ wird genau $(c(e_i) - c(E_{i+1}))$ mal in $K$ gelegt.
+Ist $c(e_i) > c(e_{i+1})$, beginnen beim Knoten $v_{i}$ weitere Platzhalter und $v_i$ wird genau $(c(e_i) - c(e_{i+1}))$ mal in $K$ gelegt.
 Ist $c(e_i) < c(e_{i+1})$, so müssen Platzhalterpfade bei $v_i$ enden und es werden $c(e_{i+1}) - c(e_i)$ Elemente aus K geholt, die jeweils als Anfangsknoten mit $v_i$
 als Zielknoten einen der Platzhalterpfade bilden.
 Beim letzten Knoten $v_{n-1}$ bilden dann alle verbleibenden Knoten aus $K$ als Anfangsknoten mit $v_{n-1}$ als Zielknoten die restlichen Platzhalter.
@@ -231,10 +231,10 @@ Das nächste Lemma soll nun aufklären, ob unser Vorgehen die Anzahl an Platzhal
 Insbesondere gelingt also die Anpassung der Kapazitäten sowie das Auffüllen mit Platzhalterpfaden in $\mathcal O(n+m)$ Zeit.
 Nun müssen wir uns nur noch der Herausforderung stellen, beim Lösen des konstruierten Problems mit identischen Kapazitäten alle
 Platzhalter zu akzeptieren.
-Die Idee dabei ist, die Platzhalterpfade so früh wie möglich zu akzeptieren, und erst danach die Originalpfade zu
+Die Idee dabei ist es, die Platzhalterpfade so früh wie möglich zu akzeptieren, und erst danach die Originalpfade zu
 betrachten.
 
-Dazu wird zuerst eine Liste $L$ der Endknoten aller Pfade, jetzt mit Platzhalterpfaden, die die Knoten
+Dazu wird zuerst eine Liste $L$ der Endknoten aller Pfade, jetzt mit Platzhalterpfaden, angelegt, die die Knoten
 aufsteigend und bei gleichem Knoten Zielknoten vor Anfangsknoten sortiert.
 Dabei kommt jeder Knoten genau so oft vor, wie es Pfade mit ihm als einer der beiden Endknoten gibt.
 Die gierige Ordnung $\leq_{G}$ erhalten wir, indem wir in der Liste jeden Zielknoten eines Pfades durch den Pfad selbst
@@ -277,18 +277,18 @@ Implementierung des gierigen Verfahrens darstellt:
     haben zu der Zeit einen Zielknoten, der rechts vom Anfangsknoten von $p$ liegt (sonst gäbe es einen optimalen Anführer).
     Da $p$ bereits am Anfangsknoten bearbeitet wird und alle Originalpfade erst am Zielknoten, kann kein Originalpfad einer
     dieser gefärbten Anführer sein, sondern es sind allesamt Platzhalterpfade, die bereits vor $p$ gefärbt worden sein müssen.
-    Dementsprechend ist liegen dann auf der ersten Kante von $p$ mindestens $C+1$ Platzhalterpfade, was einen Widerspruch zur Konstruktion
+    Dementsprechend liegen auf der ersten Kante von $p$ mindestens $C+1$ Platzhalterpfade, was einen Widerspruch zur Konstruktion
     der Platzhalterpfade darstellt.
 
     Insbesondere berechnet $U$ wieder eine geeignete Teilmenge der Pfade.
-    Jetzt müssen wir noch zeigen, dass genau die Originalpfade akzeptiert werden, die auch der gierige Algorithmus
+    Jetzt müssen wir noch zeigen, dass genau die Originalpfade akzeptiert werden, die auch das gierige Verfahren
     akzeptiert.
 
     Dazu gehen wir vom Gegenteil aus und betrachten den ersten Originalpfad $p$ in gieriger Ordnung, bei dem die
     Entscheidung unterschiedlich ausgefallen ist.
     Da das gierige Verfahren immer eine minimale Lösung liefert, muss $p$ vom gierigen Verfahren akzeptiert und von
     $U$ abgelehnt worden sein, da die Menge, die $U$ berechnet ebenfalls geeignet ist.
-    Sei $A$ die Menge der Pfade, die bisher (von beiden Verfahren) akzeptiert wurden.
+    Sei $A$ die Menge der Pfade, die zum Zeitpunkt der Entdeckung von $p$ (von beiden Verfahren) akzeptiert wurden.
     Da der gierige Algorithmus zusätzlich $p$ akzeptiert hat, wissen wir, dass $A \cup \{p\}$ geeignet ist, was wir
     im Folgenden zum Widerspruch führen:
     Da $U$ den Pfad $p$ am Zielknoten verarbeitete (und $p$ damit der aktuell größte Pfad in gieriger Ordnung
@@ -300,7 +300,7 @@ Implementierung des gierigen Verfahrens darstellt:
     Da $l$ der kleinste Anführer ist, existiert ein $c$-gefärbter Pfad $p_1$ links von $e$ (z.B.\ der $c$-gefärbte virtuelle Pfad) und ein $c$-gefärbter Pfad $p_2$
     rechts von $e$ (z.B.\ der $c$-gefärbte Anführer).
     Wählt man diese jeweils möglichst nah an $e$, so erkennt man einen Widerspruch, da als $p_2$ mit $p_1$ als den
-    scheinbar optimalen Anführer in $c$ gefärbt wurde, war tatsächlich $l$ ein besserer Anführer von $p_2$, da sein Zielpunkt weiter rechts war.
+    scheinbar optimalen Anführer in $c$ gefärbt wurde, war tatsächlich $l$ ein besserer Anführer von $p_2$, da sein Zielknoten weiter rechts ist.
 
     Also besitzen alle $C$ Farben einen Pfad, der $e$ enthält, insgesamt gibt es also $C+1$ Pfade in $A \cup \{p\}$, die
     $e$ enthalten.
