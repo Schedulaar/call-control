@@ -96,9 +96,15 @@ Findet er einen solchen, wird $p$ akzeptiert, in die Farbe seines optimalen Anf�
 der Farbe.
 Findet er keinen, gibt es keine freie Farbe, das heißt das Akzeptieren des Pfades würde eine Kapazität verletzen und der
 Pfad wird abgelehnt.
-Eine solche Färbung mit $C = 2$, kann man in Abbildung \todo{ABBILDUNG} sehen.
+Eine solche Färbung mit $C = 2$, kann man in Abbildung~\ref{fig:k-coloring} sehen.
 
-\todo{FIGURE C-COLORING}
+\begin{figure}[htbp]
+	\centering
+	\def\svgwidth{250bp}
+	\input{k-coloring.pdf_tex}
+	\caption{Eine Färbung mit $C=2$, wobei schwarz und grau eine Farbe darstellen, schwarz umrandete Pfade stehen für verworfene Pfade. (mod. nach~\cite{paper})}
+	\label{fig:k-coloring}
+\end{figure}
 
 Speichert man allerdings zu jeder Farbe einfach den jeweiligen Anführer direkt ab, würde das Berechnen eines optimalen
 Anführers für jeden Pfad mindestens $\mathcal O(\log C)$ benötigen und damit würden wir das Ziel einer gesamt-linearen Laufzeit
