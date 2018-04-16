@@ -23,6 +23,7 @@
 \usepackage{graphicx}
 \usepackage[skip=6pt]{caption}
 \usepackage{subcaption}
+\usepackage{lineno}
 
 \renewcommand{\baselinestretch}{1.2}
 
@@ -64,6 +65,9 @@ urlcolor=black
 % Document
 \begin{document}
     \maketitle
+
+    \linenumbers
+    \modulolinenumbers[5]
 
     \section{Einführung}\label{sec:einführung}
     \input{introduction}
