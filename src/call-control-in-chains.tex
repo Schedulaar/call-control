@@ -1,7 +1,7 @@
 Dieser Abschnitt analysiert den einfacheren Fall des Problems, nämlich den in einer Kette:
 Sei $(V,E)$ eine Kette mit Kapazitäten $c: E \to \set N$ und $V=\{0,\dots,n\}$, sodass für $i \in \{0,\dots,n-1\}$
 die Kante $e_i$ die Knoten $i$ und $i+1$ verbindet.
-Außerdem sei $P$ eine Menge von Pfaden in $(V,E)$ gegeben.
+Außerdem sei eine Menge $P$ von Pfaden in $(V,E)$ gegeben.
 \begin{definition}[Gierige Ordnung]
     Auf einer Menge $P$ von Pfaden in einer Kette nennen wir eine Striktordnung $<_G$ sowie die zugehörige totale
     Ordnung $\leq_G$ {\em gierig},
@@ -10,13 +10,14 @@ Außerdem sei $P$ eine Menge von Pfaden in $(V,E)$ gegeben.
 \end{definition}
 Im Folgenden bezeichne $\leq_G$ eine feste gierige Ordnung auf $P$.
 Die Berechnung der Lösung für \CallControl\ in der Kette erfolgt mit dem {\em gierigen Verfahren}:
-Dieses nimmt an, dass die Pfade $P$ bereits in gieriger Ordnung $\leq_G$ sortiert sind.
+Dieses nimmt an, dass die Pfade $P$ bereits in gieriger Ordnung $\leq_G$ sortiert sind,
+und verwaltet eine Menge der von ihm akzeptierten Pfade, die zu Beginn leer ist.
 Es bearbeitet alle Pfade in der gegebenen Sortierung und fügt einen Pfad zu den akzeptierten Pfaden hinzu, falls die
-akzeptierten Pfade dadurch keine der Kantenkapazitäten verletzt, das heißt, falls die akzeptierten Pfade eine geeignete Menge bleiben.
+akzeptierten Pfade dadurch keine der Kantenkapazitäten verletzen, das heißt, falls die akzeptierten Pfade eine geeignete Menge bleiben.
 Ansonsten wird der Pfad abgelehnt.
-Nachdem alle Pfade bearbeitet wurden, endet das Verfahren und liefert die akzeptierten Pfade als Rückgabe.
+Nachdem alle Pfade bearbeitet wurden, endet das Verfahren mit den akzeptierten Pfaden als Rückgabe.
 
-Jede Menge $A \subseteq P$ von $k$ Pfaden kann als ein Menge $\{a_1, \dots, a_k\}$ dargestellt werden mit
+Jede Menge $A \subseteq P$ von $k$ Pfaden kann als eine Menge $\{a_1, \dots, a_k\}$ dargestellt werden mit
 $a_1 <_G \dots <_G a_k$.
 Für solche $A=\{a_1,\dots,a_k\}$ und $B=\{b_1,\dots,b_k\}$ schreibe man dann $A \leq_G B$, falls $\forall i \in \{1,\dots,k\}\colon a_i \leq_G b_i$.
 Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls $A \leq_G B$ für jede gleich-mächtige, geeignete Menge $B$.
