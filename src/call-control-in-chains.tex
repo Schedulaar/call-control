@@ -3,8 +3,8 @@ Sei $(V,E)$ eine Kette mit Kapazitäten $c: E \to \set N$ und $V=\{0,\dots,n\}$,
 die Kante $e_i$ die Knoten $i$ und $i+1$ verbindet.
 Außerdem sei $P$ eine Menge von Pfaden in $(V,E)$ gegeben.
 \begin{definition}[Gierige Ordnung]
-    Auf einer Menge $P$ von Pfaden in einer Kette nennen wir eine Striktordnung $<_G$ sowie die zugehörige totale
-    Ordnung $\leq_G$ {\em gierig},
+    Auf einer Menge $P$ von Pfaden in einer Kette nennen wir eine Totalordnung $\leq_G$ sowie die zugehörige strenge Totalordnung
+    Ordnung $<_G$ {\em gierig},
     falls sie die Pfade nach ihren Zielknoten aufsteigend ordnet, das heißt, falls
     $\forall p, q \in P \colon t_p < t_q \Rightarrow p <_G q$.
 \end{definition}
@@ -45,7 +45,7 @@ Dabei nennen wir eine zulässige Menge $A$ {\em minimal}, falls $A \leq_G B$ fü
     Sonst gilt $p \notin Q_{i-1}$ und die Menge der Pfade $q \in Q_{i-1}$ mit $q >_G p$ ist nicht leer.
     Von diesen Pfaden sei $q$ ein solcher mit kleinstem Startknoten $s_q$, der in $Q_{i-1}$ an $j$-ter Stelle steht
     (insb.\ $j \geq i$).
-    Setzt man nun $Q_{i} \coloneqq Q_{i-1} \cup \{ p \} \setminus \{ q \} $, so stimmen $Q_{i}$ und $G$ an den
+    Setzt man nun $Q_{i} \coloneqq (Q_{i-1} \cup \{ p \}) \setminus \{ q \} $, so stimmen $Q_{i}$ und $G$ an den
     ersten $i$ Stellen wieder überein und alle Pfade, die in $Q_{i-1}$ an den Stellen $i$ bis $j-1$ stehen, rutschen
     in $Q_i$ eine Stelle weiter an die Positionen $i+1$ bis $j$.
     Insbesondere gilt also $Q_i \leq_G Q_{i-1}$.
@@ -102,7 +102,7 @@ Eine solche Färbung mit $C = 2$, kann man in Abbildung~\ref{fig:k-coloring} seh
 	\centering
 	\def\svgwidth{250bp}
 	\input{k-coloring.pdf_tex}
-	\caption{Eine Färbung mit $C=2$, wobei schwarz und grau eine Farbe darstellen, schwarz umrandete Pfade stehen für verworfene Pfade. (mod. nach~\cite{paper})}
+	\caption{Eine Färbung mit $C=2$, wobei schwarz und grau je eine Farbe darstellen; weiße Pfade sind ungefärbt. (mod. nach~\cite{paper})}
 	\label{fig:k-coloring}
 \end{figure}
 
