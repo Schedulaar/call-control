@@ -9,7 +9,7 @@ Außerdem sei eine Menge $P$ von Pfaden in $(V,E)$ gegeben.
     $\forall p, q \in P \colon t_p < t_q \Rightarrow p <_G q$.
 \end{definition}
 Im Folgenden bezeichne $\leq_G$ eine feste gierige Ordnung auf $P$.
-Die Berechnung der Lösung für \CallControl\ in der Kette erfolgt mit dem {\em gierigen Verfahren}:
+Die Berechnung der optimalen Lösung für \CallControl\ in der Kette erfolgt mit dem {\em gierigen Verfahren}:
 Dieses nimmt an, dass die Pfade $P$ bereits in gieriger Ordnung $\leq_G$ sortiert sind,
 und verwaltet eine Menge der von ihm akzeptierten Pfade, die zu Beginn leer ist.
 Es bearbeitet alle Pfade in der gegebenen Sortierung und fügt einen Pfad zu den akzeptierten Pfaden hinzu, falls die
@@ -61,8 +61,8 @@ Dabei nennen wir eine zulässige Menge $A$ {\em minimal}, falls $A \leq_G B$ fü
     vom Zielknoten von $p$ bis zum Zielknoten von $q$ benötigen wieder eine Kapazität weniger.
 \end{proof}
 
-Daraus folgt, dass das gierige Verfahren das Call-Control-Problem in Ketten löst:
-Sei $Q$ eine Lösung, also eine möglichst große, zulässig Teilmenge von Pfaden in $P$, so liefert das gierige
+Daraus folgt, dass das gierige Verfahren das Call-Control-Problem in Ketten optimal löst:
+Sei $Q$ eine optimale Lösung, also eine möglichst große, zulässig Teilmenge von Pfaden in $P$, so liefert das gierige
 Verfahren nach Lemma~\ref{lem:optimalityGreedyAlgorithm} eine gleichmächtige, sogar minimale Lösung.
 
 Eine einfache Implementierung dieses Verfahrens könnte in $\mathcal O(m \cdot n)$ Zeit erfolgen, wobei $m$ die Anzahl der gegebenen
@@ -157,7 +157,7 @@ Eine genauere Analyse dieses Verfahrens und dessen Laufzeit $\mathcal O(m)$ besc
 
 \subsection{Gieriger Algorithmus mit willkürlichen Kapazitäten}\label{subsec:anpassenAnWillkürlicheKapazitäten}
 
-Nachdem wir nun eine effiziente Lösung für identische Kapazitäten gefunden haben, wollen wir nun das eigentliche Problem mit
+Nachdem wir nun einen effizienten Algorithmus für identische Kapazitäten gefunden haben, wollen wir nun das eigentliche Problem mit
 willkürlichen Kapazitäten $c: E \mapsto \set N$ durch eine geschickte Anpassung des Algorithmus aus~\ref{subsec:algorithmusGleicheKapazitäten} lösen.
 Sei $C \coloneqq \max_{e \in E} c(e)$ die maximale Kapazität aller Kanten.
 Die Idee ist es, das Problem mit identischer Kapazität $C$ anzuwenden und dabei für jede Kante $e$ die $C - c(e)$
@@ -216,8 +216,8 @@ wobei $n_i$ die Anzahl der Pfade in P mit Anfangsknoten $v_i$ ist.
 Diese können wir in $\mathcal O(n+m)$ Zeit berechnen: Dazu gehen wir einmal durch die sortierte Liste der $2m$ Endknoten
 aller Pfade und zählen dabei für jeden Knoten $v_i$ alle Pfade mit Anfangsknoten $v_i$, womit wir $n_i$ wissen und
 $c'(e_i)$ berechnen können.
-Durch das Verwenden von $c'$ statt $c$ wird die Lösung des Problems auch nicht verändert, da nur Kapazitäten entfernt
-werden, die durch die Pfade P sowieso nicht nutzbar gewesen wären.
+Durch das Verwenden von $c'$ statt $c$ wird das Problems auch nicht verändert, da nur Kapazitäten entfernt
+werden, die durch die Pfade P ohnehin nicht nutzbar gewesen wären.
 Insbesondere ist also jede zulässige Menge mit den Kapazitäten $c$ auch eine zulässige Menge mit den Kapazitäten $c'$.
 Das nächste Lemma soll nun aufklären, ob unser Vorgehen die Anzahl an Platzhaltern ausreichend verringern konnte:
 
