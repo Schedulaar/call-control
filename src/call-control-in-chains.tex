@@ -103,16 +103,16 @@ Eine solche Färbung mit $C = 2$, kann man in Abbildung~\ref{fig:k-coloring} seh
 	\centering
 	\def\svgwidth{250bp}
 	\input{k-coloring.pdf_tex}
-	\caption{Eine Färbung mit $C=2$, wobei schwarz und grau je eine Farbe darstellen; weiße Pfade sind ungefärbt. (mod. nach~\cite{paper})}
+	\caption{Eine Färbung mit zwei Farben; weiße Pfade sind ungefärbt. (mod. nach~\cite{paper})}
 	\label{fig:k-coloring}
 \end{figure}
 
 Speichert man allerdings zu jeder Farbe einfach den jeweiligen Anführer direkt ab, würde das Berechnen eines optimalen
-Anführers für jeden Pfad mindestens $\mathcal O(\log C)$ benötigen und damit würden wir das Ziel einer gesamt-linearen Laufzeit
+Anführers für jeden Pfad mindestens $\mathcal O(\log C)$ Zeit benötigen und damit würden wir das Ziel einer gesamt-linearen Laufzeit
 $\mathcal O(m)$ verpassen.
 
-Stattdessen verwenden Carlisle und Lloyd in ihrem Algorithmus eine spezielle Union-Find-Instanz, die sogenannte
-Static-Tree-Set-Union-Instanz aus~\cite{static-tree-set-union}, bei der die möglichen Vereinigungen bereits zu Beginn feststehen und in einem Baum
+Stattdessen verwenden Carlisle und Lloyd in ihrem Algorithmus eine spezielle Union-Find-Struktur, die sogenannte
+Static-Tree-Set-Union-Struktur aus~\cite{static-tree-set-union}, bei der die möglichen Vereinigungen bereits zu Beginn feststehen und in einem Baum
 dargestellt werden können, wodurch $m$ union- und find-Aufrufe bei $n$ Elementen in einer Laufzeit von $\mathcal O(m + n)$ erfolgen können.
 Außerdem geht man beim Algorithmus davon aus, dass eine bereits aufsteigend sortierte Liste der Endpunkte aller Pfade existiert.
 Diese Liste hat also $2\cdot m$ Einträge, d.h.\ ein Punkt kann für verschiedene Pfade öfters vorkommen, dabei sind doppelte Einträge entsprechend der gierigen
