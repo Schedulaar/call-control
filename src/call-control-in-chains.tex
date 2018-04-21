@@ -259,14 +259,14 @@ Die eigentliche Verarbeitung eines Pfades $p$ hat sich aber nicht geändert: Es 
 betrachtet;
 falls $\find(q)$ der fiktive Anführer ist, wird $p$ abgelehnt und die Gruppe von $p$ mit der
 Gruppe des Vorgängers von $p$ vereinigt;
-andernfalls wird p akzeptiert, in der Farbe von $\find(q)$
+andernfalls wird p akzeptiert und in der Farbe von $\find(q)$
 gefärbt und die Gruppe von $\find(q)$ mit der Gruppe des Vorgängers von $\find(q)$ vereinigt.
 
 Das nächste Lemma soll nun zeigen, dass das Auffüllen mit Platzhaltern zusammen mit diesem Verfahren eine korrekte
 Implementierung des gierigen Verfahrens darstellt:
 
 \begin{lemma}
-    Der beschriebene Algorithmus entspricht dem gierigen Verfahren.
+    Der beschriebene Algorithmus ist eine korrekte Implementierung des gierigen Verfahrens.
 \end{lemma}
 \begin{proof}
     Wir bezeichnen den oben beschriebenen Algorithmus nun mit $U$.
