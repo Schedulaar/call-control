@@ -309,8 +309,9 @@ Implementierung des gierigen Verfahrens darstellt:
     Angenommen, es existiere eine Farbe $c$, sodass kein $c$-gefärbter Pfad $e$ enthält.
     Da $l$ der kleinste Anführer ist, existiert ein $c$-gefärbter Pfad $p_1$ links von $e$ (z.B.\ der $c$-gefärbte virtuelle Pfad) und ein $c$-gefärbter Pfad $p_2$
     rechts von $e$ (z.B.\ der $c$-gefärbte Anführer).
-    Wählt man diese jeweils möglichst nah an $e$, so erkennt man einen Widerspruch, da als $p_2$ mit $p_1$ als den
-    scheinbar optimalen Anführer in $c$ gefärbt wurde, war tatsächlich $l$ ein besserer Anführer von $p_2$, da sein Zielknoten weiter rechts ist.
+    Wählt man diese jeweils möglichst nah an $e$, so erkennt man einen Widerspruch:
+    Als $p_2$ mit $p_1$ als den scheinbar optimalen Anführer in $c$ gefärbt wurde, war tatsächlich $l$ 
+    ein besserer Anführer von $p_2$, da sein Zielknoten weiter rechts ist.
 
     Also besitzen alle $C$ Farben einen Pfad, der $e$ enthält, insgesamt gibt es also $C+1$ Pfade in $A \cup \{p\}$, die
     $e$ enthalten.
