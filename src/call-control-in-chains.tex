@@ -37,7 +37,7 @@ Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls $A \leq_G B$ für
     übereinstimmen.
     Für $i=0$ gelten alle Voraussetzungen.
     Nehmen wir also an, $Q_{i-1}$ sei geeignet und stimme auf den ersten $i-1$ Pfaden mit $G$ überein.
-    Wir benennen $p=(s_p, t_p)$ als den $i$-ten Pfad von $G$.
+    Den $i$-ten Pfad von $G$ nennen wir $p=(s_p, t_p)$.
 
     Für den Fall $p \in Q_{i-1}$ ist $p$ auch bereits der $i$-te Pfad von $Q_{i-1}$, da das Verfahren nach
     gieriger Ordnung vorgeht und $Q_{i-1}$ mit $G$ auf den ersten $i-1$ Pfaden übereinstimmt.
@@ -65,16 +65,16 @@ Daraus folgt, dass das gierige Verfahren das Call-Control-Problem in Ketten lös
 Sei $Q$ eine Lösung, also eine möglichst große, geeignete Teilmenge von Pfaden in $P$, so liefert das gierige
 Verfahren nach Lemma~\ref{lem:optimalityGreedyAlgorithm} eine gleichmächtige, sogar minimale Lösung.
 
-Eine einfache Implementierung dieses Verfahrens könnte in $\mathcal O(m \cdot n)$ erfolgen, wobei $m$ die Anzahl der gegebenen
+Eine einfache Implementierung dieses Verfahrens könnte in $\mathcal O(m \cdot n)$ Zeit erfolgen, wobei $m$ die Anzahl der gegebenen
 Pfade und $n$ die Anzahl der Kanten ist, indem einfach für jeden Pfad einzeln an jeder Kante überprüft wird, ob durch
 die Hinzunahme die Kapazität überschritten wird.
 Jedoch lässt sich dieser Zeitaufwand sogar auf $\mathcal O(n+m)$ verringern, wie wir in den nächsten Abschnitten erkennen werden.
 Dabei werden wir zunächst einen Algorithmus kennenlernen, bei dem vorausgesetzt wird, dass alle Kanten die gleiche
-Kapazität haben, und werden diesen danach an unser Ausgangsproblem anpassen.
+Kapazität haben, und diesen danach an unser Ausgangsproblem anpassen.
 
 \subsection{Gieriger Algorithmus für gleiche Kapazitäten von Carlisle und Lloyd}\label{subsec:algorithmusGleicheKapazitäten}
-Sei wieder $(V,E)$ eine Kette, $P$ eine Menge von $m$ Pfaden in $(V,E)$ und alle Kanten in $E$ besitzen nun die
-feste Kapazität $C \in \set N$.
+Sei wieder $(V,E)$ eine Kette und $P$ eine Menge von $m$ Pfaden in $(V,E)$, wobei alle Kanten in $E$ nun die
+feste Kapazität $C \in \set N$ besitzen.
 Dabei können wir ohne Beschränkung der Allgemeinheit von $C \leq m$ ausgehen (sonst könnten wir einfach alle Pfade ohne Gefahr
 akzeptieren).
 Der Algorithmus, den Carlisle und Lloyd in~\cite{carlisle} beschreiben, hat eine etwas abgewandelte Problemformulierung:
