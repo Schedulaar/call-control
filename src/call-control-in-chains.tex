@@ -12,30 +12,30 @@ Im Folgenden bezeichne $\leq_G$ eine feste gierige Ordnung auf $P$.
 Die Berechnung der Lösung für \CallControl\ in der Kette erfolgt mit dem {\em gierigen Verfahren}:
 Dieses nimmt an, dass die Pfade $P$ bereits in gieriger Ordnung $\leq_G$ sortiert sind.
 Es bearbeitet alle Pfade in der gegebenen Sortierung und fügt einen Pfad zu den akzeptierten Pfaden hinzu, falls die
-akzeptierten Pfade dadurch keine der Kantenkapazitäten verletzt, das heißt, falls die akzeptierten Pfade eine geeignete Menge bleiben.
+akzeptierten Pfade dadurch keine der Kantenkapazitäten verletzt, das heißt, falls die akzeptierten Pfade eine zulässige Menge bleiben.
 Ansonsten wird der Pfad abgelehnt.
 Nachdem alle Pfade bearbeitet wurden, endet das Verfahren und liefert die akzeptierten Pfade als Rückgabe.
 
 Jede Menge $A \subseteq P$ von $k$ Pfaden kann als ein Menge $\{a_1, \dots, a_k\}$ dargestellt werden mit
 $a_1 <_G \dots <_G a_k$.
 Für solche $A=\{a_1,\dots,a_k\}$ und $B=\{b_1,\dots,b_k\}$ schreibe man dann $A \leq_G B$, falls $\forall i \in \{1,\dots,k\}\colon a_i \leq_G b_i$.
-Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls $A \leq_G B$ für jede gleich-mächtige, geeignete Menge $B$.
+Dabei nennen wir eine zulässige Menge $A$ {\em minimal}, falls $A \leq_G B$ für jede gleich-mächtige, zulässige Menge $B$.
 \begin{lemma}[Optimalität des gierigen Verfahrens]\label{lem:optimalityGreedyAlgorithm}
-    Existiert bei einer Menge $P$ von Pfaden einer Kette eine geeignete Teilmenge mit $k \in \set N$ Pfaden, so ist die
+    Existiert bei einer Menge $P$ von Pfaden einer Kette eine zulässige Teilmenge mit $k \in \set N$ Pfaden, so ist die
     Menge der in gieriger Ordnung $\leq_G$ kleinsten $k$ Pfade, die das gierige Verfahren berechnet, eine minimale Menge.
 \end{lemma}
 \begin{proof}
-    Sei $Q_0$ eine geeignete Menge mit $k$ Pfaden.
+    Sei $Q_0$ eine zulässige Menge mit $k$ Pfaden.
     Wir nennen $G$ die Menge der in $\leq_G$ kleinsten $k$ Pfade, die das gierige Verfahren berechnet, und
     transformieren $Q_0$ schrittweise zu $Q_k = G$.
-    Dabei soll für $i \in \{1,\dots\,k\}$ gelten, dass $Q_i$ geeignet ist sowie $Q_i \leq_G Q_{i-1}$.
-    Dadurch ist auch $G$ geeignet und durch die Transitivität von $\leq_G$ auf Mengen von Pfaden folgt $G \leq_G Q_0$,
+    Dabei soll für $i \in \{1,\dots\,k\}$ gelten, dass $Q_i$ zulässig ist sowie $Q_i \leq_G Q_{i-1}$.
+    Dadurch ist auch $G$ zulässig und durch die Transitivität von $\leq_G$ auf Mengen von Pfaden folgt $G \leq_G Q_0$,
     also insbesondere die Minimalität von $G$.
 
     Als weitere Invariante nehmen wir auf, dass die ersten $i$ Pfade (in gieriger Ordnung) von $Q_i$ mit denen von $G$
     übereinstimmen.
     Für $i=0$ gelten alle Voraussetzungen.
-    Nehmen wir also an, $Q_{i-1}$ sei geeignet und stimme auf den ersten $i-1$ Pfaden mit $G$ überein.
+    Nehmen wir also an, $Q_{i-1}$ sei zulässig und stimme auf den ersten $i-1$ Pfaden mit $G$ überein.
     Wir benennen $p=(s_p, t_p)$ als den $i$-ten Pfad von $G$.
 
     Für den Fall $p \in Q_{i-1}$ ist $p$ auch bereits der $i$-te Pfad von $Q_{i-1}$, da das Verfahren nach
@@ -49,7 +49,7 @@ Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls $A \leq_G B$ für
     ersten $i$ Stellen wieder überein und alle Pfade, die in $Q_{i-1}$ an den Stellen $i$ bis $j-1$ stehen, rutschen
     in $Q_i$ eine Stelle weiter an die Positionen $i+1$ bis $j$.
     Insbesondere gilt also $Q_i \leq_G Q_{i-1}$.
-    Es bleibt zu zeigen, dass $Q_i$ wieder geeignet ist, wozu die Kapazitäten der einzelnen Kanten betrachtet wird:
+    Es bleibt zu zeigen, dass $Q_i$ wieder zulässig ist, wozu die Kapazitäten der einzelnen Kanten betrachtet wird:
     Die Kanten, die links der beiden Anfangsknoten $s_q$ und $s_p$ stehen, sind nicht betroffen, da aufgrund der Minimalität
     von $s_q$ dort nach $q$ keine weiteren Kapazitäten benötigt werden.
     Ist $s_q$ kleiner als $s_p$, so sparen die Kanten zwischen $s_q$ und $s_p$ sogar eine Kapazität ein.
@@ -61,7 +61,7 @@ Dabei nennen wir eine geeignete Menge $A$ {\em minimal}, falls $A \leq_G B$ für
 \end{proof}
 
 Daraus folgt, dass das gierige Verfahren das Call-Control-Problem in Ketten löst:
-Sei $Q$ eine Lösung, also eine möglichst große, geeignete Teilmenge von Pfaden in $P$, so liefert das gierige
+Sei $Q$ eine Lösung, also eine möglichst große, zulässig Teilmenge von Pfaden in $P$, so liefert das gierige
 Verfahren nach Lemma~\ref{lem:optimalityGreedyAlgorithm} eine gleichmächtige, sogar minimale Lösung.
 
 Eine einfache Implementierung dieses Verfahrens könnte in $\mathcal O(m \cdot n)$ erfolgen, wobei $m$ die Anzahl der gegebenen
@@ -217,7 +217,7 @@ aller Pfade und zählen dabei für jeden Knoten $v_i$ alle Pfade mit Anfangsknot
 $c'(e_i)$ berechnen können.
 Durch das Verwenden von $c'$ statt $c$ wird die Lösung des Problems auch nicht verändert, da nur Kapazitäten entfernt
 werden, die durch die Pfade P sowieso nicht nutzbar gewesen wären.
-Insbesondere ist also jede geeignete Menge mit den Kapazitäten $c$ auch eine geeignete Menge mit den Kapazitäten $c'$.
+Insbesondere ist also jede zulässige Menge mit den Kapazitäten $c$ auch eine zulässige Menge mit den Kapazitäten $c'$.
 Das nächste Lemma soll nun aufklären, ob unser Vorgehen die Anzahl an Platzhaltern ausreichend verringern konnte:
 
 \begin{lemma}
@@ -286,16 +286,16 @@ Implementierung des gierigen Verfahrens darstellt:
     Dementsprechend liegen auf der ersten Kante von $p$ mindestens $C+1$ Platzhalterpfade, was einen Widerspruch zur Konstruktion
     der Platzhalterpfade darstellt.
 
-    Insbesondere berechnet $U$ wieder eine geeignete Teilmenge der Pfade.
+    Insbesondere berechnet $U$ wieder eine zulässige Teilmenge der Pfade.
     Jetzt müssen wir noch zeigen, dass genau die Originalpfade akzeptiert werden, die auch das gierige Verfahren
     akzeptiert.
 
     Dazu gehen wir vom Gegenteil aus und betrachten den ersten Originalpfad $p$ in gieriger Ordnung, bei dem die
     Entscheidung unterschiedlich ausgefallen ist.
     Da das gierige Verfahren immer eine minimale Lösung liefert, muss $p$ vom gierigen Verfahren akzeptiert und von
-    $U$ abgelehnt worden sein, da die Menge, die $U$ berechnet ebenfalls geeignet ist.
+    $U$ abgelehnt worden sein, da die Menge, die $U$ berechnet ebenfalls zulässig ist.
     Sei $A$ die Menge der Pfade, die zum Zeitpunkt der Entdeckung von $p$ (von beiden Verfahren) akzeptiert wurden.
-    Da der gierige Algorithmus zusätzlich $p$ akzeptiert hat, wissen wir, dass $A \cup \{p\}$ geeignet ist, was wir
+    Da der gierige Algorithmus zusätzlich $p$ akzeptiert hat, wissen wir, dass $A \cup \{p\}$ zulässig ist, was wir
     im Folgenden zum Widerspruch führen:
     Da $U$ den Pfad $p$ am Zielknoten verarbeitete (und $p$ damit der aktuell größte Pfad in gieriger Ordnung
     war), mussten sich zu dieser Zeit alle Anführer von Farben mit $p$ überschnitten haben.
@@ -310,7 +310,7 @@ Implementierung des gierigen Verfahrens darstellt:
 
     Also besitzen alle $C$ Farben einen Pfad, der $e$ enthält, insgesamt gibt es also $C+1$ Pfade in $A \cup \{p\}$, die
     $e$ enthalten.
-    Das ist allerdings ein Widerspruch dazu, dass $A \cup \{p\}$ eine geeignete Menge ist.
+    Das ist allerdings ein Widerspruch dazu, dass $A \cup \{p\}$ eine zulässige Menge ist.
 \end{proof}
 
 Daraus folgt nun:

@@ -31,14 +31,14 @@ Sind die Pfade gewichtet und wollen wir das Gesamtgewicht maximieren, reden wir 
 
 \begin{definition}[\CallControl\ und \WeightedCallControl]
     Sei $(V,E,c)$ ein ungerichtetes Netzwerk und $P$ eine (Multi-)Menge von $m \in \set N$ Pfaden in $(V,E,c)$.
-    Eine Menge $Q \subseteq P$ heißt {\em geeignet}, falls für jede Kante $e \in E$ die Anzahl aller Pfade in $Q$,
+    Eine Menge $Q \subseteq P$ heißt {\em zulässig}, falls für jede Kante $e \in E$ die Anzahl aller Pfade in $Q$,
     die $e$ enthalten, höchstens $c(e)$ ist.
     
-    {\em \CallControl} besteht darin, eine geeignete Menge $Q$ maximaler Mächtigkeit zu finden.
+    {\em \CallControl} besteht darin, eine zulässige Menge $Q$ maximaler Mächtigkeit zu finden.
     Eine solche Menge nennen wir eine {\em Lösung} des \CallControl-Problems.
     
     Gibt es außerdem eine Gewichtsfunktion $w \colon P \rightarrow \set R_+$, die jedem Pfad in $P$ ein 
-    positives Gewicht zuweist, heißt das Problem, eine geeignete Menge $Q$ mit maximalem Gesamtgewicht
+    positives Gewicht zuweist, heißt das Problem, eine zulässige Menge $Q$ mit maximalem Gesamtgewicht
     $w(Q) \coloneqq \sum_{p \in Q} w(p)$ zu finden, {\em \WeightedCallControl} und $Q$ heißt 
     {\em Lösung} des \WeightedCallControl-Problems.
 \end{definition}
