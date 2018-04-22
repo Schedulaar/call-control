@@ -101,9 +101,9 @@ Eine solche Färbung mit $C = 2$, kann man in Abbildung~\ref{fig:k-coloring} seh
 
 \begin{figure}[htbp]
 	\centering
-	\def\svgwidth{250bp}
-	\input{k-coloring.pdf_tex}
-	\caption{Eine Färbung mit zwei Farben; weiße Pfade sind ungefärbt. (mod. nach~\cite{paper})}
+	\def\svgwidth{220bp}
+	\input{k-coloring-v2.pdf_tex}
+	\caption{Eine Färbung mit zwei Farben; weiße Pfade sind ungefärbt.}
 	\label{fig:k-coloring}
 \end{figure}
 
@@ -167,11 +167,14 @@ Wieder erhalten wir alle Invarianten.
 	\centering
 	\def\svgwidth{280bp}
 	\input{union-find-structure.pdf_tex}
-	\caption{Der Verlauf der Union-Find-Instanz für das Beispiel aus Abb.~\ref{fig:union-find-setup}: Jedes Rechteck stellt eine Gruppe der Instanz dar. Der Repräsentant einer Gruppe steht am linken Rand. Anführer sind durch Sterne gekennzeichnet, Färbungen durch Punkte bzw. Sterne in schwarz, grau oder weiß (für nicht akzeptiert).}
+	\caption{Der Verlauf der Union-Find-Instanz für das Beispiel aus Abb.~\ref{fig:union-find-setup}}
 	\label{fig:union-find-structure}
 \end{figure}
 
 In Abbildung~\ref{fig:union-find-structure} sieht man den Verlauf der Union-Find-Instanz für das Beispiel aus Abbildung~\ref{fig:union-find-setup}.
+Die $i$-te Zeile zeigt dabei den Zustand der Union-Find-Instanz nach Bearbeiten des $i$-ten Pfades.
+Jedes Rechteck stellt darin eine Gruppe der Instanz dar.
+Der Repräsentant einer Gruppe steht ganz links, wobei Anführer durch Sterne und Färbungen durch Punkte bzw.\ Sterne in schwarz, grau oder weiß (für nicht-akzeptiert) dargestellt werden.
 Insbesondere wird erkennbar, dass wir nur Vereinigungen entlang einer Kette machen, was uns ermöglicht, die effizientere Static-Tree-Set-Union-Struktur
 aus~\cite{static-tree-set-union} zu verwenden.
 Eine genauere Analyse dieses Verfahrens und dessen Laufzeit $\mathcal O(m)$ beschreiben Carlisle und Llyod in~\cite{carlisle}.
@@ -331,7 +334,7 @@ Implementierung des gierigen Verfahrens darstellt:
 
 	\begin{figure}[htbp]
 		\centering
-		\def\svgwidth{300bp}
+		\def\svgwidth{270bp}
 		\input{proof_chain_greedy_arbitrary.pdf_tex}
 		\caption{$c$-gefärbte Pfade sind schwarz. Mit einem Stern gekennzeichnete Pfade sind Anführer ihrer Farbe.
 		Der durchgezogene Pfeil zeigt den tatsächlichen Verlauf der Farbe an. $p$ wurde vom gierigen Verfahren akzeptiert und von $U$ abgelehnt.}
