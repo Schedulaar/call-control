@@ -136,6 +136,16 @@ Das kann man mit einfachem Durchlaufen der Liste aller Endknoten in $P$ erreiche
 Es ist offensichtlich, dass kein optimaler Anführer von $p$ in gieriger Ordnung größer als der bevorzugte Anführer von
 $p$ sein kann.
 
+In Abbildung~\ref{fig:union-find-setup} sieht man die entstehende Ausgangssituation für ein Beispiel mit 6 Pfaden.
+
+\begin{figure}[htbp]
+	\centering
+	\def\svgwidth{250bp}
+	\input{union-find-setup.pdf_tex}
+	\caption{Die Ausgangssituation: Mit den Pfeilen wird für jeden Pfad der bevorzugte Anführer markiert; $v_1$ und $v_2$ sind die virtuellen Pfade und $f$ ist der fiktive Anführer.}
+	\label{fig:union-find-setup}
+\end{figure}
+
 Der Algorithmus bearbeitet danach jeden Pfad $p \in P$ nach gieriger Reihenfolge, wobei er jeweils wie folgt vorgeht.
 Es wird der bevorzugte Anführer $q$ von $p$ betrachtet:
 Ist $\find(q)$, also der Repräsentant der Gruppe von $q$, der fiktive Anführer $f$, so sind alle Pfade in $P$, die kleinergleich dem bevorzugten Anführer $q$
@@ -153,6 +163,17 @@ Da $\find(q)$ nun kein Anführer mehr ist, wird seine Gruppe aufgelöst und mit 
 vereinigt.
 Wieder erhalten wir alle Invarianten.
 
+\begin{figure}[htbp]
+	\centering
+	\def\svgwidth{250bp}
+	\input{union-find-structure.pdf_tex}
+	\caption{Der Verlauf der Union-Find-Instanz für das Beispiel aus Abb.~\ref{fig:union-find-setup}: Jedes Rechteck stellt eine Gruppe der Instanz dar. Der Repräsentant einer Gruppe steht am linken Rand. Anführer sind durch Sterne gekennzeichnet, Färbungen durch Punkte bzw. Sterne in schwarz, grau oder weiß (für nicht akzeptiert).}
+	\label{fig:union-find-structure}
+\end{figure}
+
+In Abbildung~\ref{fig:union-find-structure} sieht man den Verlauf der Union-Find-Instanz für das Beispiel aus Abbildung~\ref{fig:union-find-setup}.
+Insbesondere wird erkennbar, dass wir nur Vereinigungen entlang einer Kette machen, was uns ermöglicht, die effizientere Static-Tree-Set-Union-Struktur
+aus~\cite{static-tree-set-union} zu verwenden.
 Eine genauere Analyse dieses Verfahrens und dessen Laufzeit $\mathcal O(m)$ beschreiben Carlisle und Llyod in~\cite{carlisle}.
 
 \subsection{Gieriger Algorithmus mit willkürlichen Kapazitäten}\label{subsec:anpassenAnWillkürlicheKapazitäten}
@@ -314,10 +335,10 @@ Implementierung des gierigen Verfahrens darstellt:
 		Der durchgezogene Pfeil zeigt den tatsächlichen Verlauf der Farbe an. $p$ wurde vom gierigen Verfahren akzeptiert und von $U$ abgelehnt.}
 		\label{fig:proof-chain-greedy-arbitrary}
 	\end{figure}
-	
+
     Angenommen, es existiere eine Farbe $c$, sodass kein $c$-gefärbter Pfad $e$ enthält.
     Da $l$ der kleinste Anführer ist, existiert ein $c$-gefärbter Pfad $p_1$ links von $e$ (z.B.\ der $c$-gefärbte virtuelle Pfad) und ein $c$-gefärbter Pfad $p_2$
-    rechts von $e$ (z.B.\ der $c$-gefärbte Anführer). 
+    rechts von $e$ (z.B.\ der $c$-gefärbte Anführer).
     Wählt man, wie in Abbildung~\ref{fig:proof-chain-greedy-arbitrary} beispielhaft skizziert, diese jeweils möglichst nah an $e$, so erkennt man einen Widerspruch:
     Als $p_2$ mit $p_1$ als den scheinbar optimalen Anführer in $c$ gefärbt wurde, war tatsächlich $l$
     ein besserer Anführer von $p_2$, da sein Zielknoten weiter rechts ist.
