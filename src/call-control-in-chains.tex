@@ -298,7 +298,7 @@ Implementierung des gierigen Verfahrens darstellt:
     Entscheidung unterschiedlich ausgefallen ist.
     Da das gierige Verfahren immer eine minimale Lösung liefert, muss $p$ vom gierigen Verfahren akzeptiert und von
     $U$ abgelehnt worden sein, da die Menge, die $U$ berechnet ebenfalls zulässig ist.
-    Sei $A$ die Menge der Pfade, die zum Zeitpunkt der Entdeckung von $p$ (von beiden Verfahren) akzeptiert wurden.
+    Sei $A$ die Menge der Pfade, die unmittelbar vor der Bearbeitung von $p$ (von beiden Verfahren) akzeptiert wurden.
     Da der gierige Algorithmus zusätzlich $p$ akzeptiert hat, wissen wir, dass $A \cup \{p\}$ zulässig ist, was wir
     im Folgenden zum Widerspruch führen:
     Da $U$ den Pfad $p$ am Zielknoten verarbeitete (und $p$ damit der aktuell größte Pfad in gieriger Ordnung
@@ -306,14 +306,24 @@ Implementierung des gierigen Verfahrens darstellt:
     Dabei sei $l$ der in gieriger Ordnung kleinste Anführer einer Farbe und $e$ die letzte Kante seines Pfades.
     Von dieser wissen wir sicher, dass sie sich mit $p$ überschneidet.
 
+	\begin{figure}[htbp]
+		\centering
+		\def\svgwidth{300bp}
+		\input{proof_chain_greedy_arbitrary.pdf_tex}
+		\caption{$c$-gefärbte Pfade sind schwarz. Mit einem Stern gekennzeichnete Pfade sind Anführer ihrer Farbe.
+		Der durchgezogene Pfeil zeigt den tatsächlichen Verlauf der Farbe an. $p$ wurde vom gierigen Verfahren akzeptiert und von $U$ abgelehnt.}
+		\label{fig:proof-chain-greedy-arbitrary}
+	\end{figure}
+	
     Angenommen, es existiere eine Farbe $c$, sodass kein $c$-gefärbter Pfad $e$ enthält.
     Da $l$ der kleinste Anführer ist, existiert ein $c$-gefärbter Pfad $p_1$ links von $e$ (z.B.\ der $c$-gefärbte virtuelle Pfad) und ein $c$-gefärbter Pfad $p_2$
-    rechts von $e$ (z.B.\ der $c$-gefärbte Anführer).
-    Wählt man diese jeweils möglichst nah an $e$, so erkennt man einen Widerspruch:
+    rechts von $e$ (z.B.\ der $c$-gefärbte Anführer). 
+    Wählt man, wie in Abbildung~\ref{fig:proof-chain-greedy-arbitrary} beispielhaft skizziert, diese jeweils möglichst nah an $e$, so erkennt man einen Widerspruch:
     Als $p_2$ mit $p_1$ als den scheinbar optimalen Anführer in $c$ gefärbt wurde, war tatsächlich $l$
     ein besserer Anführer von $p_2$, da sein Zielknoten weiter rechts ist.
+    Insbesondere hätte $U$ $p_2$ also nicht in $c$ gefärbt.
 
-    Also besitzen alle $C$ Farben einen Pfad, der $e$ enthält, insgesamt gibt es also $C+1$ Pfade in $A \cup \{p\}$, die
+    Daher besitzen alle $C$ Farben einen Pfad, der $e$ enthält, insgesamt gibt es also $C+1$ Pfade in $A \cup \{p\}$, die
     $e$ enthalten.
     Das ist allerdings ein Widerspruch dazu, dass $A \cup \{p\}$ eine zulässige Menge ist.
 \end{proof}
