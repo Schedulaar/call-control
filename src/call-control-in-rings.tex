@@ -80,8 +80,8 @@ mit $k$ Pfaden existiert, und geben schließlich $Q_k$ aus.
 
 Die Prozedur für das Finden einer zulässigen $k$-elementigen Menge von Pfaden bauen wir dabei wie folgt auf.
 Wir starten mit dem leeren Profil $\pi_0$, das überall 0 ist.
-In jeder Runde $i \in \set N$ initialisieren wir die Kapazitäten der beiden Kopien jeder Kante $e$ mit $c(e)$, wobei wir
-in den ersten Kopie von $c(e)$ noch $\pi_{i-1}(e)$ Kapazitäten abziehen.
+In jeder Runde $i \in \set N$ initialisieren wir die Kapazitäten der beiden Kopien jeder Kante $e$ mit $c(e)$, wobei wir jeweils
+in der ersten Kopie von $c(e)$ noch $\pi_{i-1}(e)$ Kapazitäten abziehen.
 Das Profil $\pi_{i-1}$ belegt also bereits einige Kanten in der ersten Kopie und eine Menge $Q$ ist mit diesen Kapazitäten
 kettenzulässig genau dann, wenn sie auf den ursprünglichen Kapazitäten kettenzulässig zum Startprofil $\pi_{i-1}$ ist.
 Nun bestimmen wir mit dem gierigen Verfahren eine größtmögliche Menge $G$, die in der resultierenden Kette
