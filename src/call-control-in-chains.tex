@@ -122,7 +122,7 @@ Genauer fügt der Algorithmus in gieriger Ordnung an erster Stelle (noch vor den
 ein, der ermöglicht, nicht-akzeptierte Pfade in der Datenstruktur zu behandeln.
 Zu Beginn ist dann jeder Pfad in einer eigenen Gruppe der Union-Find-Instanz.
 Wir erhalten folgende Invarianten:
-Der Repräsentant jeder Gruppe entspricht immer dem kleinsten Pfad (in gieriger Ordnung) innerhalb der Gruppe.
+Der Repräsentant jeder Gruppe ist immer der kleinste Pfad (in gieriger Ordnung) innerhalb der Gruppe.
 Ist ein Pfad noch nicht verarbeitet, so ist er in einer Einzelgruppe - die virtuellen Pfade und der fiktive Anführer
 zählen jedoch bereits als verarbeitet.
 Jede andere, sogenannte {\em aktive Gruppe} enthält nur (in gieriger Ordnung) aufeinanderfolgende Pfade.
