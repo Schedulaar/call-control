@@ -14,7 +14,7 @@ in~\cite{carlisle} eine optimale Lösung für das äquivalente Problem des $C$-F
 Dabei wird das Problem auf ein Minimum-Cost Flow Problem reduziert, und dadurch eine Laufzeit von $\mathcal O(C\cdot S(m))$
 erreicht, wobei $m$ die Anzahl der Intervalle (hier: Pfade) und $S(m)$ die Laufzeit eines Kürzesten-Pfade-Algorithmus
 in gerichteten Graphen mit positiven Kantengewichten und $m$ Kanten ist.
-Außerdem wird wieder angenommen, dass bereits eine sortierte Liste aller Endpunkte zur Verfügung steht.
+Außerdem wird wieder angenommen, dass bereits eine sortierte Liste aller Endknoten zur Verfügung steht.
 
 Eine Instanz der Größe $C$ des Minimum-Cost Flow Problem besteht dabei aus einem gerichteten Graphen $(V,E)$ mit zwei
 ausgezeichneten Knoten $s$ und $t$, wobei jede Kante $e$ des Graphen die Kosten $\cost(e)$ und die Kapazität
@@ -28,7 +28,7 @@ Gesucht ist nun ein Fluss, dessen Kosten $\sum_{e\in E}f(e) \cdot \cost(e)$ mini
 Übertragen auf das \WeightedCallControl-Problem, skizzieren wir für das Kettennetzwerk $(V,E,c)$
 und der Menge $P$ der gegebenen Pfade in $(V,E)$ im Folgenden die Reduktion unseres Problems.
 Die Knoten der Kette $(V,E)$ seien wieder wie gewohnt von links nach rechts durchnummeriert.
-Sei $v_0 < \dots < v_r$ die sortierte Liste der Endpunkte aller Pfade ohne Duplikate.
+Sei $v_0 < \dots < v_r$ die sortierte Liste der Endknoten aller Pfade ohne Duplikate.
 Wir bauen den gerichteten Graphen als gerichteten Pfad mit den Knoten $\{s = v_0, \dots, v_r=t\}$ und erstellen
 für $1 \leq i \leq r$ eine Kante $(v_{i-1}, v_i)$ mit Kapazität $C$ und Kosten $0$.
 Zusätzlich erstellen wir für jeden Pfad $p \in P$ eine sogenannte {\em Pfadkante} $(s_p, t_p)$ mit $s_p$ Anfangs- und $t_p$ Zielknoten von $p$,
@@ -62,7 +62,7 @@ Wir wollen uns dagegen dem Problem mit willkürlichen Kapazitäten widmen.
     da jede Menge an Originalpfaden, die er stattdessen akzeptieren könnte, ein geringeres Gewicht hat und es nach
     Konstruktion genügend Kapazitäten gibt, um jeden Platzhalterpfad zu akzeptieren.
 
-    Für die Sortierung der Endpunkte aller Pfade benötigen wir noch $\mathcal O(n+m)$ Zeit und erhalten insgesamt eine Laufzeit
+    Für die Sortierung der Endknoten aller Pfade benötigen wir noch $\mathcal O(n+m)$ Zeit und erhalten insgesamt eine Laufzeit
     von $\mathcal O(n+m\cdot S(m))$.
 \end{proof}
 
