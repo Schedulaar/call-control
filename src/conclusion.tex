@@ -2,17 +2,18 @@ Die vier Autoren des Artikels \glqq Call Control in Rings\grqq\ haben es geschaf
 einem Algorithmus in linearer Zeit zu lösen.
 Diesen Algorithmus konnte man dann beim Problem in Ringen elegant einsetzen, um so zu einem Algorithmus zu gelangen, der mit polynomiellem Zeitaufwand
 eine optimale Lösung des \CallControl-Problems in Ringen berechnet.
-Dies ist vor allem aus diesem Grund interessant, da ein ähnlich wirkendes Problem, bei dem es darum geht den größtmöglichen $k$-färbbaren 
+Dies ist vor allem deswegen interessant, weil ein ähnlich wirkendes Problem, bei dem es darum geht, den größtmöglichen $k$-färbbaren
 Teilgraphen in Kreisbogengraphen zu berechnen, {\em NP}-hart ist, wie in~\cite{circular-arc} nachgewiesen wurde.
-Ein Kreisbogengraph $(V,E)$ mit Knotenmenge $V$ ist dabei wie folgt definiert: 
-Existiert eine Familie von Kreisbögen $(K_x)_{x\in V}$ um einen gemeinsamen Punkt mit festem Radius 
+Ein Kreisbogengraph $(V,E)$ mit Knotenmenge $V$ ist dabei wie folgt definiert:
+Existiert eine Familie von Kreisbögen $(K_x)_{x\in V}$ um einen gemeinsamen Punkt mit festem Radius
 und gilt $(x,y)\in E \Leftrightarrow K_x \cap K_y \neq \emptyset$, so ist $(V,E)$ ein Kreisbogengraph.
 
 Für das \WeightedCallControl-Problem wurde anhand der Vorarbeit in~\cite{carlisle} ein effizienter Algorithmus in Ketten sowie ein darauf
 aufbauender Approximationsalgorithmus von Güte 2 für das Problem in Ringnetzwerken entwickelt.
 Außerdem zeigen die Autoren in~\cite{paper}, dass eine beliebig nahe Approximation in polynomieller Zeit gefunden werden kann.
-Dazu wird ein sogenanntes Polynomial-time approximation scheme (kurz PTAS) entwickelt, bei dem ein Parameter $\epsilon \in \set R_+$ gegeben ist
-und der Algorithmus eine Lösung berechnet, dessen Gesamtgewicht um einen Faktor von $1-e$ von dem der optimalen Lösung abweicht.
-Außerdem ist das \WeightedCallControl-Problem in Ringen sogar mindestens so schwer wie das exact-matching-Problem in einem bipartiten Graphen (siehe \cite{hochbaum-levin}),
-also einem Graphen, der in zwei unabhängige disjunkte Teilgraphen U und V geteilt werden kann, sodass jeder Knoten in U mit mindestens einem Knoten in V und andersherum verbunden ist.
-Von diesem ist jedoch immer noch unbekannt, ob es in $P$ liegt oder ob es ein {\em NP}-hartes Problem darstellt.
+Dazu wird ein sogenanntes Polynomial-Zeit-Approximations-Schema entwickelt, bei dem ein Parameter $\epsilon \in \set R_+$ gegeben ist
+und der Algorithmus eine Lösung berechnet, dessen Gesamtgewicht mindestens das $(1-\epsilon)$-fache des Gesamtgewichts der optimalen Lösung ist.
+Außerdem ist das \WeightedCallControl-Problem in Ringen sogar mindestens so schwer wie das Perfect-Matching-Problem in einem bipartiten Graphen (siehe \cite{hochbaum-levin}),
+also einem Graphen, der in zwei unabhängige disjunkte Teilgraphen $U$ und $V$ geteilt werden kann, sodass jeder Knoten in $U$ mit mindestens einem Knoten in $V$ und andersherum verbunden ist.
+Beim Perfect-Matching sucht man nach einer Teilmenge der Kanten, sodass jeder Knoten aus $U$ bzw.\ $V$ mit genau einem Knoten aus $V$ bzw.\ $U$ in Verbindung steht.
+Jedoch ist noch immer unbekannt, ob dieses Problem in $P$ liegt oder {\em NP}-hart ist.
