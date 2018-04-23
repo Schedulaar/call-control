@@ -182,8 +182,8 @@ Eine genauere Analyse dieses Verfahrens und dessen Laufzeit $\mathcal O(m)$ besc
 \subsection{Gieriger Algorithmus mit willkürlichen Kapazitäten}\label{subsec:anpassenAnWillkürlicheKapazitäten}
 
 Nachdem wir einen effizienten Algorithmus für identische Kapazitäten gefunden haben, wollen wir nun das eigentliche Problem mit
-willkürlichen Kapazitäten $c: E \mapsto \set N$ durch geschicktes Anpassen des Algorithmus aus Abschnitt~\ref{subsec:algorithmusGleicheKapazitäten}    lösen.
-Sei $C \coloneqq \max_{e \in E} c(e)$ die maximale Kapazität aller Kanten.
+willkürlichen Kapazitäten $c: E \mapsto \set N$ durch geschicktes Anpassen des Algorithmus aus Abschnitt~\ref{subsec:algorithmusGleicheKapazitäten} lösen.
+Dazu seien $V=\{0,\dots,n-1\}$ die Knoten der Kette, wobei die Kante $e_i$ die Knoten $i$ und $i+1$ verbinde, und $C \coloneqq \max_{e \in E} c(e)$ die maximale Kapazität aller Kanten.
 Die Idee ist es, den Algorithmus für Kanten mit identischer Kapazität $C$ anzuwenden und dabei für jede Kante $e$ die $C - c(e)$
 hinzugewonnen Kapazitäten mit Platzhalterpfaden zu befüllen.
 Werden alle Platzhalterpfade vom Algorithmus akzeptiert, so können wir sicher sein, dass wir nach Entfernen der
