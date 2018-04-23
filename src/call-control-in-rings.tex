@@ -14,13 +14,13 @@ Kapazität das Minimum der vorherigen beiden ist.
 
 \begin{figure}[htbp]
     \centering
-    \def\svgwidth{220bp}
+    \def\svgwidth{200bp}
     \input{example_ring.pdf_tex}
     \caption{Ein Ringnetzwerk mit 8 Kanten (innen) und 7 Pfaden (außen) (mod. nach~\cite{paper})}
     \label{fig:example-ring}
 \end{figure}
 
-Das Call-Control-Problem beschreibt hier wieder das Problem, eine möglichst große geeignete Teilmenge
+Das Call-Control-Problem beschreibt hier wieder das Problem, eine möglichst große zulässige Teilmenge
 $Q \subseteq P$ zu finden.
 Dazu teilen wir die Menge der Pfade $P$ in zwei disjunkte Teilmengen $P_1$ und $P_2$.
 $P_1$ bildet die Menge der Pfade in $P$, die den Knoten $0$ nicht als inneren Knoten haben; $P_2$
@@ -62,31 +62,31 @@ Analog dazu sei $L_2(Q, e_i)$ die Belastung von $e_i$ in der zweiten Kopie.
     Außerdem bezeichne $\pi_Q(e_i) \coloneqq L_2(Q, e_i)$ und für zwei Profile $\pi$ und $\pi'$ schreiben wir $\pi \leq \pi'$,
     falls $\pi(e_i) \leq \pi'(e_i)$ für alle $i \in \{0,\dots,n-1\}$.
 \end{definition}
-Wir bezeichnen eine Menge $Q$ von Pfaden im Ring als {\em kettengeeignet},
+Wir bezeichnen eine Menge $Q$ von Pfaden im Ring als {\em kettenzulässig},
 falls die Pfade von $Q$ in der oben konstruierten Kette keine Kapazitäten überschreiten, d.h.\ falls $L_1(Q, e) \leq c(e)$ und
 $L_2(Q, e) \leq c(e)$ für alle Kanten $e$.
-Gilt darüber hinaus $L_1(Q, e) + \pi(e) \leq c(e)$ für alle Kanten $e$, so heißt $Q$ {\em kettengeeignet zum Startprofil $\pi$}.
+Gilt darüber hinaus $L_1(Q, e) + \pi(e) \leq c(e)$ für alle Kanten $e$, so heißt $Q$ {\em kettenzulässig zum Startprofil $\pi$}.
 Anschaulich betrachtet, werden hier von den Kanten der ersten Kopie einige Kapazitäten bereits vom Startprofil belegt.
-Betrachtet man jetzt nochmals die Konstruktion der Kette, kann man leicht erkennen, dass eine Menge $Q$ von Pfaden geeignet
-(im Ring) ist genau dann, wenn $Q$ kettengeeignet zum eigens generierten Startprofil $\pi_Q$ ist, welches ja gerade den
+Betrachtet man jetzt nochmals die Konstruktion der Kette, kann man leicht erkennen, dass eine Menge $Q$ von Pfaden zulässig
+(im Ring) ist genau dann, wenn $Q$ kettenzulässig zum eigens generierten Startprofil $\pi_Q$ ist, welches ja gerade den
 Schwänzen der überstehenden Pfade entspricht.
 
 \subsection{Der Algorithmus}
 
 Nachdem wir nun alle notwendigen Vorbereitung getroffen haben, können wir mit dem eigentlichen Algorithmus beginnen.
 Dabei gehen wir wie folgt vor:
-Wir suchen mit binärer Suche nach dem größten $k \in \{0, \dots, m\}$, sodass eine geeignete Teilmenge $Q_k \subseteq P$
+Wir suchen mit binärer Suche nach dem größten $k \in \{0, \dots, m\}$, sodass eine zulässige Teilmenge $Q_k \subseteq P$
 mit $k$ Pfaden existiert, und geben schließlich $Q_k$ aus.
 
-Die Prozedur für das Finden einer geeigneten $k$-elementigen Menge von Pfaden bauen wir dabei wie folgt auf.
+Die Prozedur für das Finden einer zulässigen $k$-elementigen Menge von Pfaden bauen wir dabei wie folgt auf.
 Wir starten mit dem leeren Profil $\pi_0$, das überall 0 ist.
-In jeder Runde $i \in \set N$ initialisieren wir die Kapazitäten der beiden Kopien jeder Kante $e$ mit $c(e)$, wobei wir
-in den ersten Kopie von $c(e)$ noch $\pi_{i-1}(e)$ Kapazitäten abziehen.
+In jeder Runde $i \in \set N$ initialisieren wir die Kapazitäten der beiden Kopien jeder Kante $e$ mit $c(e)$, wobei wir jeweils
+in der ersten Kopie von $c(e)$ noch $\pi_{i-1}(e)$ Kapazitäten abziehen.
 Das Profil $\pi_{i-1}$ belegt also bereits einige Kanten in der ersten Kopie und eine Menge $Q$ ist mit diesen Kapazitäten
-kettengeeignet genau dann, wenn sie auf den ursprünglichen Kapazitäten kettengeeignet zum Startprofil $\pi_{i-1}$ ist.
+kettenzulässig genau dann, wenn sie auf den ursprünglichen Kapazitäten kettenzulässig zum Startprofil $\pi_{i-1}$ ist.
 Nun bestimmen wir mit dem gierigen Verfahren eine größtmögliche Menge $G$, die in der resultierenden Kette
-geeignet ist.
-Enthält $G$ weniger als $k$ Pfade, so bricht die Prodzedur ab mit der Antwort, dass eine geeignete $k$-elementige Menge
+zulässig ist.
+Enthält $G$ weniger als $k$ Pfade, so bricht die Prozedur ab mit der Antwort, dass eine zulässige $k$-elementige Menge
 nicht existiert.
 Ansonsten sei $G_i$ die Menge der ersten $k$ Pfade von $G$ in gieriger Ordnung und $\pi_{i}$ das dadurch erzeugte
 Profil.
@@ -94,9 +94,9 @@ Ist nun $\pi_i = \pi_{i-1}$, so meldet die Prozedur einen Erfolg mit $G_i$ als R
 berechnet.
 
 Ein Beispiel kann man in Abbildung~\ref{fig:example-ring-procedure} sehen.
-Hier wird überprüft, ob eine $5$-elementige geeignete Teilmenge an Pfaden existiert, wobei
+Hier wird überprüft, ob eine $5$-elementige zulässige Teilmenge an Pfaden existiert, wobei
 das Beispiel aus Abbildung~\ref{fig:example-ring-to-chain} weitergeführt wird.
-Nach drei Schritten hält der Algorithmus mit einer geeigneten Menge $G_3$, da, wie man sieht, das Profil $\pi_2$
+Nach drei Schritten hält der Algorithmus mit einer zulässigen Menge $G_3$, da, wie man sieht, das Profil $\pi_2$
 dem Profil $\pi_{G_3}$ von $G_3$ selbst entspricht.
 
 \begin{figure}[h]
@@ -116,7 +116,7 @@ dem Profil $\pi_{G_3}$ von $G_3$ selbst entspricht.
 		\centering
 		\def\svgwidth{230bp}
 		\input{ring_procedure_k_3.pdf_tex}
-		\caption{$i=3$: Die Menge $G_3$ ist schwarz, $\pi_2$ grau markiert. $G_3$ ist geeignet.}
+		\caption{$i=3$: Die Menge $G_3$ ist schwarz, $\pi_2$ grau markiert. $G_3$ ist zulässig.}
 	\end{subfigure}
 	\caption{Die Prozedur mit 3 Runden anhand des Beispiels aus Abb.~\ref{fig:example-ring} für $k=5$, wobei alle Kanten die Kapazität $2$ haben (mod. nach~\cite{paper})}
 	\label{fig:example-ring-procedure}
@@ -124,7 +124,7 @@ dem Profil $\pi_{G_3}$ von $G_3$ selbst entspricht.
 
 \subsection{Korrektheit des Algorithmus}\label{subsec:korrektheitCallControlInRings}
 Um die Korrektheit des gesamten Algorithmus einzusehen, beweisen wir in den nächsten Lemmata, dass die Prozedur zum
-Finden einer geeigneten $k$-elementigen Menge korrekt ist.
+Finden einer zulässigen $k$-elementigen Menge korrekt ist.
 Dabei benutzen wir die vom Algorithmus generierten Mengen $G_i$, sowie dessen Profile $\pi_i$.
 
 \begin{lemma}\label{lem:monotonousProfiles}
@@ -134,9 +134,9 @@ Dabei benutzen wir die vom Algorithmus generierten Mengen $G_i$, sowie dessen Pr
     Durch Induktion: Für $i=0$ gilt die Aussage, da $\pi_0$ überall 0 ist.
     Angenommen, es gilt $\pi_{i-1} \leq \pi_i$.
     Nach Lemma~\ref{lem:optimalityGreedyAlgorithm} ist $G_{i}$ eine minimale Menge mit $k$ Pfaden, die auf der Kette mit den durch $\pi_{i}$
-    reduzierten Kapazitäten geeignet ist.
-    Da $G_{i-1}$ geeignet zum Startprofil $\pi_{i-1}$ ist und $\pi_{i-1} \leq \pi_i$, ist $G_{i-1}$ auch
-    geeignet zum Startprofil $\pi_{i}$ und aufgrund der Minimalität von $G_i$ ist insbesondere $G_i \leq_G G_{i-1}$.
+    reduzierten Kapazitäten zulässig ist.
+    Da $G_{i-1}$ zulässig zum Startprofil $\pi_{i-1}$ ist und $\pi_{i-1} \leq \pi_i$, ist $G_{i-1}$ auch
+    zulässig zum Startprofil $\pi_{i}$ und aufgrund der Minimalität von $G_i$ ist insbesondere $G_i \leq_G G_{i-1}$.
     Daraus folgt direkt $\pi_i \leq \pi_{i+1}$.
 \end{proof}
 
@@ -144,16 +144,16 @@ Als Kondition dafür, dass unser Algorithmus hält, benötigen wir noch, dass di
 ewig wachsen können und, falls eine Lösung existiert, ab irgendeiner Runde konstant bleiben.
 
 \begin{lemma}\label{lem:upperBoundProfiles}
-    Falls eine im Ring geeignete Lösung $Q^*$ mit $k$ Pfaden existiert, dann ist $\pi_{Q^*}$ eine obere Grenze der
+    Falls eine im Ring zulässige Lösung $Q^*$ mit $k$ Pfaden existiert, dann ist $\pi_{Q^*}$ eine obere Grenze der
     generierten Profile $\pi_i$.
 \end{lemma}
 \begin{proof}
-    Sei also $Q^*$ eine geeignete Lösung mit $k$ Pfaden.
+    Sei also $Q^*$ eine zulässige Lösung mit $k$ Pfaden.
     Wir zeigen wieder per Induktion für $i \in \set N_0$, dass $\pi_i \leq \pi_{Q^*}$.
     Für $i=0$ ist das offensichtlich, da $\pi_0$ überall 0 ist.
     Angenommen, $\pi_i \leq \pi_{Q^*}$.
-    Wie wir oben gesehen haben, ist $Q^*$ kettengeeignet zum Startprofil $\pi_{Q^*}$, da es geeignet im Ring ist.
-    Da $G_{i}$ mittels des gierigen Verfahren zum Startprofil $\pi_i$ ermittelt wird und $Q^*$ ebenfalls kettengeeignet
+    Wie wir oben gesehen haben, ist $Q^*$ kettenzulässig zum Startprofil $\pi_{Q^*}$, da es zulässig im Ring ist.
+    Da $G_{i}$ mittels des gierigen Verfahren zum Startprofil $\pi_i$ ermittelt wird und $Q^*$ ebenfalls kettenzulässig
     zum Startprofil $\pi_i$ ist (da $\pi_i \leq \pi_{Q^*}$), gilt nach Lemma~\ref{lem:optimalityGreedyAlgorithm}, dass $G_{i} \leq_G Q^*$.
 \end{proof}
 
@@ -163,24 +163,24 @@ Nun können wir die Korrektheit der Prozedur vervollständigen:
     Die Prozedur liefert die korrekte Rückgabe in höchstens $n\cdot c(e_0)$ Runden.
 \end{lemma}
 \begin{proof}
-    Für die Korrektheit unterscheiden wir, ob eine $k$-elementige geeignete Menge existiert.
+    Für die Korrektheit unterscheiden wir, ob eine $k$-elementige zulässige Menge existiert.
     Nehmen wir an, es existiert keine solche Menge und der Algorithmus bricht nicht ab, sondern liefert eine Menge $Q_i$
     als Rückgabe.
     Dann müssen die letzten beiden Profile $\pi_{i-1}$ und $\pi_{i} = \pi_{Q_i}$ identisch gewesen sein.
-    Da $Q_i$ aber durch das gierige Verfahren so berechnet wurde, dass es kettengeeignet zum Startprofil
-    $\pi_{i-1}$ ist, ist es kettengeeignet zum eigenen Startprofil, insbesondere eine geeignete Menge im Ring, was im
+    Da $Q_i$ aber durch das gierige Verfahren so berechnet wurde, dass es kettenzulässig zum Startprofil
+    $\pi_{i-1}$ ist, ist es kettenzulässig zum eigenen Startprofil, insbesondere eine zulässige Menge im Ring, was im
     Widerspruch zur Annahme steht.
 
-    Angenommen es existiere eine geeignete Menge $Q^*$ mit $k$ Elementen.
+    Angenommen es existiere eine zulässige Menge $Q^*$ mit $k$ Elementen.
     Dann ist die Folge der generierten Profile $(\pi_i)_{i}$ nach Lemma~\ref{lem:upperBoundProfiles} durch $\pi_{Q^*}$
     nach oben beschränkt.
-    Daher existiert zu jedem dieser Profile eine kettengeeignete $k$-elementige Menge (nämlich $Q^*$),
+    Daher existiert zu jedem dieser Profile eine kettenzulässig $k$-elementige Menge (nämlich $Q^*$),
     weswegen das gierige Verfahren nach Lemma~\ref{lem:optimalityGreedyAlgorithm} eine mindestens $k$-elementige Menge zurückgibt.
     Daher kann der Algorithmus nicht ohne Rückgabe abbrechen.
     Da die Folge $(\pi_i)_i$ nach Lemma~\ref{lem:monotonousProfiles} außerdem monoton wachsend ist, konvergiert sie nach
     maximal $\sum_{j=0}^{n-1}\pi_{Q^*}(e_j)$ Runden.
     Also existiert ein minimales $i\in \set N$ mit $\pi_i = \pi_{i-1}$ und der Algorithmus gibt $Q_i$ zurück.
-    Da $\pi_{i-1} = \pi_{Q_{i}}$, ist $Q_i$ kettengeeignet zum eigenen Startprofil und damit eine geeignete Menge.
+    Da $\pi_{i-1} = \pi_{Q_{i}}$, ist $Q_i$ kettenzulässig zum eigenen Startprofil und damit eine zulässige Menge.
     Weil ein Profil eine monoton fallende Folge ist, bekommen wir zusätzlich die Abschätzung von maximal
     $\sum_{j=0}^{n-1}\pi_{Q^*}(e_j) \leq n \cdot \pi_{Q^*}(e_0) \leq n \cdot c(e_0)$ Runden.
 \end{proof}
@@ -193,11 +193,11 @@ Unsere Ergebnisse können wir nun im folgenden Theorem zusammenfassen:
     Jede Runde des Entscheidungsalgorithmus ruft einmal das gierige Verfahren auf.
     Dieser hat nach Theorem~\ref{theorem:greedyAlgorithm} eine Laufzeit von $\mathcal O(n+m)$ und, da o.E.\
     $n \leq 2m$, gilt $\mathcal O(n+m) = \mathcal O(m)$.
-    Nach Lemma~\ref{lem:decisionProcedure} können wir in $\mathcal O(n \cdot c(e_0))$ Runden eine geeignete $k$-elementige Menge finden.
+    Nach Lemma~\ref{lem:decisionProcedure} können wir in $\mathcal O(n \cdot c(e_0))$ Runden eine zulässige $k$-elementige Menge finden.
     Dies kann auf $\mathcal O(n \cdot c_{\min})$ reduziert werden, indem die Kanten und Knoten des Rings so benannt werden, dass
-    die Kante $e_0$ derjenigen mit der geringsten Kapazität entspricht (dies gelingt in $\mathcal \mathcal O(n+m)$ Zeit).
+    die Kante $e_0$ die geringste Kapazität besitzt (dies gelingt in $\mathcal O(n+m)$ Zeit).
     Mit binärer Suche benötigen wir schließlich noch $\mathcal O(\log m)$ Entscheidungsrunden, um das größte $k \in \{0, \dots, m\}$
-    mit einer geeigneten $k$-elementigen Menge zu finden.
+    mit einer zulässigen $k$-elementigen Menge zu finden.
 \end{proof}
 
 

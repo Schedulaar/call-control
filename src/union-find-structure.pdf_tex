@@ -1,0 +1,183 @@
+%% Creator: Inkscape inkscape 0.92.3, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'union-find-structure.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{212.60975755bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.54357103)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{union-find-structure.pdf}}%
+    \put(0.29309282,0.50301673){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{union-find-structure.pdf}}%
+    \put(0.11482445,0.49671741){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}initial:\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{union-find-structure.pdf}}%
+    \put(0.36387038,0.50301673){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{union-find-structure.pdf}}%
+    \put(0.51152815,0.50301673){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_1$\end{tabular}}}}%
+    \put(0.36387038,0.50301673){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0.43866321,0.50301673){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{union-find-structure.pdf}}%
+    \put(0.58569114,0.50301673){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{union-find-structure.pdf}}%
+    \put(0.65930458,0.50301673){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_3$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{union-find-structure.pdf}}%
+    \put(0.73346752,0.50301673){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_4$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{union-find-structure.pdf}}%
+    \put(0.80696241,0.50364658){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_5$\end{tabular}}}}%
+    \put(0.87919074,0.50427643){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_6$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{union-find-structure.pdf}}%
+    \put(0.29309282,0.42194948){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.29309282,0.42194948){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.36387038,0.42194948){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{union-find-structure.pdf}}%
+    \put(0.51152815,0.42194948){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_1$\end{tabular}}}}%
+    \put(0.36387038,0.42194948){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{union-find-structure.pdf}}%
+    \put(0.43866321,0.42194948){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{union-find-structure.pdf}}%
+    \put(0.58569114,0.42194948){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{union-find-structure.pdf}}%
+    \put(0.65930458,0.42194948){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_3$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{union-find-structure.pdf}}%
+    \put(0.73346752,0.42194948){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_4$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{union-find-structure.pdf}}%
+    \put(0.80696241,0.42257933){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_5$\end{tabular}}}}%
+    \put(0.87919074,0.42320918){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_6$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{union-find-structure.pdf}}%
+    \put(0.29309282,0.33999116){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.29309282,0.33999116){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.36387038,0.33999116){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{union-find-structure.pdf}}%
+    \put(0.51152815,0.33999116){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_1$\end{tabular}}}}%
+    \put(0.36387038,0.33999116){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0.43866321,0.33999116){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{union-find-structure.pdf}}%
+    \put(0.58569114,0.33999116){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{union-find-structure.pdf}}%
+    \put(0.65930458,0.33999116){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_3$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{union-find-structure.pdf}}%
+    \put(0.73346752,0.33999116){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_4$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{union-find-structure.pdf}}%
+    \put(0.80696241,0.34062101){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_5$\end{tabular}}}}%
+    \put(0.87919074,0.34125086){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_6$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{union-find-structure.pdf}}%
+    \put(0.29309282,0.25810079){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.29309282,0.25810079){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.36387038,0.25810079){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0.51152815,0.25810079){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_1$\end{tabular}}}}%
+    \put(0.36387038,0.25810079){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{union-find-structure.pdf}}%
+    \put(0.43866321,0.25810079){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{union-find-structure.pdf}}%
+    \put(0.58569114,0.25810079){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{union-find-structure.pdf}}%
+    \put(0.65930458,0.25810079){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_3$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{union-find-structure.pdf}}%
+    \put(0.73346752,0.25810079){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_4$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{union-find-structure.pdf}}%
+    \put(0.80696241,0.25873064){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_5$\end{tabular}}}}%
+    \put(0.87919074,0.25936049){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_6$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{union-find-structure.pdf}}%
+    \put(0.29309282,0.17970552){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.29309282,0.17970552){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.36387038,0.17970552){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0.51152815,0.17970552){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_1$\end{tabular}}}}%
+    \put(0.36387038,0.17970552){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{union-find-structure.pdf}}%
+    \put(0.43866321,0.17970552){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_2$\end{tabular}}}}%
+    \put(0.58569114,0.17970552){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{union-find-structure.pdf}}%
+    \put(0.65930458,0.17970552){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_3$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{union-find-structure.pdf}}%
+    \put(0.73346752,0.17970552){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_4$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{union-find-structure.pdf}}%
+    \put(0.80696241,0.18033537){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_5$\end{tabular}}}}%
+    \put(0.87919074,0.18096522){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_6$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{union-find-structure.pdf}}%
+    \put(0.29309282,0.10033496){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.29309282,0.10033496){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.36387038,0.10033496){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0.51152815,0.10033496){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_1$\end{tabular}}}}%
+    \put(0.36387038,0.10033496){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{union-find-structure.pdf}}%
+    \put(0.43866321,0.10033496){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_2$\end{tabular}}}}%
+    \put(0.58569114,0.10033496){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{union-find-structure.pdf}}%
+    \put(0.65930458,0.10033496){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_3$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{union-find-structure.pdf}}%
+    \put(0.73346752,0.10033496){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_4$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=37]{union-find-structure.pdf}}%
+    \put(0.80696241,0.10096481){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_5$\end{tabular}}}}%
+    \put(0.87919074,0.10159466){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_6$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=38]{union-find-structure.pdf}}%
+    \put(0.29309282,0.02372142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.29309282,0.02372142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f$\end{tabular}}}}%
+    \put(0.36387038,0.02372142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0.51152815,0.02372142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_1$\end{tabular}}}}%
+    \put(0.36387038,0.02372142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=39]{union-find-structure.pdf}}%
+    \put(0.43866321,0.02372142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$v_2$\end{tabular}}}}%
+    \put(0.58569114,0.02372142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=40]{union-find-structure.pdf}}%
+    \put(0.65930458,0.02372142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_3$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=41]{union-find-structure.pdf}}%
+    \put(0.73346752,0.02372142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_4$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=42]{union-find-structure.pdf}}%
+    \put(0.80696241,0.02435127){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_5$\end{tabular}}}}%
+    \put(0.87919074,0.02498112){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p_6$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=43]{union-find-structure.pdf}}%
+    \put(0.2374678,0.42005952){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}nach $p_1$:\end{tabular}}}}%
+    \put(0.2374678,0.33942885){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}nach $p_2$:\end{tabular}}}}%
+    \put(0.2374678,0.25879818){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}nach $p_3$:\end{tabular}}}}%
+    \put(0.2374678,0.17816751){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}nach $p_4$:\end{tabular}}}}%
+    \put(0.2374678,0.10005665){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}nach $p_5$:\end{tabular}}}}%
+    \put(0.2374678,0.02320549){\color[rgb]{0,0,0}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}nach $p_6$:\end{tabular}}}}%
+  \end{picture}%
+\endgroup%
