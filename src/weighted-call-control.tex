@@ -11,9 +11,9 @@ nur einen Approximationsalgorithmus von Güte 2 kennenlernen.
 \subsection{\WeightedCallControl-Problem in Ketten}\label{subsec:weighted-call-control-in-chains}
 Für den Fall, dass alle Kanten $e$ wieder identische Kapazitäten $c(e) = C \in \set N$ haben, stellen Carlisle und Lloyd
 in~\cite{carlisle} eine optimale Lösung für das äquivalente Problem des $C$-Färbens von gewichteten Intervallen vor.
-Dabei wird das Problem auf ein Minimum-Cost Flow Problem reduziert, und dadurch eine Laufzeit von $\mathcal O(C\cdot S(m))$
-erreicht, wobei $m$ die Anzahl der Intervalle (hier: Pfade) und $S(m)$ die Laufzeit eines Kürzesten-Pfade-Algorithmus
-in gerichteten Graphen mit positiven Kantengewichten und $m$ Kanten ist.
+So können wir das Problem auf ein Minimum-Cost Flow Problem reduzieren, welches nachfolgend kurz vorgestellt wird.
+Dadurch erreichen wir eine Laufzeit von $\mathcal O(C\cdot S(m))$, wobei $m$ die Anzahl der Intervalle (hier: Pfade)
+und $S(m)$ die Laufzeit eines Kürzesten-Pfade-Algorithmusin gerichteten Graphen mit positiven Kantengewichten und $m$ Kanten ist.
 Außerdem wird wieder angenommen, dass bereits eine sortierte Liste aller Endknoten zur Verfügung steht.
 
 Eine Instanz der Größe $C$ des Minimum-Cost Flow Problem besteht dabei aus einem gerichteten Graphen $(V,E)$ mit zwei
