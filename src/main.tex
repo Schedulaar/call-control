@@ -26,18 +26,11 @@
 \usepackage{lineno}
 
 \renewcommand{\baselinestretch}{1.2}
-\setlength{\belowcaptionskip}{-3pt}
 
 \setlength{\droptitle}{-5em}
 \setlength{\topsep}{6pt}
 \setlength{\itemsep}{0pt}
 \setlength{\partopsep}{0pt}
-
-\setlength{\partopsep}{0pt}
-\abovedisplayskip=0pt
-\abovedisplayshortskip=0pt
-\belowdisplayskip=0pt
-\belowdisplayshortskip=0pt
 
 \hypersetup{
 colorlinks,
@@ -78,19 +71,19 @@ urlcolor=black
 
 	\begin{linenumbers}
 		\modulolinenumbers[5]
-			
+
 		\section{Einführung}\label{sec:einführung}
 		\input{introduction}
-			
+
 		\section{Optimale Lösung des \CallControl-Problems in Ketten}\label{sec:call-control-in-chains}
 		\input{call-control-in-chains}
-			
+
 		\section{Optimale Lösung des \CallControl-Problems in Ringen}\label{sec:call-control-in-rings}
 		\input{call-control-in-rings}
-		
+
 		\section{\WeightedCallControl\ in Ketten und Ringen}\label{sec:weighted-call-control}
 		\input{weighted-call-control}
-		
+
 		\section{Fazit}
 		\input{conclusion}
 	\end{linenumbers}
