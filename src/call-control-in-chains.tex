@@ -348,7 +348,7 @@ Implementierung des gierigen Verfahrens darstellt:
     ein besserer Anführer von $p_2$, da sein Zielknoten weiter rechts ist.
     Insbesondere hätte $U$ $p_2$ also nicht in $c$ gefärbt.
 
-    Daher besitzen alle $C$ Farben einen Pfad, der $e$ enthält, insgesamt gibt es also $C+1$ Pfade in $A \cup \{p\}$, die
+    Daher besitzen alle $C$ Farben einen Pfad, der $e$ enthält; insgesamt gibt es also $C+1$ Pfade in $A \cup \{p\}$, die
     $e$ enthalten.
     Das ist allerdings ein Widerspruch dazu, dass $A \cup \{p\}$ eine zulässige Menge ist.
 \end{proof}
@@ -356,6 +356,6 @@ Implementierung des gierigen Verfahrens darstellt:
 Daraus folgt nun:
 
 \begin{theorem}\label{theorem:greedyAlgorithm}
-    Das gierige Verfahren berechnet eine Lösung für \CallControl\ in Kettennetzwerken mit beliebigen Kapazitäten und kann in einer Laufzeit von
+    Das gierige Verfahren berechnet eine optimale Lösung für \CallControl\ in Kettennetzwerken mit beliebigen Kapazitäten und kann in einer Laufzeit von
     $\mathcal O(n+m)$ implementiert werden, wobei $n$ die Anzahl der Knoten der Kette und $m$ die Anzahl der gegebenen Pfade ist.
 \end{theorem}
