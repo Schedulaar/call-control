@@ -1,0 +1,101 @@
+
+
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{marvosym} %
+\usepackage{ragged2e} % define justifying
+\usepackage{amsmath}
+\usepackage{colonequals}
+\usepackage{graphicx}
+
+
+\newcommand{\coloniff}{\vcentcolon\Longle ftrightarrow}
+\newcommand\todo[1]{\textcolor{red}{#1}}
+\newcommand{\set}{\mathbb}
+\newcommand{\find}{\text{\em find}}
+\newcommand{\cost}{\text{\em cost}}
+\newcommand{\capacity}{\text{\em cap}}
+\newcommand{\Mod}{~\mathrm{mod}~}
+\newcommand{\OPT}{\text{OPT}}
+\newcommand{\CallControl}{Call-Control}
+\newcommand{\WeightedCallControl}{Weighted-Call-Control}
+
+
+\usetheme{CambridgeUS}
+
+\usecolortheme{seahorse}
+
+\title{Call-Control in Ringnetzwerken}
+\subtitle{Seminar \glqq Algorithmen und Datenstrukturen\grqq}
+\author{Michael Markl}
+\date{3. Mai 2018}
+\institute{Universität Augsburg}
+
+\beamertemplatenavigationsymbolsempty
+
+\begin{document}
+	\frame{\titlepage}
+	
+	\begin{frame}
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{180bp}
+			\input{example_ring.pdf_tex}
+			\label{fig:example-ring}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}{Gliederung}
+		\tableofcontents
+	\end{frame}
+	
+	\begin{section}{Problemdefinition}
+	\begin{frame}{Graphen und Netzwerke}
+		\begin{definition}[Netzwerk]
+			Sei $(V,E)$ ein ungerichteter Graph mit Knoten $V$ und Kanten $E$, und $c: E \to \set N$ eine Kapazitätsfunktion.
+			Das Tupel $(V,E,c)$ heißt (ungerichtetes) Netzwerk.
+		\end{definition}
+		\begin{definition}[\CallControl]
+   			Seien $(V,E,c)$ ein ungerichtetes Netzwerk und $P$ eine (Multi-)Menge von $m \in \set N$ Pfaden in $(V,E,c)$.
+			
+			$Q \subseteq P$ heißt {\em zulässig}, falls für alle $e \in E$ die Anzahl aller Pfade in $Q$,
+			die $e$ enthalten, höchstens $c(e)$ ist.
+			
+			{\em \CallControl} besteht darin, eine zulässige Menge $Q$ maximaler Mächtigkeit zu finden.
+			Eine solche Menge nennen wir eine {\em optimale Lösung} des \CallControl-Problems.
+		\end{definition}
+	\end{frame}
+
+	\begin{frame}{Graphen und Netzwerke}
+		
+	\end{frame}
+	
+	\end{section}
+	
+	
+
+
+\begin{section}{Call-Control in Ketten}
+	\include{call-control-in-chains}
+\end{section}
+
+
+	\section{Call-Control in Ringen}
+	\begin{frame}
+	
+	\end{frame}
+	
+	\section{Ausblick}
+ 
+\end{document}
