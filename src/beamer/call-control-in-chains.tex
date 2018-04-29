@@ -3,19 +3,119 @@
 \subsection{Das gierige Verfahren}
 
 \begin{frame}{Gierige Ordnung}
-	
+	\begin{definition}[Gierige Ordnung]
+		Auf einer Menge $P$ von Pfaden in einer Kette nennen wir eine Totalordnung $\leq_G$ mit zugehöriger strenger Totalordnung
+		$<_G$ {\em gierig},
+		falls $\forall p, q \in P \colon t_p < t_q \Rightarrow p <_G q$.
+	\end{definition}
+	\only<1>{
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{greedy-order-chain-1.pdf_tex}
+	\end{figure}}
+	\only<2>{
+		\begin{figure}[htbp]
+		\centering
+		\small
+		\def\svgwidth{200bp}
+		\input{greedy-order-chain-2.pdf_tex}
+		\end{figure}}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]{Das gierige Verfahren}
+	Eine gierige Ordnung $\leq_G$ ist bereits gegeben.
+	\only<1>{
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{greedy-algorithm-with-example-chain-1.pdf_tex}
+	\end{figure}}
+	\only<2>{
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{greedy-algorithm-with-example-chain-2.pdf_tex}
+		\end{figure}}
+	\only<3>{
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{greedy-algorithm-with-example-chain-3.pdf_tex}
+		\end{figure}}
+	\only<4>{
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{greedy-algorithm-with-example-chain-4.pdf_tex}
+		\end{figure}}
+	\only<5>{
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{greedy-algorithm-with-example-chain-5.pdf_tex}
+		\end{figure}}
+	\only<6>{
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{greedy-algorithm-with-example-chain-6.pdf_tex}
+		\end{figure}}
+	\only<7-9>{
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{greedy-algorithm-with-example-chain-7.pdf_tex}
+		\end{figure}
+		\begin{itemize}
+			\item<8-> Menge der akzeptierten Pfade ist optimale Lösung.
+			\item<9> Einfache Implementierung in $\mathcal{O}(m\cdot n)$ Zeit möglich ($m$ Anzahl Pfade, $n$ Anzahl Knoten).
+		\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{Korrektheit des gierigen Verfahrens -- I}
 	\begin{figure}[htbp]
 		\centering
 		\small
-		\def\svgwidth{220bp}
-		\input{k-coloring-v2.pdf_tex}
-		\label{fig:k-coloring}
+		\def\svgwidth{180bp}
+		\input{greedy-order-chain-2.pdf_tex}
 	\end{figure}
-	
-	
+	\begin{itemize}
+		\item Seien $A=\{a_1,\dots,a_k\}$ und $B=\{b_1,\dots,b_k\}$ Teilmengen der Pfade $P$ mit $a_1 \leq_G \dots \leq_G a_k$ und $b_1 \leq_G \dots \leq_G b_k$. Wir schreiben $A \leq_G B$, falls $\forall i \leq k\colon a_k \leq_G b_k$.
+		\pause
+		\item Bsp.: $\{p_1, p_3, p_6\} \leq_G \{p_1, p_4, p_6\}$.
+		\pause
+		\item Eine zulässige Menge $A$ heißt minimal, falls $A \leq_G B$ für alle zulässigen Mengen $B$ mit $|A|=|B|$. 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Korrektheit des gierigen Verfahrens -- II}
+\begin{lemma}[Optimalität des gierigen Verfahrens]\label{lem:optimalityGreedyAlgorithm}
+	Existiert eine zulässige Teilmenge $Q_0$ mit $k \in \set N$ Pfaden, so ist die
+	Menge $G$ der in gieriger Ordnung $\leq_G$ kleinsten $k$ Pfade, die das gierige Verfahren berechnet, eine minimale Menge.
+\end{lemma}
+\pause
+Beweisskizze:
+\begin{itemize}
+	\item Transformiere $Q_0$ in $k$ Schritten in $G$ und erhalte:\\ $Q_i$ zulässig, $Q_{i+1} \leq_G Q_i$ und $Q_i$ stimmt auf ersten $i$ Pfaden mit $G$ überein.
+	\pause
+	\item I.S.: $p$ sei $i$-ter Pfad von $G$ \pause mit $p \notin Q_{i-1}$. 
+		
+		\pause $q$ sei Pfad aus $Q_{i-1}$ mit $q >_G p$ und kleinstem Startknoten.
+		
+		\pause Erhalte $Q_i$ durch Ersetzen von $q$ durch $p$ in $Q_{i-1}$.
+		
+		\pause Dann $Q_i \leq_G Q_{i-1}$. \pause Mit I.V.: $Q_i$ zulässig, da keine Kantenkapazität verletzt wird.
+\end{itemize}
 \end{frame}
 	
 \subsection{Identische Kapazitäten}
