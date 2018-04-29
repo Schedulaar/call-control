@@ -1,22 +1,13 @@
 
 
 \documentclass{beamer}
+\usetheme[faculty=phil, headheight=0em, fonts=none]{fibeamer}
 
-\usepackage[utf8]{inputenc}
-\usepackage[german]{babel}
-\usepackage{mathtools}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage[utf8]{inputenc}
-\usepackage[german]{babel}
-\usepackage{mathtools}
-\usepackage{amsthm}
-\usepackage{amssymb}
-\usepackage{marvosym} %
-\usepackage{ragged2e} % define justifying
-\usepackage{amsmath}
-\usepackage{colonequals}
-\usepackage{graphicx}
+
+\usepackage[utf8]{inputenc} % for input encoding
+\usepackage[german]{babel} % for german localization
+\usepackage{colonequals} % for :=
+\usepackage{graphicx} % for \includegraphics
 
 
 \newcommand{\coloniff}{\vcentcolon\Longle ftrightarrow}
@@ -29,11 +20,45 @@
 \newcommand{\OPT}{\text{OPT}}
 \newcommand{\CallControl}{Call-Control}
 \newcommand{\WeightedCallControl}{Weighted-Call-Control}
+\definecolor{darkblue}{HTML}{00446B}
 
 
-\usetheme{CambridgeUS}
+\makeatletter
+\setlength\fibeamer@lengths@logowidth{0em}
+\setlength\fibeamer@lengths@logoheight{0em}
+\makeatother
+\useoutertheme{infolines}
+\newenvironment{noheadline}{
+	\setbeamertemplate{footline}{}
+}{}
 
-\usecolortheme{seahorse}
+\setbeamersize{text margin left=3em, text margin right=3em}
+\setbeamertemplate{frametitle}{\insertframetitle}
+\setbeamercolor{block body}{fg=black!90}
+
+
+\usefonttheme{professionalfonts}
+\setbeamerfont{title}{size=\huge}
+\setbeamertemplate{institute}{\insertinstitute}
+
+
+\makeatletter
+\setbeamertemplate{footline}{%
+	\color{darkblue}% to color the progressbar
+	\small
+	\hfill{\insertframenumber\hspace{1.5em}}
+	\vspace{1em}
+
+
+	\hspace*{-\beamer@leftmargin}%
+	\rule{\beamer@leftmargin}{1pt}%
+	\rlap{\rule{\dimexpr\numexpr0\beamer@startpageofframe-1\dimexpr
+			\textwidth\relax/\numexpr0\beamer@endpageofdocument-1}{1pt}}
+	% next 'empty' line is mandatory!
+
+	\vspace{0\baselineskip}
+	{}
+}
 
 \title{Call-Control in Ringnetzwerken}
 \subtitle{Seminar \glqq Algorithmen und Datenstrukturen\grqq}
@@ -44,8 +69,13 @@
 \beamertemplatenavigationsymbolsempty
 
 \begin{document}
-	\frame{\titlepage}
-	
+
+	\setcounter{framenumber}{-1}
+
+	\begin{noheadline}
+		\frame{\titlepage}
+	\end{noheadline}
+
 	\begin{frame}
 		\begin{figure}[htbp]
 			\centering
@@ -55,47 +85,43 @@
 			\label{fig:example-ring}
 		\end{figure}
 	\end{frame}
-	
+
 	\begin{frame}{Gliederung}
 		\tableofcontents
 	\end{frame}
-	
+
 	\begin{section}{Problemdefinition}
-	\begin{frame}{Graphen und Netzwerke}
-		\begin{definition}[Netzwerk]
-			Sei $(V,E)$ ein ungerichteter Graph mit Knoten $V$ und Kanten $E$, und $c: E \to \set N$ eine Kapazitätsfunktion.
-			Das Tupel $(V,E,c)$ heißt (ungerichtetes) Netzwerk.
-		\end{definition}
-		\begin{definition}[\CallControl]
-   			Seien $(V,E,c)$ ein ungerichtetes Netzwerk und $P$ eine (Multi-)Menge von $m \in \set N$ Pfaden in $(V,E,c)$.
-			
-			$Q \subseteq P$ heißt {\em zulässig}, falls für alle $e \in E$ die Anzahl aller Pfade in $Q$,
-			die $e$ enthalten, höchstens $c(e)$ ist.
-			
-			{\em \CallControl} besteht darin, eine zulässige Menge $Q$ maximaler Mächtigkeit zu finden.
-			Eine solche Menge nennen wir eine {\em optimale Lösung} des \CallControl-Problems.
-		\end{definition}
-	\end{frame}
+			\begin{frame}{Problem in allgemeinen Graphen}
+				\begin{definition}[Netzwerk]
+					Sei $(V,E)$ ein ungerichteter Graph mit Knoten $V$ und Kanten $E$, und $c: E \to \mathbb{N}$ eine Kapazitätsfunktion.
+					Das Tupel $(V,E,c)$ heißt (ungerichtetes) Netzwerk.
+				\end{definition}
+				\begin{definition}[\CallControl]
+		   			Seien $(V,E,c)$ ein ungerichtetes Netzwerk und $P$ eine (Multi-)Menge von $m \in \mathbb{N}$ Pfaden in $(V,E,c)$.
 
-	\begin{frame}{Graphen und Netzwerke}
-		
-	\end{frame}
-	
+					$Q \subseteq P$ heißt {\em zulässig}, falls für alle $e \in E$ die Anzahl aller Pfade in $Q$,
+					die $e$ enthalten, höchstens $c(e)$ ist.
+
+					{\em \CallControl} besteht darin, eine zulässige Menge $Q$ maximaler Mächtigkeit zu finden.
+				\end{definition}
+			\end{frame}
+
+			\begin{frame}{Graphen und Netzwerke}
+
+		\end{frame}
 	\end{section}
-	
-	
 
 
-\begin{section}{Call-Control in Ketten}
+
+
+
 	\include{call-control-in-chains}
-\end{section}
+
 
 
 	\section{Call-Control in Ringen}
 	\begin{frame}
-	
+
 	\end{frame}
-	
-	\section{Ausblick}
- 
+
 \end{document}
