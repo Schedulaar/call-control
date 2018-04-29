@@ -1,0 +1,48 @@
+
+
+\begin{section}{Problemdefinition}
+	\begin{frame}{Problem in allgemeinen Graphen}
+		\begin{definition}[Netzwerk]
+			Sei $(V,E)$ ein ungerichteter Graph mit Knoten $V$ und Kanten $E$, und $c: E \to \mathbb{N}$ eine Kapazitätsfunktion.
+			Das Tupel $(V,E,c)$ heißt (ungerichtetes) Netzwerk.
+		\end{definition}
+		\begin{definition}[\CallControl]
+   			Seien $(V,E,c)$ ein ungerichtetes Netzwerk und $P$ eine (Multi-)Menge von $m \in \mathbb{N}$ Pfaden in $(V,E,c)$.
+
+			$Q \subseteq P$ heißt {\em zulässig}, falls für alle $e \in E$ die Anzahl aller Pfade in $Q$,
+			die $e$ enthalten, höchstens $c(e)$ ist.
+
+			{\em \CallControl} besteht darin, eine zulässige Menge $Q$ maximaler Mächtigkeit zu finden.
+		\end{definition}
+	\end{frame}
+
+	\begin{frame}{Call-Control in Ketten}
+		\begin{definition}[Kette]
+			Eine Kette $(V,E)$ ist ein Weg mit den Kanten $E=\{(v_0, v_1),\dots,(v_{n-2}, v_{n-1})\}$ mit $v_i \neq v_j$ für $i \neq j$.
+		\end{definition}
+	
+		\only<1>{\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{220bp}
+			\input{example-chain-1.pdf_tex}
+			\label{fig:k-coloring}
+		\end{figure}}
+		
+		\only<2>{\begin{figure}[htbp]
+				\centering
+				\small
+				\def\svgwidth{220bp}
+				\input{example-chain-2.pdf_tex}
+				\label{fig:k-coloring}
+		\end{figure}}
+	
+		\only<3>{\begin{figure}[htbp]
+				\centering
+				\small
+				\def\svgwidth{220bp}
+				\input{example-chain-3.pdf_tex}
+				\label{fig:k-coloring}
+		\end{figure}}
+	\end{frame}
+\end{section}
