@@ -29,7 +29,10 @@
 \makeatother
 \useoutertheme{infolines}
 \newenvironment{noheadline}{
-	\setbeamertemplate{footline}{}
+	\setbeamertemplate{headline}{}
+}{}
+\newenvironment{nofootline}{
+\setbeamertemplate{footline}{}
 }{}
 
 \setbeamersize{text margin left=3em, text margin right=3em}
@@ -41,6 +44,19 @@
 \setbeamerfont{title}{size=\huge}
 \setbeamertemplate{institute}{\insertinstitute}
 
+\AtBeginSection{
+	\begin{noheadline}
+		\begin{frame}
+		\vfill
+		\centering
+		\begin{beamercolorbox}[sep=8pt,center]{title}
+			\usebeamerfont{title}\insertsectionhead\par%
+		\end{beamercolorbox}
+		\vfill
+	\end{frame}
+	\end{noheadline}
+
+}
 
 \makeatletter
 \setbeamertemplate{footline}{%
@@ -52,8 +68,8 @@
 
 	\hspace*{-\beamer@leftmargin}%
 	\rule{\beamer@leftmargin}{1pt}%
-	\rlap{\rule{\dimexpr\numexpr0\beamer@startpageofframe-1\dimexpr
-			\textwidth\relax/\numexpr0\beamer@endpageofdocument-1}{1pt}}
+	\rlap{\rule{\dimexpr\numexpr0\insertframenumber\dimexpr
+			\textwidth\relax/\numexpr0\inserttotalframenumber}{1pt}}
 	% next 'empty' line is mandatory!
 
 	\vspace{0\baselineskip}
@@ -72,9 +88,9 @@
 
 	\setcounter{framenumber}{-1}
 
-	\begin{noheadline}
+	\begin{nofootline}
 		\frame{\titlepage}
-	\end{noheadline}
+	\end{nofootline}
 
 	\begin{frame}
 		\begin{figure}[htbp]
@@ -90,27 +106,7 @@
 		\tableofcontents
 	\end{frame}
 
-	\begin{section}{Problemdefinition}
-			\begin{frame}{Problem in allgemeinen Graphen}
-				\begin{definition}[Netzwerk]
-					Sei $(V,E)$ ein ungerichteter Graph mit Knoten $V$ und Kanten $E$, und $c: E \to \mathbb{N}$ eine Kapazitätsfunktion.
-					Das Tupel $(V,E,c)$ heißt (ungerichtetes) Netzwerk.
-				\end{definition}
-				\begin{definition}[\CallControl]
-		   			Seien $(V,E,c)$ ein ungerichtetes Netzwerk und $P$ eine (Multi-)Menge von $m \in \mathbb{N}$ Pfaden in $(V,E,c)$.
-
-					$Q \subseteq P$ heißt {\em zulässig}, falls für alle $e \in E$ die Anzahl aller Pfade in $Q$,
-					die $e$ enthalten, höchstens $c(e)$ ist.
-
-					{\em \CallControl} besteht darin, eine zulässige Menge $Q$ maximaler Mächtigkeit zu finden.
-				\end{definition}
-			\end{frame}
-
-			\begin{frame}{Graphen und Netzwerke}
-
-		\end{frame}
-	\end{section}
-
+	\input{problem-defintion}
 
 
 

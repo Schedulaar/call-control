@@ -18,7 +18,7 @@
 
 	\begin{frame}{Call-Control in Ketten}
 		\begin{definition}[Kette]
-			Eine Kette $(V,E)$ ist ein Weg mit den Kanten $E=\{(v_0, v_1),\dots,(v_{n-2}, v_{n-1})\}$ mit $v_i \neq v_j$ für $i \neq j$.
+			Eine {\em Kette} $(V,E)$ ist ein Weg mit den Kanten $E=\{(v_0, v_1),\dots,(v_{n-2}, v_{n-1})\}$ mit $v_i \neq v_j$ für $i \neq j$.
 		\end{definition}
 	
 		\only<1>{\begin{figure}[htbp]
@@ -44,5 +44,38 @@
 				\input{example-chain-3.pdf_tex}
 				\label{fig:k-coloring}
 		\end{figure}}
+	\end{frame}
+
+	\begin{frame}{Call-Control in Ringen}
+		\begin{definition}[Ring]
+			Ein {\em Ring} $(V,E)$ ist ein Weg mit den Kanten $E=\{(v_0, v_1),\dots,(v_{n-1}, v_{n})\}$ mit $v_0 = v_n$ und $v_i \neq v_j$ für alle anderen $i \neq j$.
+		\end{definition}
+		
+		\only<1>{
+			\begin{figure}[htbp]
+				\centering
+				\small
+				\def\svgwidth{160bp}
+				\input{problem-ring-1.pdf_tex}
+				\label{fig:k-coloring}
+		\end{figure}}
+	
+		\only<2>{
+			\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{160bp}
+			\input{problem-ring-2.pdf_tex}
+			\label{fig:k-coloring}
+			\end{figure}}
+		
+		\only<3>{
+			\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{160bp}
+			\input{problem-ring-3.pdf_tex}
+			\label{fig:k-coloring}
+			\end{figure}}
 	\end{frame}
 \end{section}
