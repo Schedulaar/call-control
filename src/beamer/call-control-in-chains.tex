@@ -119,14 +119,292 @@ Beweisskizze:
 \end{frame}
 	
 \subsection{Identische Kapazitäten}
-\begin{frame}
+\begin{frame}[t]{Algorithmus für identische Kapazitäten}
+	\begin{itemize}
+		\item Feste Kapazität $C \in \set N$ für alle Kanten.
+		\pause \item Beispiel mit $C=2$:
+	\end{itemize}
 
+	\only<2>{\begin{figure}[htbp]
+		\centering
+		\def\svgwidth{200bp}
+		\input{k-coloring-1.pdf_tex}
+	\end{figure}}
+
+	\only<3->{\begin{figure}[htbp]
+		\centering
+		\def\svgwidth{200bp}
+		\input{k-coloring-2.pdf_tex}
+	\end{figure}}
+
+	\only<4>{\begin{itemize}
+			\item Call-Control-Problem entspricht maximaler $C$-Färbung.
+		\end{itemize}}
+\end{frame}
+
+\begin{frame}{Algorithmus für $C$-Färbung}
+		
+	\begin{itemize}
+		\pause\item Füge virtuelle Pfade $v_1,\dots,v_C$, je unterschiedlich gefärbt in einer der $C$ Farben, vor allen Pfaden ein.
+		\pause\item Speichere zu jeder Farbe $c$ den {\em aktuellen Anführer von $c$} (den in $\leq_G$ größten $c$-gefärbten Pfad). Zu Beginn: Der zugehörige virtuelle Pfad.
+		\begin{figure}[htbp]
+			\centering
+			\tiny
+			\def\svgwidth{200bp}
+			\input{k-coloring-with-virtuals.pdf_tex}
+		\end{figure}
+		\pause\item Suche bei Bearbeitung von Pfad $p$ den {\em optimalen Anführer von $p$}, d.h.\ den aktuell größten Anführer, der sich nicht mit $p$ überschneidet.
+		\pause\item Ist das möglich in gesamt-linearer Zeit?
+	\end{itemize}
 
 \end{frame}
 
+\begin{frame}{$C$-Färbung -- Union-Find-Algorithmus}
+	\begin{itemize}
+		\pause\item Füge weiteren Pfad $f$, den fiktiven Anführer, als ersten Pfad ein.
+		\pause\item Ermittle für jeden Pfad $p$ seinen {\em bevorzugten Anführer}, d.h.\ den in $\leq_G$ größten Pfad, dessen Zielknoten nicht nach dem Anfangsknoten $s_p$ kommt.
+		\pause\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{180bp}
+			\input{union-find-setup.pdf_tex}
+		\end{figure}
+		\pause\item Erstelle Union-Find-Instanz mit jedem Pfad in eigener Gruppe.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{$C$-Färbung -- Union-Find-Algorithmus}
+\begin{itemize}
+	\item Invarianten:
+	\begin{itemize}
+		\pause\item Repräsent einer Gruppe ist in $\leq_G$ kleinster Pfad der Gruppe.
+		\pause\item Gruppen enthalten nur in $\leq_G$ aufeinanderfolgende Pfade
+		\pause\item Nicht verarbeitete Pfade sind in Einzelgruppen; Repräsentant einer verarbeiteten Gruppe ist Anführer einer Farbe oder der fiktive Anführer.
+	\end{itemize}
+	\pause\item Bei Bearbeitung von Pfad $p$ mit bevorzugtem Anführer $q$:
+	\begin{itemize}
+		\pause\item $\find(q)=f$: Verwerfe $p$ und vereinige die Gruppe von $p$ mit der des Vorgängers von $p$.
+		\pause\item $\find(q)$ ist $c$-gefärbter Anführer: Akzeptiere $p$, färbe $p$ in $c$ und vereinige die Gruppe von $\find(q)$ mit der des Vorgängers von $\find(q)$.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{$C$-Färbung -- Union-Find-Algorithmus am Beispiel}
+	\only<1>{\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{union-find-algo-1.pdf_tex}
+		\end{figure}
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{250bp}
+			\input{union-find-structure-1.pdf_tex}
+		\end{figure}}
+	\only<2>{\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{union-find-algo-2.pdf_tex}
+		\end{figure}
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{250bp}
+			\input{union-find-structure-2.pdf_tex}
+		\end{figure}}	
+	\only<3>{\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{union-find-algo-3.pdf_tex}
+		\end{figure}
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{250bp}
+			\input{union-find-structure-3.pdf_tex}
+		\end{figure}}	
+	\only<4>{\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{union-find-algo-4.pdf_tex}
+		\end{figure}
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{250bp}
+			\input{union-find-structure-4.pdf_tex}
+		\end{figure}}	
+	\only<5>{\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{union-find-algo-5.pdf_tex}
+		\end{figure}
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{250bp}
+			\input{union-find-structure-5.pdf_tex}
+		\end{figure}}	
+	\only<6>{\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{union-find-algo-6.pdf_tex}
+		\end{figure}
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{250bp}
+			\input{union-find-structure-6.pdf_tex}
+		\end{figure}}	
+	\only<7>{\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{200bp}
+			\input{union-find-algo-7.pdf_tex}
+		\end{figure}
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{250bp}
+			\input{union-find-structure-7.pdf_tex}
+	\end{figure}}
+\end{frame}
+
+\begin{frame}{$C$-Färbung -- Union-Find-Algorithmus}
+	\begin{itemize}
+		\pause\item Wir benötigen $m$ find- und union-Aufrufe.
+		\pause\item Alle Vereinigungen geschehen entlang einer Kette.
+		\pause\item Mit Static-Tree-Set-Union benötigen wir $\mathcal{O}(m)$ Zeit dafür (Gabow und Tarjan in [3]).
+		\pause\item Das Call-Control-Problem mit identischen Kapazitäten ist in $\mathcal{O}(m)$ Zeit optimal lösbar, wenn die Menge der Pfade bereits in gieriger Ordnung sortiert ist.
+		\pause\item Genauere Analyse des Verfahrens durch Carlisle und Lloyd in [2].
+	\end{itemize}
+\end{frame}
 
 \subsection{Willkürliche Kapazitäten}
-\begin{frame}
-	
+\begin{frame}{Anpassen für willkürliche Kapazitäten}
+	\begin{itemize}
+		\pause\item Betrachten willkürliche Kapazitäten $c: E \rightarrow \set N$.
+		\pause\item Anpassung der Idee für identische Kapazitäten:
+		\begin{itemize}
+			\pause\item Setze $C \colonequals \max_{e \in E} c(e)$ als neue Kapazität jeder Kante.
+			\pause\item Füge an Kanten mit überflüssigen Kapazitäten Platzhalterpfade ein:
+				\begin{figure}[htbp]
+					\centering
+					\small
+					\def\svgwidth{200bp}
+					\input{dummy_paths.pdf_tex}
+				\end{figure}
+			\pause\item Sorge dafür, dass alle Platzhalterpfade akzeptiert werden.
+		\end{itemize}
+		\pause\item Probleme: Anzahl Platzhalter? Wie akzeptieren wir alle Platzhalter?
+	\end{itemize}
 \end{frame}
+\begin{frame}{Anzahl der Platzhalterpfade}
+	\begin{itemize}
+		\pause\item Für bestimmte Kettennetzwerke kann es passieren, dass wir $\Omega(n\cdot m)$ Platzhalter einfügen:
+		\begin{figure}[htbp]
+			\centering
+			\small
+			\def\svgwidth{180bp}
+			\input{dummy_paths_too_many.pdf_tex}
+		\end{figure}
+		\pause\item Flache die Kapazitäten ab mit 
+		\[
+		c'(e_i) =
+		\begin{cases}
+		\min(c(e_0), n_0) &\quad\text{für}\ i=0\\
+		\min(c(e_i), c'(e_{i-1}) + n_i) &\quad\text{für}\ i \geq 1
+		\end{cases}
+		\]
+		wobei $n_i$ die Anzahl der Pfade in $P$ mit Anfangsknoten $i$ ist.
+		\pause\item Damit werden nur $\mathcal{O}(m)$ Platzhalter generiert.
+		\pause\item Anpassen der Kapazitäten und Auffüllen mit Platzhaltern in $\mathcal{O}(n+m)$ Zeit möglich.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Akzeptieren der Platzhalter}
+	\pause Ähnliches Vorgehen wie zuvor, versuche nun aber Platzhalterpfade möglichst früh zu bearbeiten:
+	\begin{itemize}
+		\pause\item Erstelle eine Liste $L$ der Endknoten aller Pfade (zu jedem Eintrag der Liste speichere eine Referenz auf zugehörigen Pfad):
+		\pause\begin{itemize}
+			\item Nach Endknoten aufsteigend sortiert
+			\item Bei gleichem Endknoten sollen Anfangsknoten vor Zielknoten geordnet werden
+		\end{itemize}
+		\pause\item Erhalte $\leq_G$ durch Ersetzen von Zielknoten der Liste durch die zug.\ Pfade.
+		\pause\item Füge wieder $C$ virtuelle Pfade sowie den fiktiven Anführer vor den anderen Pfaden ein und ordne bevorzugte Anführer zu.
+		\pause\item Statt die Pfade in der Reihenfolge von $\leq_G$ zu bearbeiten wird nun die Liste $L$ durchlaufen und
+		\begin{itemize}
+			\item Platzhalterpfade bei Antreffen ihres Anfangsknotens
+			\item Originalpfade bei Antreffen ihres Zielknotens
+		\end{itemize}
+	 wie im vorherigen Algorithmus verarbeitet.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Korrektheit des Algorithmus I}
+	\begin{lemma}[Korrektheit des Algorithmus]
+		Der beschriebene Algorithmus $U$ ist eine korrekte Implementierung des gierigen Verfahrens $G$ für willkürliche Kapazitäten.
+	\end{lemma}
+	Beweisskizze: 
+	\begin{itemize}
+		\pause\item $U$ berechnet wieder $C$-Färbung der Pfade mit Platzhalter.
+		\pause\item $U$ akzeptiert alle Platzhalterpfade ($U$ berechnet insb. eine zulässige Menge).
+		\pause\item $U$ akzeptiert alle Pfade, die das gierige Verfahren akzeptiert.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Korrektheit des Algorithmus II}
+	$U$ akzeptiert alle Pfade, die das gierige Verfahren $G$ akzeptiert.\\ Über Widerspruch:
+	\begin{itemize}
+		\pause\item $p$ erster Originalpfad mit unterschiedlicher Entscheidung.
+		\begin{itemize}
+			\pause\item $A$ sei die Menge der (gemeinsam) akzeptierten Pfade vor $p$.
+			\pause\item Dann: $U$ verwirft $p$, $G$ akzeptiert $p$. Insb.\ $A \cup \{p\}$ zulässig.
+		\end{itemize} 
+		\pause\item Sei $l$ kleinster Anführer einer Farbe zur Zeit der Bearbeitung von $p$, $e$ die letzte Kante von $l$.
+		\pause\item $\mathbb{A}: \exists c\ \text{Farbe}$, sodass kein $c$-gefärbter Pfad $e$ enthält.
+			\vspace{-1em}
+			\begin{columns}[T]
+				\begin{column}{0.07\textwidth}
+				\end{column}
+				\begin{column}{0.45\textwidth}
+					\begin{itemize}
+						\item Es ex. $c$-gefärbte Pfade links und rechts von $e$.
+						\vspace{-0.5em}
+						\item $p_1$, $p_2$ seien solche möglichst nah an $e$.
+						\vspace{-0.3em}
+						\item Widerspruch: $l$ besserer Anführer von $p_2$ als $p_1$.
+					\end{itemize}
+				\end{column}
+				\begin{column}{0.5\textwidth}
+					\begin{figure}[htbp]
+						\tiny
+						\def\svgwidth{\textwidth}
+						\input{proof_chain_greedy_arbitrary.pdf_tex}
+					\end{figure}
+				\end{column}
+			\end{columns}
+		\pause\item Also gibt es (zusätzlich zu $p$) $C$ weitere von $G$ akzeptierte Pfade, die $e$ beinhalten.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Rekapitulation}
+	Was haben wir erreicht?
+	\begin{itemize}
+		\pause\item Das gierige Verfahren löst das Call-Control-Problem für willkürliche Kapazitäten optimal.
+		\pause\item Mit einer speziellen Union-Find-Struktur finden wir eine Implementierung für identische Kapazitäten mit Laufzeit $\mathcal{O}(m)$.
+		\pause\item Wir verwenden dann eine angepasste Version mit Platzhalterpfaden, um willkürliche Kapazitäten zu erlauben, und erhalten:
+	\end{itemize}
+	\pause\begin{theorem}
+  		Das gierige Verfahren berechnet eine optimale Lösung für \CallControl\ in Ketten mit willkürlichen Kapazitäten und kann in einer Laufzeit von
+		$\mathcal O(n+m)$ implementiert werden.
+	\end{theorem}
+\end{frame}
+
 \end{section}

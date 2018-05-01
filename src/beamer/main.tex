@@ -8,8 +8,10 @@
 \usepackage[german]{babel} % for german localization
 \usepackage{colonequals} % for :=
 \usepackage{graphicx} % for \includegraphics
+\usepackage{wrapfig} % for floating images to the right
 
 \definecolor{darkblue}{HTML}{00446B}
+
 
 \newcommand{\coloniff}{\vcentcolon\Longle ftrightarrow}
 \newcommand\todo[1]{\textcolor{red}{#1}}
@@ -76,6 +78,9 @@
 	{}
 }
 
+
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
 \title{Call-Control in Ringnetzwerken}
 \subtitle{Seminar \glqq Algorithmen und Datenstrukturen\grqq}
 \author{Michael Markl}
@@ -108,16 +113,23 @@
 
 	\input{problem-defintion}
 
-
-
-
 	\include{call-control-in-chains}
 
 
-
 	\section{Call-Control in Ringen}
-	\begin{frame}
+	\begin{frame}<presentation:0>[noframenumbering]
+		\cite{paper}
+		\cite{carlisle}
+		\cite{static-tree-set-union}
+		\cite{circular-arc}
+		\cite{hochbaum-levin}
+	\end{frame}
 
+
+	\begin{frame}[allowframebreaks]{Literatur}
+		\nocite{*}
+		\bibliographystyle{plain}
+		\bibliography{../main}
 	\end{frame}
 
 \end{document}
