@@ -1,0 +1,175 @@
+\section{Call-Control in Ringen}
+\begin{frame}[t]{Call-Control in Ringen}
+	\begin{columns}[T]
+		\begin{column}{0.6\textwidth}
+			\begin{itemize}
+				\item<2-> Teile Pfade $P$ auf in die Pfade $P_1$, die $0$ nicht als inneren Knoten haben, und die Pfade $P_2$, die $0$ als inneren Knoten haben.
+				\item<3-> Hänge zwei Kopien der Kanten $e_0,\dots,e_n$ aneinander und erhalte mit zugehörigen Knoten $0,\dots, 2n-1$ eine Kette.
+				\item<4-> Wir schreiben statt $n, \dots,2n-1$: $0',\dots, (n-1)'$. 
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}[htbp]
+				\centering
+				\tiny
+				\def\svgwidth{\textwidth}
+				\input{example_ring.pdf_tex}
+			\end{figure}
+		\end{column}
+	\end{columns}
+	\vspace{-2em}
+	\only<5->{\begin{figure}[htbp]
+		\centering
+		\tiny
+		\def\svgwidth{200bp}
+		\input{example_ring_to_chain.pdf_tex}
+	\end{figure}}
+\end{frame}
+
+\begin{frame}{Belastung und Profil}
+	\uncover<2->{Mit $Q\subseteq P$ ist die {\em Belastung} $L_1(Q,e_i)$ die Anzahl Pfade in $Q$, die die erste Kopie der Kante $e_i$ enthalten.
+	Analog dazu: $L_2(Q, e_i)$.}
+	\uncover<3>{\begin{definition}[Profil]
+		Mit $Q\subseteq P$ heißt die monoton fallende Folge $\pi_Q \colonequals (L_2(Q, e_0), \dots, L_2(Q, e_{n-1}))$ das Profil von $Q$.
+		
+		Außerdem $\pi_Q(e_i)\colonequals L_2(Q, e_i)$ und für zwei Profile $\pi,\pi'$ schreiben wir $\pi \leq \pi'$, falls $\pi(e_i) \leq \pi'(e_i)$ für alle Kanten $e_i$.
+	\end{definition}}
+	\begin{figure}[htbp]
+		\centering
+		\tiny
+		\def\svgwidth{200bp}
+		\input{example_ring_to_chain.pdf_tex}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Kettenzulässigkeit}
+\uncover<2->{\begin{definition}[Kettenzulässig]
+		Eine Menge $Q\subseteq P$ heißt kettenzulässig, falls $L_1(Q,e) \leq c(e)$ für alle Kanten $e$.
+		Gilt weiterhin $L_1(Q,e) + \pi(e) \leq c(e)$, so heißt $Q$ kettenzulässig zum Startprofil $\pi$.	
+	\end{definition}}
+	\uncover<3->{
+		Insbesondere:
+		\[
+			Q\ \text{zulässig im Ring} \iff Q\ \text{kettenzulässig zum Startprofil}\ \pi_Q.
+		\]
+	}
+	\begin{figure}[htbp]
+		\centering
+		\tiny
+		\def\svgwidth{200bp}
+		\input{example_ring_to_chain.pdf_tex}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Der Algorithmus für Ringe}
+	\begin{itemize}
+		\pause\item Der Algorithmus ist nun wie folgt aufgebaut:
+		\pause\item Suche mit binärer Suche nach größtem $k \in \{0,\dots, m\}$, für das wir eine (im Ring) zulässige Menge $Q$ mit $|Q|=k$ finden können.
+		\pause\item Das zugehörige $Q$ ist dann optimale Lösung des Call-Control-Problems.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Prozedur: Finde $Q$ zulässig mit $|Q|=k$}
+	\begin{itemize}
+		\uncover<2->{\item Starten mit $\pi_0=(0,\dots,0)$ und $i=1$.}
+		\uncover<3->{\item In der $i$-ten Runde:}
+		\begin{itemize}
+			\uncover<4->{\item Initialisiere Kapazitäten beider Kopien jeder Kante $e$ mit $c(e)$, in der ersten Kopie um $\pi_{i-1}(e)$ reduziert.}
+			\uncover<5->{\item Wende darauf gieriges Verfahren an und erhalte $G \subseteq P$.}
+			\uncover<6->{\item Ist $|G|<k$, gibt die Prozedur zurück, dass keine $k$-elementige zulässige Menge existiert.}
+			\uncover<7->{\item Sonst sei $G_i$ die Menge der in $\leq_G$ kleinsten $k$ Pfade von G und $\pi_i \colonequals \pi_{G_i}$.}
+			\uncover<8->{\item Ist $\pi_i = \pi_{i-1}$, gibt die Prozedur $G_i$ als zulässige Menge zurück.}
+			\uncover<9->{\item Sonst gehe in $(i+1)$-te Runde.}
+		\end{itemize}
+	\end{itemize}
+	\uncover<10->{Beispiel für $k=5$ und $c(e)=2$ für alle $e\in E$:}
+	\uncover<10>{\only<1-10>{\begin{figure}[htbp]
+		\centering
+		\tiny
+		\def\svgwidth{170bp}
+		\input{ring-procedure-k-1.pdf_tex}
+	\end{figure}}}
+	\only<11>{\begin{figure}[htbp]
+			\centering
+			\tiny
+			\def\svgwidth{170bp}
+			\input{ring-procedure-k-2.pdf_tex}
+	\end{figure}}
+	\only<12>{\begin{figure}[htbp]
+		\centering
+		\tiny
+		\def\svgwidth{170bp}
+		\input{ring-procedure-k-3.pdf_tex}
+		\end{figure}}
+	\only<13>{\begin{figure}[htbp]
+		\centering
+		\tiny
+		\def\svgwidth{170bp}
+		\input{ring-procedure-k-4.pdf_tex}
+		\end{figure}}
+	\only<14>{\begin{figure}[htbp]
+		\centering
+		\tiny
+		\def\svgwidth{170bp}
+		\input{ring-procedure-k-5.pdf_tex}
+		\end{figure}}
+	\only<15>{\begin{figure}[htbp]
+		\centering
+		\tiny
+		\def\svgwidth{170bp}
+		\input{ring-procedure-k-6.pdf_tex}
+\end{figure}}
+\end{frame}
+
+\begin{frame}{Korrektheit der Prozedur}
+	Beobachtungen:
+	\begin{itemize}
+		\pause\item Existiert ein $i$ mit $\pi_i = \pi_{i+1}$, so ist $G_{i+1}$ eine gesuchte zulässige Menge, die von der Prozedur auch zurückgegeben wird.
+		\pause\item Das ist die einzige Möglichkeit, dass eine Menge zurückgegeben wird.
+	\end{itemize}
+	\pause Beweisskizze für die Korrektheit der Prozedur:
+	\begin{itemize}
+		\pause\item Die Folge der $\pi_i$ ist monoton wachsend.
+		\pause\item Existiert eine zulässige Lösung $Q^*$ mit $k$ Pfaden, dann $\pi_i \leq \pi_{Q^*}$ für alle $i$.
+		\pause\item Die Prozedur macht höchstens $n\cdot c(e_0)$ Runden.
+		\begin{itemize}
+			\pause\item Die Folge der Profile kann höchstens $\sum_{j=0}^{n-1}\pi_{Q^*}(e_j)$ mal echt wachsen.
+			\pause\item $\sum_{j=0}^{n-1}\pi_{Q^*}(e_j)\leq n\cdot \pi_{Q^*}(e_0) \leq n\cdot(e_0)$
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Monotones Wachstum der Profile $(\pi_i)_i$}
+	Zeige $\pi_i \leq \pi_{i+1}$ per Induktion (für $i=0$ klar, da $\pi_0 = 0$).
+	\begin{itemize}
+		\pause\item Es gelte $\pi_{i-1} \leq \pi_i$.
+		\pause\item $G_i$ ist minimale zulässige Menge auf der Kette mit den durch $\pi_{i-1}$ reduzierten Kapazitäten, da sie mit dem gierigen Verfahren berechnet wurde.
+		\pause\item Da $G_i$ zulässig zum Startprofil $\pi_{i-1}$ und $\pi_{i-1} \leq \pi_i$, ist $G_i$ auch zulässig zum Startprofil $\pi_i$.
+		\pause\item Da $G_i$ minimal, ist also $G_i \leq_G G_{i+1}$ und damit $\pi_i \leq \pi_{i+1}$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Obere Grenze der Profile $(\pi_i)_i$}
+Sei $Q^*$ zulässige Lösung mit $k$ Pfaden.
+Zeige $\pi_i \leq \pi_{Q^*}$ per Induktion (für $i=0$ klar, da $\pi_0 = 0$).
+\begin{itemize}
+\pause\item Es gelte $\pi_i \leq \pi_{Q^*}$.
+\pause\item Da $Q^*$ kettenzulässig zu $\pi_{Q^*}$ ist mit I.V. $Q^*$ auch kettenzulässig zu $\pi_i$.
+\pause\item $G_{i+1}$ ist minimale kettenzulässige Menge zu $\pi_i$, da sie mit dem gierigen Verfahren berechnet wurde.
+\pause\item Also gilt $G_{i+1} \leq_G Q^*$, insbesondere $\pi_{i+1} \leq \pi_{Q^*}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Resultat}
+	Wir fassen unser Ergebnis zusammen:
+	\begin{itemize}
+		\pause{\item Wir benötigen also pro Runde $\mathcal{O}(n+m)=\mathcal{O}(m)$ Zeit.}
+		\pause{\item Davon gibt es maximal $n\cdot c_{\min}$.}
+		\pause{\item Mit binärer Suche wird die Prozedur $\mathcal{O}(\log m)$ mal aufgerufen.}
+	\end{itemize}
+	Wir erhalten:
+	\pause{\begin{theorem}
+		Das Call-Control-Problem in Ringen kann in $\mathcal O(m \cdot n \cdot c_{\min} \cdot \log m)$ Zeit gelöst werden,
+		wobei $n$ die Anzahl der Knoten, $m$ die Anzahl der Pfade und $c_{\min}$ die kleinste Kantenkapazität ist.
+	\end{theorem}}
+\end{frame}

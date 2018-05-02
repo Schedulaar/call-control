@@ -37,7 +37,7 @@
 \setbeamertemplate{footline}{}
 }{}
 
-\setbeamersize{text margin left=3em, text margin right=3em}
+\setbeamersize{text margin left=2.7em, text margin right=2.7em}
 \setbeamertemplate{frametitle}{\insertframetitle}
 \setbeamercolor{block body}{fg=black!90}
 
@@ -111,25 +111,25 @@
 		\tableofcontents
 	\end{frame}
 
-	\input{problem-defintion}
+	\include{problem-defintion}
 
 	\include{call-control-in-chains}
 
+	\include{call-control-in-rings}
 
-	\section{Call-Control in Ringen}
-	\begin{frame}<presentation:0>[noframenumbering]
-		\cite{paper}
-		\cite{carlisle}
-		\cite{static-tree-set-union}
-		\cite{circular-arc}
-		\cite{hochbaum-levin}
-	\end{frame}
-
-
-	\begin{frame}[allowframebreaks]{Literatur}
-		\nocite{*}
-		\bibliographystyle{plain}
-		\bibliography{../main}
-	\end{frame}
+	\begin{noheadline}
+		\begin{frame}<presentation:0>[noframenumbering]
+			\cite{paper}
+			\cite{carlisle}
+			\cite{static-tree-set-union}
+			\cite{circular-arc}
+			\cite{hochbaum-levin}
+		\end{frame}
+	
+		\begin{frame}[allowframebreaks]{Literatur}
+			\bibliographystyle{plain}
+			\bibliography{../main}
+		\end{frame}
+	\end{noheadline}
 
 \end{document}
