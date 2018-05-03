@@ -162,7 +162,7 @@ Beweisskizze:
 \begin{frame}{$C$-Färbung -- Union-Find-Algorithmus}
 	\begin{itemize}
 		\pause\item Füge weiteren Pfad $f$, den fiktiven Anführer, als ersten Pfad ein.
-		\pause\item Ermittle für jeden Pfad $p$ seinen {\em bevorzugten Anführer}, d.h.\ den in $\leq_G$ größten Pfad, dessen Zielknoten nicht nach dem Anfangsknoten $s_p$ kommt.
+		\pause\item Ermittle für jeden Pfad $p$ seinen {\em bevorzugten Anführer}, d.h.\ den in $\leq_G$ größten Pfad $q$ mit $t_q \leq s_p$.
 		\pause\begin{figure}[htbp]
 			\centering
 			\small
@@ -347,52 +347,52 @@ Beweisskizze:
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Korrektheit des Algorithmus I}
+\begin{frame}{Korrektheit des Algorithmus}
 	\begin{lemma}[Korrektheit des Algorithmus]
 		Der beschriebene Algorithmus $U$ ist eine korrekte Implementierung des gierigen Verfahrens $G$ für willkürliche Kapazitäten.
 	\end{lemma}
 	Beweisskizze: 
 	\begin{itemize}
-		\pause\item $U$ berechnet wieder $C$-Färbung der Pfade mit Platzhalter.
+		\pause\item $U$ berechnet wieder $C$-Färbung der Pfade.
 		\pause\item $U$ akzeptiert alle Platzhalterpfade ($U$ berechnet insb. eine zulässige Menge).
 		\pause\item $U$ akzeptiert alle Pfade, die das gierige Verfahren akzeptiert.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Korrektheit des Algorithmus II}
-	$U$ akzeptiert alle Pfade, die das gierige Verfahren $G$ akzeptiert.\\ Über Widerspruch:
-	\begin{itemize}
-		\pause\item $p$ erster Originalpfad mit unterschiedlicher Entscheidung.
-		\begin{itemize}
-			\pause\item $A$ sei die Menge der (gemeinsam) akzeptierten Pfade vor $p$.
-			\pause\item Dann: $U$ verwirft $p$, $G$ akzeptiert $p$. Insb.\ $A \cup \{p\}$ zulässig.
-		\end{itemize} 
-		\pause\item Sei $l$ kleinster Anführer einer Farbe zur Zeit der Bearbeitung von $p$, $e$ die letzte Kante von $l$.
-		\pause\item $\mathbb{A}: \exists c\ \text{Farbe}$, sodass kein $c$-gefärbter Pfad $e$ enthält.
-			\vspace{-1em}
-			\begin{columns}[T]
-				\begin{column}{0.07\textwidth}
-				\end{column}
-				\begin{column}{0.45\textwidth}
-					\begin{itemize}
-						\item Es ex. $c$-gefärbte Pfade links und rechts von $e$.
-						\vspace{-0.5em}
-						\item $p_1$, $p_2$ seien solche möglichst nah an $e$.
-						\vspace{-0.3em}
-						\item Widerspruch: $l$ besserer Anführer von $p_2$ als $p_1$.
-					\end{itemize}
-				\end{column}
-				\begin{column}{0.5\textwidth}
-					\begin{figure}[htbp]
-						\tiny
-						\def\svgwidth{\textwidth}
-						\input{proof_chain_greedy_arbitrary.pdf_tex}
-					\end{figure}
-				\end{column}
-			\end{columns}
-		\pause\item Also gibt es (zusätzlich zu $p$) $C$ weitere von $G$ akzeptierte Pfade, die $e$ beinhalten.
-	\end{itemize}
-\end{frame}
+%\begin{frame}{Korrektheit des Algorithmus II}
+%	$U$ akzeptiert alle Pfade, die das gierige Verfahren $G$ akzeptiert.\\ Über Widerspruch:
+%	\begin{itemize}
+%		\pause\item $p$ erster Originalpfad mit unterschiedlicher Entscheidung.
+%		\begin{itemize}
+%			\pause\item $A$ sei die Menge der (gemeinsam) akzeptierten Pfade vor $p$.
+%			\pause\item Dann: $U$ verwirft $p$, $G$ akzeptiert $p$. Insb.\ $A %\cup \{p\}$ zulässig.
+%		\end{itemize} 
+%		\pause\item Sei $l$ kleinster Anführer einer Farbe zur Zeit der Bearbeitung von $p$, $e$ die letzte Kante von $l$.
+%		\pause\item $\mathbb{A}: \exists c\ \text{Farbe}$, sodass kein %$c$-gefärbter Pfad $e$ enthält.
+%			\vspace{-1em}
+%			\begin{columns}[T]
+%				\begin{column}{0.07\textwidth}
+%				\end{column}
+%				\begin{column}{0.45\textwidth}
+%					\begin{itemize}
+%						\item Es ex. $c$-gefärbte Pfade links und rechts von $e$.
+%						\vspace{-0.5em}
+%						\item $p_1$, $p_2$ seien solche möglichst nah an $e$.
+%						\vspace{-0.3em}
+%						\item Widerspruch: $l$ besserer Anführer von $p_2$ als $%p_1$.
+%					\end{itemize}
+%				\end{column}
+%				\begin{column}{0.5\textwidth}
+%					\begin{figure}[htbp]
+%						\tiny
+%						\def\svgwidth{\textwidth}
+%						\input{proof_chain_greedy_arbitrary.pdf_tex}
+%					\end{figure}
+%				\end{column}
+%			\end{columns}
+%		\pause\item Also gibt es (zusätzlich zu $p$) $C$ weitere von $G$ %akzeptierte Pfade, die $e$ beinhalten.
+%	\end{itemize}
+%\end{frame}
 
 \begin{frame}{Rekapitulation}
 	Was haben wir erreicht?
