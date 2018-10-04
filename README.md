@@ -3,7 +3,7 @@ Algorithmen zur Lösung des Call-Control-Problems in Ringnetzwerken
 
 This is a **German-only project**, based on **English sources**, that can be found here: https://link.springer.com/article/10.1007/s00453-006-0187-4
 
-## Einführung
+## Einleitung
 
 Bei der Optimierung von Kommunikationssystemen geht es oft darum, konkrete Probleme auf
 abstrakte, mathematische Problemstellungen zurückzuführen, und man gelangt so in vielen
